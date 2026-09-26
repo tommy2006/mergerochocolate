@@ -57,11 +57,13 @@ function client(settings) {
 }
 
 // One structured call. Thinking is adaptive on every current model; effort tunes depth vs. latency.
-export async function parse(settings, { schema, system, user, effort = "medium", max_tokens = 16000 }) {
-  // Provider switch: Verda's Mistral Large 3 (EU-hosted) takes every structured call when selected; Claude remains the
-  // fallback unless the operator turned it off (strict data sovereignty).
+export async function parse(settings, { schema, system, user, effort = "medium", max_tokens = 16000, claudeOnly = false }) {
+  // Provider switch: Verda's Mistral (EU-hosted) takes every structured call when selected; Claude remains the
+  // fallback unless the operator turned it off (strict data sovereignty). claudeOnly: the prompt carries a document
+  // block (a scanned PDF), which only Claude reads; in strict mode that is an error the caller reports.
   let verdaFailure = null;
-  if (llm.provider(settings) === "verda") {
+  if (claudeOnly && llm.provider(settings) === "verda" && !llm.fallbackAllowed(settings)) throw new Error("this step needs Claude's document reader, which strict EU-only mode disables");
+  if (llm.provider(settings) === "verda" && !claudeOnly) {
     try {
       return await llm.verdaParse(settings, { schema, system, user, max_tokens: Math.min(max_tokens, 16000), name: "agent_output", onUsage: (u, model) => track(u, model) });
     } catch (err) {
@@ -175,6 +177,9 @@ const FIN_TERMS = {
 
 // Third-party web presence (press, directories, registries) via Claude web search, localised to the company's country.
 export async function researchOffsite(company, crawl, settings) {
+  // Web search and fetch are Claude server tools. Strict EU-only mode keeps research on the server: site crawl,
+  // open registers, statement OCR and the Finnish profiler.
+  if (!llm.webToolsAvailable(settings)) throw new Error("web search is a Claude tool, off in strict EU-only mode");
   const c = client(settings);
   const country = String(company.country || "").toUpperCase();
   const domain = hostOf(crawl?.root || company.website || "");
@@ -269,15 +274,29 @@ Write findings as short bullets, each with its source. Say so plainly when nothi
 }
 
 // Annual-report PDF → income-statement figures (Claude reads the PDF directly).
+const REPORT_SYSTEM = "You read financial statements for an M&A advisor. Report only figures printed in the document, as absolute amounts (multiply out 'in thousands', 'EUR 1,000', 'MEUR' etc.). Use null for anything not reported. Do not compute EBITDA unless the document states it.";
 export async function readAnnualReport(company, pdf, url, settings) {
   return parse(settings, {
     schema: ReportFinancialsSchema,
     effort: "low",
-    system: "You read financial statements for an M&A advisor. Report only figures printed in the document, as absolute amounts (multiply out 'in thousands', 'EUR 1,000', 'MEUR' etc.). Use null for anything not reported. Do not compute EBITDA unless the document states it.",
+    claudeOnly: true,
+    system: REPORT_SYSTEM,
     user: [
       { type: "document", source: { type: "base64", media_type: "application/pdf", data: pdf.toString("base64") } },
       { type: "text", text: `Company: ${company.name} (${company.country}). Source: ${url}\nExtract the income-statement figures for every financial year shown (current and comparative).` },
     ],
+  });
+}
+
+// Same reader for statements already turned into text (PDF text layer): works on every provider, including Mistral on Verda.
+export async function readAnnualReportText(company, text, url, settings, { ocr = false } = {}) {
+  const ocrNote = ocr ? " The text comes from OCR of a scanned statement: digits may carry stray spaces or misreads (an 'O' for a 0, 'l' for 1), thousands are separated by spaces in Nordic statements, and negative numbers may show as -1 234 or (1 234). Read the income-statement lines carefully and use the current-year column (the first numeric column)." : "";
+  return parse(settings, {
+    schema: ReportFinancialsSchema,
+    effort: "low",
+    max_tokens: 6000,
+    system: REPORT_SYSTEM + ocrNote,
+    user: `Company: ${company.name} (${company.country}). Source: ${url}\nBelow is the text of the filed financial statements (page markers included). Extract the income-statement figures for every financial year shown (current and comparative). Depreciation = the depreciation/amortisation line of the income statement (avskrivninger, poistot, avskrivningar, Abschreibungen), as a positive number; EBITDA only if printed.\n\n${text}`,
   });
 }
 

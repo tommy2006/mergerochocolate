@@ -4,6 +4,9 @@ import crypto from "node:crypto";
 import { crawlSite, readPages, categorize, USER_AGENT } from "./crawl.js";
 import { fetchFinancials, fxToEur } from "../financials.js";
 import * as agents from "../agents.js";
+import * as llm from "../llm.js";
+import { pdfText, statementWindow } from "./pdf.js";
+import { ocrPdf, ocrAvailable } from "./ocr.js";
 
 const MAX_PDF_BYTES = 15 * 1024 * 1024;
 const MAX_PDF_PAGES = 80;
@@ -13,7 +16,14 @@ const uid = () => `a_${crypto.randomBytes(4).toString("hex")}`;
 const yearIn = (s) => Number((String(s || "").match(/20\d{2}/g) || []).pop()) || null;
 
 async function downloadPdf(url, timeoutMs = 30000) {
-  const res = await fetch(url, { headers: { "user-agent": USER_AGENT, accept: "application/pdf" }, signal: AbortSignal.timeout(timeoutMs), redirect: "follow" });
+  // Brønnøysund answers 406 to a bare "application/pdf" Accept header; the q-ranked form is accepted everywhere.
+  // Its PDF service also answers 503 now and then: three attempts, 4 s apart.
+  let res;
+  for (let attempt = 1; ; attempt++) {
+    res = await fetch(url, { headers: { "user-agent": USER_AGENT, accept: "application/pdf, */*;q=0.8" }, signal: AbortSignal.timeout(timeoutMs), redirect: "follow" });
+    if (res.ok || attempt >= 3 || !(res.status >= 500 || res.status === 429)) break;
+    await new Promise((r) => setTimeout(r, 4000));
+  }
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   if (Number(res.headers.get("content-length") || 0) > MAX_PDF_BYTES) throw new Error("larger than 15 MB");
   const buf = Buffer.from(await res.arrayBuffer());
@@ -81,10 +91,14 @@ const slimOrg = (o) => (o ? Object.fromEntries(["name", "legalName", "url", "des
   .filter((k) => o[k] != null && o[k] !== "" && !(Array.isArray(o[k]) && !o[k].length)).map((k) => [k, o[k]])) : null);
 
 // ---- the research step ----
-export async function research(company, settings, { log = () => {} } = {}) {
+// quick: the buy-side screen's "dig deeper" (10 pages, 30 s crawl budget, no web sweep), about a minute end to end.
+// On Vercel a function gets 60 s in total, so the crawl is shorter there and the statement PDF is left out.
+const ON_VERCEL = Boolean(process.env.VERCEL);
+const QUICK_CRAWL = ON_VERCEL ? { maxPages: 6, budgetMs: 14000, delayMs: 150, render: "off" } : { maxPages: 10, budgetMs: 30000, delayMs: 250, render: "off" };
+export async function research(company, settings, { log = () => {}, quick = false } = {}) {
   const t0 = Date.now();
   const warnings = [];
-  const crawl = company.website ? await crawlSite(company.website, { log }) : null;
+  const crawl = company.website ? await crawlSite(company.website, { log, ...(quick ? QUICK_CRAWL : {}) }) : null;
   if (!crawl) warnings.push("No website on record, so the site crawl was skipped.");
   else if (!crawl.ok) warnings.push(`Site crawl failed: ${crawl.error}`);
   const pages = crawl?.ok ? crawl.pages : [];
@@ -94,32 +108,38 @@ export async function research(company, settings, { log = () => {} } = {}) {
       .catch((e) => ({ identifier: null, rows: [], documents: [], notes: [`Registry lookup failed: ${e.message}`], checked: [] })),
     agents.extractPageFacts(company, pages, settings)
       .catch((e) => { warnings.push(`Fact extraction from site pages failed: ${e.message}`); return { facts: [], dropped: 0 }; }),
-    agents.researchOffsite(company, crawl, settings)
+    quick ? Promise.resolve({ facts: [], financial_mentions: [], report_pdfs: [], dropped: 0, sources: 0, skipped: true }) : agents.researchOffsite(company, crawl, settings)
       .catch((e) => { warnings.push(`Web search step failed: ${e.message}`); return { facts: [], financial_mentions: [], report_pdfs: [], dropped: 0, sources: 0 }; }),
   ]);
 
-  // At most one annual-report PDF per run, and only if it can add a year the registries don't cover.
+  // At most one statement/annual-report PDF per run. First choice: the statement of the latest filed year when the
+  // open register has EBIT but no depreciation line (Norway), because that is the only free path to EBITDA.
+  // Otherwise (full mode only): a report that adds a year the registries do not cover.
   let fromReport = [], reportDoc = null;
   const have = new Set(fin.rows.map((r) => r.year));
+  const latest = fin.rows.find((r) => r.ebit != null) || null;
+  const needEbitda = Boolean(latest && latest.ebitda == null);
   const candidates = [
+    ...fin.documents.filter((d) => d.format === "pdf"),
     ...(crawl?.documents || []).filter((d) => d.category === "reports").sort((a, b) => (b.year || 0) - (a.year || 0)),
     ...web.report_pdfs.map((url) => ({ url, year: yearIn(url) })),
   ].filter((d) => !d.year || d.year >= new Date().getFullYear() - 4);
-  const pick = candidates.find((d) => !d.year || !have.has(d.year));
+  const pick = quick && ON_VERCEL ? null : (needEbitda && candidates.find((d) => d.year === latest.year)) || (quick ? null : candidates.find((d) => !d.year || !have.has(d.year)));
   if (pick) {
     try {
-      const rep = await agents.readAnnualReport(company, await downloadPdf(pick.url), pick.url, settings);
+      const rep = await readReport(company, pick.url, settings, { log });
       if (rep.is_this_company) {
-        fromReport = await reportRows(rep, pick.url);
-        reportDoc = { type: "annual_report", year: pick.year || fromReport[0]?.year || null, format: "pdf", url: pick.url, source: "Read from PDF" };
+        fromReport = reconcileRows(await reportRows(rep, pick.url), fin.rows, warnings);
+        reportDoc = { type: "annual_report", year: pick.year || fromReport[0]?.year || null, format: "pdf", url: pick.url, source: `Read from PDF (${rep.how})` };
       } else warnings.push(`Report PDF ${pick.url} is for ${rep.entity_name}, so it was ignored.`);
-    } catch (e) { warnings.push(`Annual report PDF skipped (${e.message}): ${pick.url}`); }
+    } catch (e) { warnings.push(`Statement PDF skipped (${e.message}): ${pick.url}`); }
   }
   const rows = mergeRows(fin.rows, fromReport, await mentionRows(web.financial_mentions));
   const facts = [...site.facts, ...web.facts].map((f, i) => ({ id: `f${i + 1}`, ...f }));
 
   return {
     status: "done",
+    mode: quick ? "quick" : "full",
     ran_at: now(),
     duration_ms: Date.now() - t0,
     site: crawl ? {
@@ -139,6 +159,132 @@ export async function research(company, settings, { log = () => {} } = {}) {
     warnings: [...(crawl?.warnings || []), ...warnings],
     snapshot: { at: now(), urls: (crawl?.inventory?.urls || []).slice(0, SNAPSHOT_URLS), hashes: Object.fromEntries(pages.map((p) => [p.url, p.hash])) },
   };
+}
+
+// Reads one statement/report PDF: the text layer first (works on every model provider), Claude's document reader for scans.
+async function readReport(company, url, settings, { log = () => {} } = {}) {
+  const buf = await downloadPdf(url);
+  let text = "", how = "text";
+  try { text = statementWindow((await pdfText(buf)).text); } catch (e) { log(`pdf text layer failed (${e.message})`); }
+  if (text.length < 600 && ocrAvailable().ok) {
+    // A scan: OCR on this machine, then the same text reader on the Verda model. Nothing leaves the server.
+    try { const o = await ocrPdf(buf, { country: company.country, log }); text = statementWindow(o.text); how = "ocr"; }
+    catch (e) { log(`ocr failed (${e.message})`); text = ""; }
+  }
+  if (text.length >= 600) {
+    log(`statement PDF ${url}: ${text.length} chars (${how}) → model`);
+    return { ...(await agents.readAnnualReportText(company, text, url, settings, { ocr: how === "ocr" })), how };
+  }
+  if (llm.provider(settings) === "verda" && !llm.fallbackAllowed(settings)) {
+    throw new Error(`scanned PDF: ${ocrAvailable().ok ? "OCR found no readable text" : ocrAvailable().reason}; Claude's document reader is off in strict EU-only mode`);
+  }
+  log(`statement PDF ${url}: no text layer → document reader`);
+  return { ...(await agents.readAnnualReport(company, buf, url, settings)), how: "document" };
+}
+
+// Statement readers (text layer, OCR, vision) get two things wrong: the unit ("tall i 1000") and a column. The
+// register's high-confidence row for a shared year anchors the unit (whole units, thousands, millions); after that,
+// every year the register also covers must agree on EBIT, or the whole reading is discarded.
+const fmtInt = (n) => (n == null ? "n/a" : Math.round(n).toLocaleString("en"));
+export function reconcileRows(rows, registryRows, warnings, label = "Statement PDF") {
+  const reg = (y) => registryRows.find((x) => x.year === y && x.confidence === "high" && !/Read from PDF/.test(x.source || ""));
+  const anchor = rows.map((r) => ({ r, g: reg(r.year) })).find(({ r, g }) => g && ((r.revenue && g.revenue) || (r.ebit && g.ebit)));
+  const UNITS = [1, 1000, 1e6, 0.001, 1e-6];
+  const unitOf = (mine, theirs) => (mine && theirs ? UNITS.find((k) => Math.abs(theirs / mine / k - 1) <= 0.05) ?? null : null);
+  let scale = 1, dropRevenue = false;
+  if (anchor) {
+    const { r, g } = anchor;
+    // Revenue anchors the unit; when a digit was misread there, EBIT may still anchor it (the misread revenue is then dropped).
+    scale = unitOf(r.revenue, g.revenue);
+    if (scale == null && unitOf(r.ebit, g.ebit) != null) { scale = unitOf(r.ebit, g.ebit); dropRevenue = Boolean(r.revenue && g.revenue); }
+    if (scale == null) {
+      const byRevenue = Boolean(r.revenue && g.revenue);
+      warnings.push(`${label} ${r.year}: ${byRevenue ? "revenue" : "EBIT"} ${fmtInt(byRevenue ? r.revenue : r.ebit)} does not match the register's ${fmtInt(byRevenue ? g.revenue : g.ebit)} at any unit, so the reading was ignored`);
+      return [];
+    }
+    if (dropRevenue) warnings.push(`${label} ${r.year}: revenue ${fmtInt(r.revenue)} was misread (register: ${fmtInt(g.revenue)}); EBIT and depreciation kept, revenue taken from the register`);
+  }
+  const out = rows.map((r) => {
+    if (scale === 1 && !dropRevenue) return r;
+    const x = { ...r, unit_scale: scale };
+    if (dropRevenue) { x.revenue = null; x.revenue_eur = null; }
+    for (const k of ["revenue", "gross_profit", "ebit", "depreciation", "ebitda", "net_income", "total_assets", "equity"]) if (x[k] != null) x[k] = Math.round(x[k] * scale);
+    for (const k of ["revenue", "gross_profit", "ebit", "ebitda", "net_income"]) x[`${k}_eur`] = x[k] == null || x.fx_to_eur == null ? null : Math.round(x[k] * x.fx_to_eur);
+    return x;
+  });
+  for (const r of out) {
+    const g = reg(r.year);
+    if (!g || r.ebit == null || g.ebit == null) continue;
+    const tolerance = Math.max(0.05 * Math.abs(g.ebit), 0.002 * Math.abs(g.revenue || 0), 1);
+    if (Math.abs(r.ebit - g.ebit) > tolerance) {
+      warnings.push(`${label} ${r.year}: EBIT ${fmtInt(r.ebit)} does not match the register's ${fmtInt(g.ebit)}, so the reading was ignored`);
+      return [];
+    }
+  }
+  return out;
+}
+
+// Filed accounts fill blanks in the prospect record; they never overwrite database figures (conflicts are flagged instead).
+export function applyFinancials(c) {
+  const r = c.research || {};
+  const row = (r.financials?.rows || []).find((x) => x.confidence === "high");
+  const filled = [];
+  if (row) {
+    if (c.revenue_eur == null && row.revenue_eur != null) { c.revenue_eur = row.revenue_eur; filled.push(`revenue ${row.year} (${row.source})`); }
+    if (c.ebitda_eur == null && row.ebitda_eur != null) { c.ebitda_eur = row.ebitda_eur; filled.push(`EBITDA ${row.year} (${row.ebitda_basis || "reported"})`); }
+    if (c.employees == null && row.employees != null) { c.employees = row.employees; filled.push(`employees ${row.year}`); }
+  }
+  const id = r.financials?.identifier;
+  if (!c.registry_id && id?.id && id.country === c.country) { c.registry_id = id.id; filled.push(`registry id ${id.id}`); }
+  if (c.research) r.filled_fields = filled;
+  return filled;
+}
+
+// The statement PDF for a filed year: the one the registry listed, else (Norway) the register's free copy by
+// organisation number, which exists for every filed year even when an earlier lookup stored no document list.
+function statementDoc(company, fin, year) {
+  const listed = (fin.documents || []).find((d) => d.format === "pdf" && d.year === year);
+  if (listed) return listed;
+  const org = String(company.registry_id || fin.identifier?.id || "").replace(/\s/g, "");
+  if (String(company.country || "").toUpperCase() === "NO" && /^\d{9}$/.test(org)) {
+    return { type: "annual_report", year, format: "pdf", url: `https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/${org}/${year}`, source: "Brønnøysund Regnskapsregisteret (NO)" };
+  }
+  return null;
+}
+// Research already done, but the latest filed year still lacks EBITDA and its statement PDF is available and unread.
+// The latest year with an operating result (a newer row may hold only a headcount from a directory).
+const latestOperating = (fin) => (fin?.rows || []).find((x) => x.ebit != null) || null;
+export function needsStatement(c) {
+  const fin = c.research?.financials; const latest = latestOperating(fin);
+  if (!latest || latest.ebitda_eur != null) return false;
+  return Boolean(statementDoc(c, fin, latest.year)) && !(fin.documents || []).some((d) => d.year === latest.year && /Read from PDF/.test(d.source || ""));
+}
+export async function addStatement(company, settings, { log = () => {} } = {}) {
+  const fin = company.research?.financials; const latest = latestOperating(fin);
+  const doc = latest && statementDoc(company, fin, latest.year);
+  if (!doc) return null;
+  const rep = await readReport(company, doc.url, settings, { log });
+  if (!rep.is_this_company) throw new Error(`PDF belongs to ${rep.entity_name || "another entity"}`);
+  const warnings = [];
+  const rows = reconcileRows(await reportRows(rep, doc.url), fin.rows, warnings);
+  if (!rows.length) throw new Error(warnings[0] || "the statement had no usable income-statement figures");
+  fin.rows = mergeRows(fin.rows, rows);
+  fin.documents = [...(fin.documents || []), { type: "annual_report", year: doc.year, format: "pdf", url: doc.url, source: `Read from PDF (${rep.how})` }];
+  fin.conflicts = dbConflicts(company, fin.rows);
+  const filled = applyFinancials(company);
+  return { year: doc.year, how: rep.how, rows: rows.length, filled: filled.join(", ") || "no new figures", warnings };
+}
+// The registry lookup failed earlier (a 503, a timeout): fetch the filed accounts again and merge them in front.
+export async function refreshFinancials(company, { log = () => {} } = {}) {
+  const r = company.research; if (!r) return null;
+  const fin = await fetchFinancials(company, { businessIds: r.site?.business_ids || [], log });
+  const prev = r.financials || { rows: [], documents: [], notes: [], checked: [] };
+  r.financials = {
+    ...prev, identifier: fin.identifier || prev.identifier, rows: mergeRows(fin.rows, prev.rows || []), notes: fin.notes, checked: fin.checked,
+    documents: [...fin.documents, ...(prev.documents || []).filter((d) => !fin.documents.some((x) => x.url === d.url))],
+  };
+  r.financials.conflicts = dbConflicts(company, r.financials.rows);
+  return { rows: fin.rows.length, filled: applyFinancials(company) };
 }
 
 // ---- watch mode: what changed on the site since the last snapshot? ----

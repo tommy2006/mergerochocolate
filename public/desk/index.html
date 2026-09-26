@@ -1299,12 +1299,16 @@
 
         // ---------- guided demo ----------
         const DEMO_REPLY = "Thanks for reaching out, happy to talk. Coffee next week works for me.";
+        const DEMO_SCREEN_URL = "https://www.aerfaber.no"; // a real Norwegian owner-led manufacturer: site + filed accounts + statement PDF
         const DEMO = [
-            { title: "40 companies, ranked", text: "Every company is scored on how likely it is to need an M&A advisor right now. We open the hottest one.", step: -1 },
+            { title: () => `${prospects.length} companies, ranked`, text: "Every company is scored on how likely it is to need an M&A advisor right now. We open the hottest one.", step: -1 },
             { title: "Match statistics across the book", text: "Each company is scored against every buyer mandate. The histogram is the best score per company: how many have a strong buyer, and where the median sits.", view: "book" },
             { title: "Step 2 of 6 · Signals", text: "These events are why this owner may be ready to talk now, for example a founder nearing retirement.", step: 2 },
             { title: "Step 3 of 6 · Scoring", text: "Timing, fit and urgency add up to 100. Buyer-fit statistics show mean, median and spread. A large gap between best and median means one mandate stands out.", step: 3 },
             { title: "Matching: who would buy this", text: "Every mandate is ranked. The dot plot is the score distribution. The stacked bar is the 100 points (sector 50, region 20, size 20, confirmed 10). The size strip is EBITDA vs the buyer's band.", view: "screen" },
+            { title: "Screen any company from its website", text: "Paste a website. We read the public site, guess the sector and score every buyer mandate in seconds. The placeholders are what a quick read cannot know: EBITDA and customers.", view: "screen-url", url: DEMO_SCREEN_URL, doit: true },
+            { title: "Dig deeper: filed accounts and customers", text: "One click reads more pages, pulls the filed accounts from the national register (and the statement PDF when the register has no depreciation line) and names the customers. EBITDA and customers replace the placeholders and every mandate is re-scored.", view: "analyze", doit: true },
+            { title: "Add it to the pipeline", text: "The best-fitting mandate takes the company. It now sits on the Pipeline homepage with the rest of the book, sources included.", view: "add", doit: true },
             { title: "Step 4 of 6 · AI Hypothesis", text: "The engine explains why we should call, which buyers fit — with the same charts — and what to ask the owner.", step: 4 },
             { title: "Step 5 of 6 · Outreach", text: "One click drafts four personal messages in the right tone for the country.", step: 5,
               run: (id) => api(`/api/prospects/${id}/outreach`, { method: "POST" }) },
@@ -1381,6 +1385,38 @@
                 } else if (st.view === "screen") {
                     demo.highlight = null;
                     await demoScreen(demo.id);
+                } else if (st.view === "screen-url") {
+                    demo.highlight = null;
+                    closeDrawer();
+                    setTab("buy");
+                    const input = document.getElementById("screenInput");
+                    if (input) input.value = st.url;
+                    await runScreen();
+                    const box = document.getElementById("screenResult");
+                    box.classList.add("demo-focus");
+                    box.scrollIntoView({ behavior: "smooth", block: "start" });
+                } else if (st.view === "analyze") {
+                    demo.highlight = null;
+                    closeDrawer();
+                    setTab("buy");
+                    if (!lastProfile) { const input = document.getElementById("screenInput"); if (input) input.value = DEMO_SCREEN_URL; await runScreen(); }
+                    if (lastProfile && !lastProfile.analysis) await analyzeScreened(false);
+                    const box = document.getElementById("screenResult");
+                    box.firstElementChild?.classList.add("demo-focus");
+                    box.scrollIntoView({ behavior: "smooth", block: "start" });
+                } else if (st.view === "add") {
+                    demo.highlight = null;
+                    closeDrawer();
+                    setTab("buy");
+                    const best = lastMatches[0];
+                    if (best && lastProfile && !deals.some((d) => d.target === lastProfile.company_name && d.buyer_id === best.buyer_id)) {
+                        await api("/api/deals/from-match", { method: "POST", body: { buyer_id: best.buyer_id, profile: lastProfile } });
+                        await loadDeals();
+                        renderScreenResult();
+                    }
+                    const list = document.getElementById("pipelineBody");
+                    list?.parentElement?.classList.add("demo-focus");
+                    list?.scrollIntoView({ behavior: "smooth", block: "center" });
                 } else {
                     setTab("prospects");
                     if (st.run && !demo.ran.has(demo.i)) {
@@ -1406,23 +1442,24 @@
                 : st.text;
             const last = demo.i === DEMO.length - 1;
             bar.classList.remove("hidden");
-            bar.classList.toggle("left-4", st.view !== "screen");
-            bar.classList.toggle("right-4", st.view === "screen");
-            bar.classList.toggle("left-auto", st.view === "screen");
+            const onBuy = ["screen", "screen-url", "analyze", "add"].includes(st.view);
+            bar.classList.toggle("left-4", !onBuy);
+            bar.classList.toggle("right-4", onBuy);
+            bar.classList.toggle("left-auto", onBuy);
             bar.innerHTML = `
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Guided demo · ${demo.i + 1} of ${DEMO.length}</span>
                     <button onclick="exitDemo()" class="text-slate-500 hover:text-slate-900 cursor-pointer" title="Exit the demo"><i data-lucide="x" class="h-4 w-4"></i></button>
                 </div>
                 <div class="h-1 bg-slate-300 rounded-full overflow-hidden"><div class="h-full bg-emerald-500" style="width:${Math.round(100 * (demo.i + 1) / DEMO.length)}%"></div></div>
-                <div class="text-base font-bold">${esc(st.title)}</div>
+                <div class="text-base font-bold">${esc(typeof st.title === "function" ? st.title() : st.title)}</div>
                 <div class="text-sm text-slate-700">${esc(text)}</div>
                 <div class="flex items-center justify-end gap-2 pt-1">
                     ${demo.i > 0 ? `<button onclick="demoGo(-1)" class="text-sm font-semibold text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg cursor-pointer">Back</button>` : ""}
                     ${last
                         ? `<button onclick="startDemo()" class="text-sm font-semibold text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg cursor-pointer">Run again</button>
                            <button onclick="exitDemo()" class="text-sm font-bold bg-slate-900 text-white px-4 py-1.5 rounded-lg cursor-pointer">Finish</button>`
-                        : `<button onclick="demoGo(1)" class="text-sm font-bold bg-slate-900 text-white px-4 py-1.5 rounded-lg cursor-pointer">${DEMO[demo.i + 1]?.run ? "Next: do it" : "Next"} →</button>`}
+                        : `<button onclick="demoGo(1)" class="text-sm font-bold bg-slate-900 text-white px-4 py-1.5 rounded-lg cursor-pointer">${DEMO[demo.i + 1]?.run || DEMO[demo.i + 1]?.doit ? "Next: do it" : "Next"} →</button>`}
                 </div>`;
             icons();
         }
@@ -1777,6 +1814,58 @@
             }
         }
 
+        // ---------- dig deeper: filed accounts, statement PDF, named customers ----------
+        let analyzing = null; // "screen" while the screen profile is being analysed, or a deal id
+        function pendingOrValue(v) {
+            return v === "Pending Analysis" || v === "Pending Audit"
+                ? `<button onclick="analyzeScreened()" class="text-amber-200 hover:text-amber-100 underline decoration-dotted underline-offset-2 cursor-pointer" title="Dig deeper: more pages, filed accounts and customers">${esc(v)} · analyze</button>`
+                : esc(v);
+        }
+        function analyzeButton(p) {
+            const a = p.analysis;
+            if (analyzing === "screen") return `<span class="text-[11px] text-teal-300 flex items-center gap-1"><i data-lucide="loader-2" class="h-3.5 w-3.5 spin"></i>Digging deeper…</span>`;
+            return `<button onclick="analyzeScreened(${a ? "true" : "false"})" title="${a ? "Run the analysis again" : "Read more pages, pull the filed accounts and name the customers (about a minute)"}"
+                class="text-[11px] font-bold px-3 py-1.5 rounded-lg cursor-pointer flex items-center gap-1 ${a ? "bg-slate-800 hover:bg-slate-700 text-slate-200" : "bg-teal-500 hover:bg-teal-400 text-slate-950"}">
+                <i data-lucide="${a ? "refresh-cw" : "microscope"}" class="h-3.5 w-3.5"></i>${a ? "Re-analyze" : "Dig deeper"}</button>`;
+        }
+        function analysisLine(p) {
+            const a = p.analysis;
+            if (analyzing === "screen") return `<div class="text-[11px] text-slate-400">Reading up to 10 pages of the site, the filed accounts from the register (and the statement PDF when the register has no depreciation line), then naming the customers. About a minute.</div>`;
+            if (!a) return "";
+            const years = a.filed_years || [];
+            const bits = [`${a.pages_read} pages read`, `${a.facts} sourced facts`,
+                years.length ? `filed accounts ${years.slice(0, 3).join(", ")} (${(a.sources || []).join("; ")})` : "no filed accounts in the open registers"];
+            if (a.customers?.items?.length) bits.push(`${a.customers.items.length} customers named`);
+            const when = a.ran_at ? new Date(a.ran_at).toLocaleString([], { dateStyle: "medium", timeStyle: "short" }) : "";
+            return `<div class="text-[11px] text-slate-500">Analysed ${esc(when)}${a.cached ? " (reused this week's research)" : ""}: ${esc(bits.join(" · "))}${(a.warnings || []).length ? ` <span class="text-amber-200/80">· ${esc(a.warnings[0])}</span>` : ""}</div>`;
+        }
+        async function analyzeScreened(force = false) {
+            if (!lastProfile || analyzing) return;
+            analyzing = "screen";
+            renderScreenResult();
+            try {
+                const res = await api("/api/analyze", { method: "POST", body: { profile: lastProfile, force } });
+                lastProfile = res.profile;
+                lastMatches = res.matches || [];
+                analyzing = null;
+                await loadDeals();
+                renderScreenResult();
+                toast(res.summary || "Analysis done");
+            } catch (e) { analyzing = null; renderScreenResult(); toast(e.message, "error"); }
+        }
+        async function analyzeDeal(id) {
+            if (analyzing) return;
+            analyzing = id;
+            if (drawer?.id === id) renderDealDrawer();
+            try {
+                const res = await api("/api/analyze", { method: "POST", body: { deal_id: id } });
+                analyzing = null;
+                await loadDeals();
+                if (drawer?.id === id) renderDealDrawer();
+                toast(res.summary || "Analysis done");
+            } catch (e) { analyzing = null; if (drawer?.id === id) renderDealDrawer(); toast(e.message, "error"); }
+        }
+
         function renderScreenResult() {
             const p = lastProfile || {};
             const warn = p.company_id && !p.fetched
@@ -1838,14 +1927,18 @@
                             <div class="text-lg font-bold text-white">${esc(p.company_name)}</div>
                                 ${p.source_url ? `<a href="${esc(p.source_url)}" target="_blank" rel="noopener" class="text-[11px] text-slate-500 hover:text-teal-300">${esc(p.source_url)}</a>` : ""}
                         </div>
-                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${p.verified ? "bg-emerald-500/15 text-emerald-300" : "bg-slate-800 text-slate-400"}">${p.verified ? "Sector found" : p.company_id ? "From dataset" : "Unclear"}</span>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${p.verified ? "bg-emerald-500/15 text-emerald-300" : "bg-slate-800 text-slate-400"}">${p.verified ? "Sector found" : p.company_id ? "From dataset" : "Unclear"}</span>
+                            ${analyzeButton(p)}
+                        </div>
                     </div>
                     <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
                         <div><dt class="text-slate-500">Sector</dt><dd class="text-slate-200">${esc(p.sector)}</dd></div>
-                        <div><dt class="text-slate-500">EBITDA</dt><dd class="text-slate-200">${esc(p.ebitda)}</dd></div>
-                        <div><dt class="text-slate-500">Offering</dt><dd class="text-slate-200">${esc(p.products)}</dd></div>
-                        <div><dt class="text-slate-500">Customers</dt><dd class="text-slate-200">${esc(p.customers)}</dd></div>
+                        <div><dt class="text-slate-500">EBITDA</dt><dd class="text-slate-200">${pendingOrValue(p.ebitda)}${p.ebitda_detail ? `<div class="text-[10px] text-slate-500 mt-0.5">${esc(p.ebitda_detail)}</div>` : ""}</dd></div>
+                        <div><dt class="text-slate-500">Offering</dt><dd class="text-slate-200">${pendingOrValue(p.products)}</dd></div>
+                        <div><dt class="text-slate-500">Customers</dt><dd class="text-slate-200">${pendingOrValue(p.customers)}</dd></div>
                     </dl>
+                    ${analysisLine(p)}
                     ${evidence}
                     ${warn}
                 </div>
@@ -1959,7 +2052,9 @@
                 <div class="grid grid-cols-3 gap-3 text-xs">
                     <div class="bg-slate-800/60 rounded-xl p-3"><div class="text-slate-500">Fit</div><div class="font-bold ${f.text}">${f.label}</div><div class="text-slate-400">${d.score ?? "–"}/100</div></div>
                     <div class="bg-slate-800/60 rounded-xl p-3"><div class="text-slate-500">Sector</div><div class="text-slate-200">${esc(d.sector)}</div></div>
-                    <div class="bg-slate-800/60 rounded-xl p-3"><div class="text-slate-500">EBITDA</div><div class="text-slate-200">${esc(d.ebitda)}</div></div>
+                    <div class="bg-slate-800/60 rounded-xl p-3"><div class="text-slate-500">EBITDA</div><div class="text-slate-200">${esc(d.ebitda)}</div>${analyzing === d.id
+                        ? `<div class="text-[11px] text-teal-300 mt-1 flex items-center gap-1"><i data-lucide="loader-2" class="h-3 w-3 spin"></i>Digging deeper…</div>`
+                        : (d.ebitda === "Pending Audit" || d.mix === "Not screened yet") ? `<button onclick="analyzeDeal(${d.id})" class="text-[11px] font-semibold text-teal-300 hover:text-teal-200 cursor-pointer mt-1 text-left">Analyze: filed accounts + customers →</button>` : ""}</div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 text-xs">

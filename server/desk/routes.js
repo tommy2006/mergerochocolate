@@ -7,6 +7,8 @@ import * as cheerio from "cheerio";
 import * as db from "../db.js";
 import * as E from "./engine.js";
 import * as llm from "../llm.js";
+import * as agents from "../agents.js";
+import * as A from "./analyze.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PAGE = path.join(here, "..", "..", "public", "desk", "index.html");
@@ -50,9 +52,9 @@ function findCompanyFromProfile(p) {
   if (p?.engine_id) { const c = db.findCompany(p.engine_id); if (c) return c; }
   if (p?.company_id) { const c = companyByDesk(p.company_id); if (c) return c; }
   const s = db.load();
-  const site = String(p?.source_url || "").replace(/\/$/, "").toLowerCase();
+  const site = siteKey(p?.source_url);
   const name = String(p?.company_name || "").trim().toLowerCase();
-  return s.companies.find((c) => (site && (c.website || "").replace(/\/$/, "").toLowerCase() === site) || (name && c.name.toLowerCase() === name)) || null;
+  return s.companies.find((c) => (site && siteKey(c.website) === site) || (name && c.name.toLowerCase() === name)) || null;
 }
 function upsertCompanyFromProfile(p, extra = {}) {
   const name = extra.company || p?.company_name; if (!name) return null;
@@ -117,6 +119,16 @@ function deskSignals(c) {
   return out;
 }
 const isReal = (c) => Boolean(c.registry_id || c.research?.facts?.length || /registry|scraper|inbound|referral|buy-side/i.test(c.source || ""));
+// The desk page prints evidence as text ("Found on the site: …"), so it is a list of short strings, never objects.
+const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
+const clip = (s, n) => { const t = String(s || "").replace(/\s+/g, " ").trim(); return t.length > n ? `${t.slice(0, n - 1).trimEnd()}…` : t; };
+const siteKey = (u) => { if (!u) return ""; try { const x = new URL(/^https?:/i.test(u) ? u : `https://${u}`); return `${x.hostname.replace(/^www\./, "")}${x.pathname.replace(/\/+$/, "")}`.toLowerCase(); } catch { return ""; } };
+const EVIDENCE_ORDER = { customers: 0, offering: 1, financials: 2, footprint: 3, events: 4 };
+function evidenceStrings(c) {
+  const facts = (c.research?.facts || []).filter((f) => f.confidence !== "low");
+  return [...facts].sort((a, b) => (EVIDENCE_ORDER[a.category] ?? 9) - (EVIDENCE_ORDER[b.category] ?? 9)).slice(0, 6)
+    .map((f) => `${clip(f.claim, 90)}${hostOf(f.url) ? ` (${hostOf(f.url)})` : ""}`);
+}
 function toRecord(c) {
   const e = c.enrichment || {};
   const ceo = (c.people || []).find((p) => p.role_code === "DAGL")?.name || (/(ceo|managing|toimitusjohtaja|geschäftsführer)/i.test(c.owner?.title || "") ? c.owner?.name : "") || "";
@@ -135,7 +147,7 @@ function toRecord(c) {
     sector: c.industry || "", products: (e.products || []).join(", ") || e.offering?.summary || "", customers: (e.customers || []).join(", ") || (e.customer_segments || []).map((s) => s.segment).join(", ") || "",
     founded_year: c.founded || null, revenue_eur: c.revenue_eur ?? null, ebitda_eur: c.ebitda_eur ?? null, employees: c.employees ?? null,
     ownership_type: OWNERSHIP[c.ownership_type] || "", owner_name: c.owner?.name || "", ceo_name: ceo, owner_age: c.owner?.age || null, website: c.website || "", business_id: c.registry_id || "",
-    city: c.city || "", geographic_hint: geoWords(c), evidence: (c.research?.facts || []).slice(0, 6).map((f) => ({ url: f.url, quote: f.quote || f.claim, category: f.category })),
+    city: c.city || "", geographic_hint: geoWords(c), evidence: evidenceStrings(c),
     data_origin: isReal(c) ? "real" : "illustrative", stage_ours: c.stage, readiness: c.score?.readiness ?? null, engine_id: c.id, source_label: c.source || "",
   };
   return {
@@ -154,7 +166,7 @@ function qualificationFor(entry, c, scored, hypothesis) {
   const t = entry.triage; if (!t) return null;
   const text = entry.text || "";
   const category = /unsubscribe|remove me|stop emailing|abmelden|älä lähetä|avregistrera/i.test(text) ? "unsubscribe" : INTENT_MAP[t.intent] || "needs_advisor";
-  const cls = { category, timing: null, reason: t.next_step || `Owner intent: ${t.intent} (${t.sentiment})`, source: "claude", confidence: 0.9 };
+  const cls = { category, timing: null, reason: t.next_step || `Owner intent: ${t.intent} (${t.sentiment})`, source: "model", confidence: 0.9 };
   return E.qualifyReply(text, { prospectScore: scored?.score ?? null, mandateType: hypothesis?.mandate_type || null, classification: cls });
 }
 function deskConversation(c, scored, hypothesis) {
@@ -224,19 +236,39 @@ function prospectRow(c, b = bundle(c)) {
 const allProspects = () => { ensureIds(); return db.load().companies.map((c) => ({ c, b: bundle(c) })).sort((x, y) => y.b.scored.score - x.b.scored.score); };
 
 // Quick profile of a company website for the buy-side screen (fast; the full research crawler is for prospects).
-const SECTOR_RULES = [["B2B SaaS & Digital Services", /\b(saas|software|cloud|platform|api|digital)\b/i], ["Manufacturing & Industrial Automation", /\b(manufactur|automation|machin|factory|industrial)\b/i], ["Healthcare & Facility services", /\b(health|clinic|care|medical|rehab)\b/i], ["Circular economy / Waste logistics", /\b(recycl|waste|circular|logistic)\b/i], ["Industrial construction", /\b(construction|building|contractor|steel)\b/i], ["Food & Beverage", /\b(food|bakery|beverage|drink)\b/i]];
+const SECTOR_RULES = A.SECTOR_RULES;
+const SECTOR_NAMES = new Set(SECTOR_RULES.map(([name]) => name));
 async function quickProfile(url) {
   const u = url.startsWith("http") ? url : `https://${url}`;
   let html = "";
   try { const r = await fetch(u, { headers: { "user-agent": "Mozilla/5.0 MergeroDesk/1.0" }, signal: AbortSignal.timeout(12000) }); html = await r.text(); } catch (e) { return { company_name: new URL(u).hostname.replace(/^www\./, ""), sector: "Unverified Sector", products: "Pending Analysis", customers: "Pending Analysis", ebitda: "Pending Audit", verified: false, fetched: false, evidence: [], source_url: u, geographic_hint: "", error: e.message }; }
-  const $ = cheerio.load(html); $("script,style,nav,footer").remove();
+  // A space before each closing block/inline tag so words in neighbouring elements do not glue together ("maskinpark" + "Vi").
+  const $ = cheerio.load(html.replace(/<br\s*\/?>/gi, " ").replace(/<\/(?:p|div|li|h[1-6]|td|th|tr|section|article|span|a|header|footer|nav|button|label|strong|em)>/gi, " $&"));
+  $("script,style,nav,footer").remove();
   const text = $("body").text().replace(/\s+/g, " ").slice(0, 20000);
   const name = ($('meta[property="og:site_name"]').attr("content") || $("title").text().split(/[|–-]/)[0] || new URL(u).hostname).trim();
   const desc = ($('meta[name="description"]').attr("content") || $('meta[property="og:description"]').attr("content") || "").trim();
-  const sector = SECTOR_RULES.find(([, re]) => re.test(desc + " " + text.slice(0, 4000)))?.[0] || "";
+  const head = desc + " " + text.slice(0, 4000);
+  const rule = SECTOR_RULES.find(([, re]) => re.test(head));
+  const sector = rule?.[0] || "";
+  // The matched words, cleaned: letters only, glued tokens dropped, one entry per stem ("maskinpark", not "maskinpark2").
+  const seen = new Set();
+  const words = rule ? (head.match(new RegExp(rule[1].source, "gi")) || []).map((w) => w.toLowerCase().replace(/[^\p{L}]/gu, "")).filter((w) => w.length >= 3 && w.length <= 14 && !seen.has(w.slice(0, 8)) && seen.add(w.slice(0, 8))).slice(0, 4) : [];
   const geo = ["finland", "sweden", "norway", "denmark", "germany", "austria", "switzerland", "helsinki", "nordic", "europe"].filter((w) => text.toLowerCase().includes(w)).join(" ");
-  const quote = desc || text.slice(0, 200);
-  return { company_name: name, sector: sector || "Unverified Sector", products: desc || "Pending Analysis", customers: "Pending Analysis", ebitda: "Pending Audit", verified: Boolean(sector), fetched: true, evidence: quote ? [{ url: u, quote }] : [], source_url: u, geographic_hint: geo };
+  const evidence = [words.length ? `Sector words on the site: ${words.join(", ")}` : "", desc ? `“${clip(desc, 140)}”` : ""].filter(Boolean);
+  return { company_name: name, sector: sector || "Unverified Sector", products: desc || "Pending Analysis", customers: "Pending Analysis", ebitda: "Pending Audit", verified: Boolean(sector), fetched: true, evidence, source_url: u, geographic_hint: geo };
+}
+
+// A screen profile for a company we hold: the engine's mapping plus what the deep analysis knows (EBITDA with its
+// source, named customers, the offering in one line) and a sector label the buyer matcher understands.
+function profileOf(c, r = toRecord(c)) {
+  const p = { ...E.toProfile(r), engine_id: c.id, company_id: c.desk_id, ...A.profileOverrides(c) };
+  if (!SECTOR_NAMES.has(p.sector)) {
+    const e = c.enrichment;
+    const hint = A.sectorHint(e ? `${e.offering?.summary || ""} ${(e.products || []).join(" ")} ${e.summary || ""}` : `${c.industry || ""} ${c.notes || ""}`);
+    if (hint) p.sector = hint;
+  }
+  return p;
 }
 
 // ---------- routes ----------
@@ -316,6 +348,34 @@ export function register(app, { baseUrl } = {}) {
     log("sell_side_target", { company: name });
     res.json({ status: "success", data: targetRow(c) });
   }));
+  // Dig deeper on a screened company (or a pipeline deal): more pages, filed accounts + statement PDF, named customers.
+  const PROFILE_KEYS = ["sector", "products", "customers", "ebitda", "ebitda_detail", "verified", "fetched", "evidence", "engine_id", "company_id", "source_url", "geographic_hint", "analysis"];
+  app.post("/api/analyze", wrap(async (req, res) => {
+    const b = req.body || {}; let c = null, deal = null;
+    if (b.deal_id != null) {
+      deal = desk().deals.find((x) => x.id === Number(b.deal_id)); if (!deal) return errorJson(res, 404, "Deal not found");
+      c = (deal.company_id && db.findCompany(deal.company_id)) || upsertCompanyFromProfile(deal.profile || {}, { source: "Buy-side screen" });
+    } else if (b.company_id != null) c = companyByDesk(b.company_id);
+    else if (b.profile && Object.keys(b.profile).length) c = upsertCompanyFromProfile(b.profile, { source: "Buy-side screen" });
+    if (!c) return errorJson(res, 400, "profile, company_id or deal_id required");
+    if (!c.website && b.profile?.source_url) c.website = b.profile.source_url;
+    const s = db.load();
+    await agents.runTracked(c.id, () => A.analyze(c, s.settings, { force: Boolean(b.force), log: (m) => console.log(`[analyze] ${c.name}: ${m}`) }), "analyze");
+    const profile = profileOf(c);
+    const matches = E.rankBuyers(deskBuyers(), profile);
+    // Deals already holding this company get the new facts and a fresh match.
+    const touched = [];
+    for (const d of desk().deals) {
+      const same = d.company_id === c.id || (d.profile?.company_name || "").toLowerCase() === c.name.toLowerCase() || (siteKey(d.profile?.source_url) && siteKey(d.profile?.source_url) === siteKey(c.website));
+      if (!same) continue;
+      d.profile = { ...(d.profile || {}), ...Object.fromEntries(PROFILE_KEYS.map((k) => [k, profile[k]])), company_name: d.profile?.company_name || c.name };
+      d.company_id = c.id; d.desk_company_id = c.desk_id;
+      const buyer = deskBuyers().find((x) => x.id === d.buyer_id); if (buyer) d.match = E.rankBuyers([buyer], d.profile)[0] || d.match;
+      touched.push(d);
+    }
+    db.save(); log("analyze", { company: c.name, ebitda: profile.ebitda, cached: Boolean(profile.analysis?.cached) });
+    res.json({ status: "success", profile, matches, stats: E.summarizeMatches(matches), analysis: profile.analysis, summary: A.summaryLine(c), deals: touched.map(serializeDeal), deal: deal ? serializeDeal(deal) : null });
+  }));
   app.post("/api/generate-outreach/:id", wrap(async (req, res) => {
     const c = companyByDesk(req.params.id); if (!c) return res.status(404).json({ error: "Target not found" });
     let message;
@@ -339,6 +399,7 @@ export function register(app, { baseUrl } = {}) {
     const succession = comps.reduce((n, c) => n + deskSignals(c).filter((x) => x.signal_type === "succession" || x.type === "succession").length, 0);
     const modelOn = llm.provider(s.settings) === "verda" ? llm.verdaConfigured(s.settings) : Boolean(s.settings.api_key || process.env.ANTHROPIC_API_KEY);
     const modelName = llm.provider(s.settings) === "verda" ? "Mistral" : "Claude";
+    const verdaLabel = (id) => /small/i.test(id || "") ? "Mistral Small 3" : /large/i.test(id || "") ? "Mistral Large 3" : (id || "Mistral");
     const chip = (label, tone) => (label ? { label, tone } : null);
     res.json({ status: "success", data: [
       { key: "buyers", name: "Buyer mandates", type: "internal", count: s.buyers.filter((b) => b.active !== false).length, status: "loaded", tags: [chip("Internal", "slate"), chip("sector", "slate"), chip("geography", "sky"), chip("size", "amber"), chip(entered ? `${entered} entered` : null, "emerald")].filter(Boolean), detail: `${s.buyers.length} mandates (${mgx} from MGX sync, ${entered} entered); sector, geography, size and deal type` },
@@ -350,7 +411,7 @@ export function register(app, { baseUrl } = {}) {
       { key: "profiler", name: "Finnish company profiler (Son)", type: "live", count: comps.filter((c) => (c.research?.facts || []).some((f) => f.source === "son-scraper")).length, status: son.ok ? "live" : "not installed", tags: [chip("Live", "emerald"), chip("Finland", "sky"), chip(son.ok ? "PRH + XBRL" : "not installed", son.ok ? "amber" : "rose")].filter(Boolean), detail: son.ok ? "PRH + XBRL line items + website signals with per-fact evidence" : `Optional Python component (${son.reason || "see docs/python-setup.md"})` },
       { key: "intake", name: "Owner intake", type: "internal", count: comps.filter((c) => c.intake?.summary).length, status: "loaded", tags: [chip("Internal", "slate"), chip("EBITDA", "amber"), chip("timing", "sky"), chip("confidential", "violet")].filter(Boolean), detail: "Confidential owner questionnaire: revenue split, client concentration, EBITDA, timing, motivation" },
       { key: "email", name: "Email (Resend)", type: "live", count: comps.reduce((n, c) => n + (c.messages || []).filter((m) => m.sent_at).length, 0), status: mailOn ? (s.settings.demo_email ? `demo mode → ${s.settings.demo_email}` : "live") : "mailto only", tags: [chip("Live", "emerald"), chip(mailOn ? "Resend" : "mailto", mailOn ? "emerald" : "amber"), chip("follow-ups", "slate")].filter(Boolean), detail: "Real sending with per-advisor daily caps, scheduled follow-ups, replies triaged on arrival" },
-      { key: "model", name: llm.provider(s.settings) === "verda" ? "Language model: Mistral Large 3 on Verda (EU)" : "Language model: Claude (Anthropic)", type: "live", count: comps.filter((c) => c.enrichment || c.score).length, status: llm.provider(s.settings) === "verda" ? (llm.verdaConfigured(s.settings) ? "configured" : "missing credentials") : (s.settings.api_key || process.env.ANTHROPIC_API_KEY ? "configured" : "missing key"), tags: [chip("Live", "emerald"), chip(modelName, "violet"), chip(modelOn ? "configured" : "no key", modelOn ? "emerald" : "rose"), chip("web search", "sky")].filter(Boolean), detail: llm.provider(s.settings) === "verda" ? `${llm.verdaConfig(s.settings).model} at ${llm.verdaConfig(s.settings).base_url || "?"}${llm.fallbackAllowed(s.settings) ? " · falls back to Claude" : " · strict EU-only"}` : `${s.settings.model} with web search, structured outputs` },
+      { key: "model", name: llm.provider(s.settings) === "verda" ? `Language model: ${verdaLabel(llm.verdaConfig(s.settings).model)} on Verda (EU)` : "Language model: Claude (Anthropic)", type: "live", count: comps.filter((c) => c.enrichment || c.score).length, status: llm.provider(s.settings) === "verda" ? (llm.verdaConfigured(s.settings) ? "configured" : "missing credentials") : (s.settings.api_key || process.env.ANTHROPIC_API_KEY ? "configured" : "missing key"), tags: [chip("Live", "emerald"), chip(modelName, "violet"), chip(modelOn ? "configured" : "no key", modelOn ? "emerald" : "rose"), chip("web search", "sky")].filter(Boolean), detail: llm.provider(s.settings) === "verda" ? `${llm.verdaConfig(s.settings).model} at ${llm.verdaConfig(s.settings).base_url || "?"}${llm.fallbackAllowed(s.settings) ? " · falls back to Claude" : " · strict EU-only"}` : `${s.settings.model} with web search, structured outputs` },
     ] });
   }));
   app.get("/api/companies", unlessLegacy((req, res) => {
@@ -362,7 +423,7 @@ export function register(app, { baseUrl } = {}) {
     if (signal) rows = rows.filter((r) => r.signal_types.includes(signal));
     res.json({ status: "success", count: rows.length, signal_types: E.SIGNAL_TYPES.map((k) => ({ key: k, label: E.SIGNAL_LABELS[k] })), data: rows });
   }));
-  app.get("/api/companies/:id", unlessLegacy((req, res) => { const c = companyByDesk(req.params.id); if (!c) return errorJson(res, 404, "Company not found"); const r = toRecord(c); res.json({ status: "success", data: r, profile: { ...E.toProfile(r), engine_id: c.id } }); }));
+  app.get("/api/companies/:id", unlessLegacy((req, res) => { const c = companyByDesk(req.params.id); if (!c) return errorJson(res, 404, "Company not found"); const r = toRecord(c); res.json({ status: "success", data: r, profile: profileOf(c, r) }); }));
   // Enrich = the fast, real sources now (register roles, Finnish profiler) and the full research in the background.
   app.post("/api/companies/:id/enrich", unlessLegacy(wrap(async (req, res) => {
     const c = companyByDesk(req.params.id); if (!c) return errorJson(res, 404, "Company not found");
@@ -372,7 +433,7 @@ export function register(app, { baseUrl } = {}) {
     if (!c.research?.facts?.length || req.body?.deep) { call("POST", `/api/companies/${c.id}/research`).catch((err) => console.warn(`[desk enrich] research: ${err.message}`)); used.push("website (running)"); }
     const r = toRecord(c); r.new_signals = r.signals.slice(0, Math.max(0, r.signals.length - before)); r.sources_used = [...new Set([...r.sources_used, ...used])];
     log("enrich", { company: c.name, sources_used: r.sources_used });
-    res.json({ status: "success", data: r, profile: { ...E.toProfile(r), engine_id: c.id } });
+    res.json({ status: "success", data: r, profile: profileOf(c, r) });
   })));
 
   // Ingestion: quick real-source pass now; the research crawler continues in the background job for the rest.

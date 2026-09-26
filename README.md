@@ -26,6 +26,10 @@ Optional Python parts (Finnish profiler, Amir's engine tests): see `docs/python-
 
 Click **Start demo** on the Desk. The engine drafts four personal messages (Claude + humanizer, linter-checked), "sends" the first one for real through Resend to `DEMO_EMAIL`, triages the owner's reply with Claude and re-scores, then walks through first call and engagement letter. Pre-run *Enrich* on the demo companies beforehand so research is already there.
 
+The demo also walks through **company screening** (three steps after "Matching"): it pastes a real website (`https://www.aerfaber.no`), shows the quick sector guess and the buyer scores with `Pending` placeholders, clicks **Dig deeper**, then adds the best-fitting mandate to the pipeline.
+
+**Dig deeper** (`POST /api/analyze`) is what the `Pending Analysis` / `Pending Audit` placeholders link to, on the screen result and in the deal drawer. It reads up to 10 pages of the site (30 s budget), pulls the filed accounts from the open registers (PRH iXBRL, Brønnøysund, CVR), reads the statement PDF when the register has EBIT but no depreciation line (Norway: free copies from Brønnøysund; text layer → any model, scans → Claude's document reader), and names customers and the offering from the sourced facts. EBITDA shows with its year, basis (reported or EBIT + depreciation) and source; when it cannot be derived the screen says why and shows EBIT and revenue instead. Research is reused for a week, so the demo company answers instantly after the first run; **Re-analyze** forces a fresh pass. Sector labels are derived from the enrichment when the register's NACE text is not one of the desk's sectors, and the "Found on the site" line is plain text (fixes the `[object Object]` rendering).
+
 ---
 
 
@@ -83,7 +87,7 @@ The dashboard's **Scale numbers** card is measured, not assumed: every Claude ca
 
 Set **Settings → Demo mode: send everything to** (or `DEMO_EMAIL` in `.env`) and every real email the app sends — owner sequences, follow-ups, reply drafts, buyer notes, pitches — goes to that address instead, one per action, with the intended recipient in the subject. Resend's `onboarding@resend.dev` sender needs no domain and delivers only to the account owner, which is what a demo needs.
 
-## Running on Verda's Mistral Large 3 (EU-hosted)
+## Running on Verda's Mistral (EU-hosted; Mistral Small 3 self-hosted on the instance)
 
 The model provider is switchable. Set in `.env` (or under `/engine` → Settings → Model provider):
 
@@ -96,6 +100,10 @@ LLM_FALLBACK=anthropic        # or none for strict EU-only processing
 ```
 
 Every agent (enrichment, scoring, matching, outreach, humanizer, triage, intake, buyer notes, pitch) then runs on Mistral through the OpenAI-compatible chat-completions endpoint with JSON-schema structured output and Zod validation (one corrective retry). Claude's web search/fetch tools are Anthropic-only: with `LLM_FALLBACK=none` research stays local (registers, site crawler, Finnish profiler). `GET /api/llm/status` pings the endpoint; the Desk's Data sources tab shows the active model.
+
+### Strict EU-only mode (no call leaves Verda)
+
+`LLM_FALLBACK=none` (or Settings → model provider → fallback off) means no request is ever sent to Anthropic: every structured call (enrichment, scoring, matching, outreach, humanizer, triage, statement reading) goes to the Verda endpoint, and the startup line says `strict: no call leaves Verda`. What changes: Claude's web search is off, so research is the site crawl, the open registers, the Finnish profiler and the statement PDF; scanned statements (all of Brønnøysund's free copies are scans) are read with tesseract on the server (`apt-get install tesseract-ocr tesseract-ocr-nor tesseract-ocr-fin tesseract-ocr-swe tesseract-ocr-dan poppler-utils`), then the Verda model extracts EBIT, depreciation and EBITDA; a statement year whose EBIT does not match the register within 5% is ignored. The instance and the laptop copy both run this way since 27 Sep.
 
 ### If no model is reachable
 

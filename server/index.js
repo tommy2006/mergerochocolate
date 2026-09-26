@@ -146,25 +146,13 @@ app.post("/api/companies/bulk", wrap(async (req, res) => {
 const RESEARCH_MAX_AGE_MS = Number(process.env.RESEARCH_MAX_AGE_DAYS || 7) * 864e5;
 const logFor = (c) => (msg) => console.log(`[research] ${c.name}: ${msg}`);
 
-// Filed accounts fill blanks in the prospect record; they never overwrite database figures (conflicts are flagged instead).
-function fillBlanksFromResearch(c) {
-  const r = c.research;
-  const row = (r.financials?.rows || []).find((x) => x.confidence === "high");
-  const filled = [];
-  if (row) {
-    if (c.revenue_eur == null && row.revenue_eur != null) { c.revenue_eur = row.revenue_eur; filled.push(`revenue ${row.year} (${row.source})`); }
-    if (c.ebitda_eur == null && row.ebitda_eur != null) { c.ebitda_eur = row.ebitda_eur; filled.push(`EBITDA ${row.year} (${row.ebitda_basis || "reported"})`); }
-    if (c.employees == null && row.employees != null) { c.employees = row.employees; filled.push(`employees ${row.year}`); }
-  }
-  const id = r.financials?.identifier;
-  if (!c.registry_id && id?.id && id.country === c.country) { c.registry_id = id.id; filled.push(`registry id ${id.id}`); }
-  r.filled_fields = filled;
-}
+// Filed accounts fill blanks in the prospect record (shared with the desk's deep analysis).
+async function fillBlanksFromResearch(c) { return (await researcher()).applyFinancials(c); }
 async function stepResearch(c, opts = {}) {
   const fresh = c.research?.ran_at && Date.now() - Date.parse(c.research.ran_at) < RESEARCH_MAX_AGE_MS;
   if (fresh && !opts.refresh) return c;
   c.research = await (await researcher()).research(c, db.load().settings, { log: logFor(c) });
-  fillBlanksFromResearch(c);
+  await fillBlanksFromResearch(c);
   return db.touch(c);
 }
 async function stepWatch(c) {
@@ -962,7 +950,12 @@ export default app;
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Mergero Origination Engine → ${BASE_URL} (storage: ${store}${WATCH_HOURS > 0 ? `, watch every ${WATCH_HOURS}h` : ""})`);
-    console.log(db.load().settings.api_key ? "Anthropic API key: configured" : "Anthropic API key: NOT set (add it in Settings or .env)");
+    {
+      const s = db.load().settings, p = llmProvider.provider(s), v = llmProvider.verdaConfig(s);
+      console.log(p === "verda"
+        ? `Model: ${v.model || "?"} at ${v.base_url || "?"} (Verda, EU)${llmProvider.fallbackAllowed(s) ? " · falls back to Claude" : " · strict: no call leaves Verda"}`
+        : `Model: Claude ${s.model || "claude-opus-5"}${s.api_key || process.env.ANTHROPIC_API_KEY ? "" : " (API key NOT set: add it in Settings or .env)"}`);
+    }
     console.log(mail.configured(db.load().settings)
       ? `Email: Resend configured (from ${mail.config(db.load().settings).from}); webhook ${BASE_URL}/api/mail/inbound/resend`
       : "Email: not configured (Send opens a mailto: link; set RESEND_API_KEY + RESEND_FROM or fill in Settings → Email delivery)");

@@ -44,3 +44,10 @@ On the instance the app can reach the Mistral container inside Verda's network t
 ## 4. Data
 
 State lives in `data/db.json` (or Postgres with `DATABASE_URL`). Back it up before demos: `cp data/db.json data/db.backup.json`.
+
+## OCR for scanned statements (strict EU-only mode)
+Brønnøysund's free statement copies are scans. Install once per instance so the Verda model can read them without Claude:
+
+```bash
+apt-get install -y tesseract-ocr tesseract-ocr-nor tesseract-ocr-fin tesseract-ocr-swe tesseract-ocr-dan poppler-utils
+```
