@@ -618,6 +618,41 @@ def run_emails_job(job: Job, out_dir: Path) -> None:
     job.finish()
 
 
+def run_followup_job(job: Job, out_dir: Path) -> None:
+    """Write one follow-up per buyer whose first email got no answer."""
+    bid = job.options["seller"]
+    p = _load_profile(out_dir, bid)
+    c = buyers.load_campaign(out_dir, bid)
+    by_id = {b["business_id"]: b for b in c.get("buyers") or []}
+    emails = c.get("emails") or {}
+    sender = c.get("sender") or {}
+    seller = buyers.seller_text(p, c.get("brief"), c.get("teaser") or "")
+
+    def one(item):
+        buyer, first = by_id.get(item["query"]), emails.get(item["query"])
+        job.update(item, status="running", name=(buyer or {}).get("name"))
+
+        def work():
+            if buyer is None or first is None:
+                job.update(item, status="error", note="There is no first email to follow up.")
+                return
+            language, anonymous = first.get("language", "en"), first.get("anonymous", True)
+            draft = ai.write_follow_up(seller, buyers.buyer_text(buyer), buyers.sender_text(sender),
+                                       f"Subject: {first.get('subject')}\n\n{first.get('body')}", language, anonymous)
+            follow = buyers.finish_follow_up(draft, first, sender, language, anonymous, p)
+
+            def save(c):
+                if buyer["business_id"] in (c.get("emails") or {}):
+                    c["emails"][buyer["business_id"]]["follow_up"] = follow
+            buyers.update_campaign(out_dir, bid, save)
+            job.update(item, status="done")
+        _run_safely(job, item, work)
+
+    with ThreadPoolExecutor(3) as pool:
+        list(pool.map(one, job.items))
+    job.finish()
+
+
 def run_job(job: Job, out_dir: Path) -> None:
     opts = job.options
     seen: dict[str, int] = {}  # business_id -> row number where it was first found
@@ -744,6 +779,8 @@ def create_app(out_dir: Path) -> Flask:
                 "has_brief": bool(deal.get("has_brief")),
                 "buyers": deal.get("buyers", 0), "selected": deal.get("selected", 0),
                 "emails": deal.get("emails", 0), "sent": deal.get("sent", 0),
+                "interested": deal.get("interested", 0), "declined": deal.get("declined", 0),
+                "follow_ups_due": deal.get("follow_ups_due", 0),
                 # the company is a candidate buyer for these sellers
                 "buyer_for": [{**x, "name": names.get(x["seller"])} for x in as_buyer.get(row["business_id"], [])
                               if x["seller"] in names],
@@ -815,7 +852,9 @@ def create_app(out_dir: Path) -> Flask:
             "with_website": bool(data.get("with_website", True)),
             "with_financials": bool(data.get("with_financials", True)),
             "with_ai": kind == "batch" and bool(data.get("with_ai")) and ai.is_configured(),
-        }, {"title": f"Adding {queries[0]}" if kind == "lookup" else f"Adding {len(queries)} companies"})
+        }, {"title": str(data.get("title") or "")[:120]
+            or (f"Adding {queries[0]}" if kind == "lookup" else f"Adding {len(queries)} companies"),
+            **({"bid": data["seller"]} if cs.BUSINESS_ID_RE.match(str(data.get("seller") or "")) else {})})
         return jsonify(launch(job, run_job).to_json()), 201
 
     @app.get("/api/ai/status")
@@ -885,7 +924,8 @@ def create_app(out_dir: Path) -> Flask:
             return jsonify(running.to_json())
         name = company_name(bid)
         title = {"brief": "Writing the seller story for {name}", "find": "Finding buyers for {name}",
-                 "add-buyer": "Adding a buyer for {name}", "emails": "Writing {n} emails for {name}"}[kind]
+                 "add-buyer": "Adding a buyer for {name}", "emails": "Writing {n} emails for {name}",
+                 "followup": "Writing {n} follow-ups for {name}"}[kind]
         meta = {"title": title.format(name=name, n=len(queries)), "bid": bid, "name": name}
         return jsonify(launch(Job(kind, queries, {"seller": bid, **options}, meta), target).to_json()), 201
 
@@ -914,6 +954,16 @@ def create_app(out_dir: Path) -> Flask:
             return jsonify(error="Select at least one buyer."), 400
         return start_campaign_job("emails", bid, run_emails_job, ids)
 
+    @app.post("/api/campaigns/<bid>/followup")
+    def campaign_followup(bid: str):
+        saved_company(bid)
+        wanted = [str(x) for x in (request.get_json(silent=True) or {}).get("buyer_ids") or []]
+        sent = {k for k, e in (buyers.load_campaign(out_dir, bid).get("emails") or {}).items() if e.get("status") != "draft"}
+        ids = [x for x in dict.fromkeys(wanted) if x in sent][:50]
+        if not ids:
+            return jsonify(error="Only emails marked as sent can get a follow-up."), 400
+        return start_campaign_job("followup", bid, run_followup_job, ids)
+
     @app.post("/api/campaigns/<bid>/edit")
     def campaign_edit(bid: str):
         saved_company(bid)
@@ -941,10 +991,19 @@ def create_app(out_dir: Path) -> Flask:
                 for key in ("to", "subject", "body"):
                     if key in e:
                         email[key] = str(e[key])[:20000]
-                if e.get("status") in ("draft", "sent"):
-                    email["status"] = e["status"]
-                    email["sent_at"] = datetime.now().isoformat(timespec="seconds") if e["status"] == "sent" else None
+                if e.get("status"):
+                    buyers.set_status(email, e["status"])
                 email["warnings"] = buyers.check_email(email, seller, email.get("anonymous", True))
+            f = data.get("follow_up")
+            if isinstance(f, dict) and ((c.get("emails") or {}).get(f.get("buyer")) or {}).get("follow_up"):
+                follow = c["emails"][f["buyer"]]["follow_up"]
+                for key in ("to", "subject", "body"):
+                    if key in f:
+                        follow[key] = str(f[key])[:20000]
+                if f.get("status") in ("draft", "sent"):
+                    follow["status"] = f["status"]
+                    follow["sent_at"] = datetime.now().isoformat(timespec="seconds") if f["status"] == "sent" else None
+                follow["warnings"] = buyers.check_email(follow, seller, c["emails"][f["buyer"]].get("anonymous", True))
         return jsonify(campaign=buyers.update_campaign(out_dir, bid, change))
 
     @app.get("/api/campaigns/<bid>/emails.csv")

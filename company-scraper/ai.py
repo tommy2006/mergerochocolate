@@ -115,6 +115,12 @@ EMAIL_GUIDE = """Write the first-contact email from the advisor to this buyer, o
 - End with a closing phrase only (like "Best regards,"); the signature is added automatically.
 - subject: short and specific, no clickbait."""
 
+FOLLOW_UP_GUIDE = """The first email below got no answer. Write one short, polite follow-up to the same buyer.
+- 60-100 words. Remind them in one sentence what it's about; add one concrete reason it fits their business if the data gives one; make it easy to answer yes or no.
+- Language: {language}. Same greeting style as the first email.{anonymity}
+- End with a closing phrase only; the signature is added automatically.
+- subject: repeat the first email's subject."""
+
 ANONYMITY = {
     True: " Keep the seller anonymous: don't reveal its name, website, business ID, town or address; give its region and size ranges instead.",
     False: " You may name the seller; its owners have agreed to that.",
@@ -352,6 +358,17 @@ def score_buyers(seller: str, buyers: str) -> dict:
     data, msg = _json(f"<seller>\n{seller}\n</seller>\n\n<buyers>\n{buyers}\n</buyers>\n\n{SCORE_GUIDE}",
                       SCORE_SCHEMA, system=SELL_SYSTEM)
     return {"buyers": data["buyers"], "model": msg.model, "usage": _usage(msg)}
+
+
+def write_follow_up(seller: str, buyer: str, sender: str, first: str, language: str = "en",
+                    anonymous: bool = True) -> dict:
+    """A short follow-up to a first email that got no answer."""
+    guide = FOLLOW_UP_GUIDE.format(anonymity=ANONYMITY[bool(anonymous)], language=LANGUAGES.get(language, "English"))
+    data, msg = _json(f"<seller>\n{seller}\n</seller>\n\n<buyer>\n{buyer}\n</buyer>\n\n<sender>\n{sender}\n</sender>\n\n"
+                      f"<first_email>\n{first}\n</first_email>\n\n{guide}", EMAIL_SCHEMA, system=SELL_SYSTEM,
+                      cache_control={"type": "ephemeral"})
+    return {"subject": data["subject"].strip(), "body": data["body"].strip(), "model": msg.model,
+            "usage": _usage(msg)}
 
 
 def write_email(seller: str, buyer: str, sender: str, language: str = "en", anonymous: bool = True) -> dict:

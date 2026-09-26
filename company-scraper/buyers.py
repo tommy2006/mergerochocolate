@@ -35,6 +35,9 @@ OPT_OUT = {
     "fi": "Jos tämä ei ole teille ajankohtainen, vastatkaa tähän viestiin, niin en ole asiasta enää yhteydessä.",
 }
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$")
+# An email's life: written -> sent -> the buyer answers (or not, and gets one follow-up)
+STATUSES = ("draft", "sent", "interested", "not_interested")
+FOLLOW_UP_DAYS = 7
 
 _lock = threading.Lock()
 
@@ -80,10 +83,13 @@ def list_campaigns(out_dir: Path) -> list[dict]:
             c = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, ValueError):
             continue
-        emails = c.get("emails") or {}
+        emails = (c.get("emails") or {}).values()
         rows.append({"business_id": path.stem, "buyers": len(c.get("buyers") or []), "has_brief": bool(c.get("brief")),
                      "selected": sum(1 for b in c.get("buyers") or [] if b.get("selected")),
-                     "emails": len(emails), "sent": sum(1 for e in emails.values() if e.get("status") == "sent"),
+                     "emails": len(emails), "sent": sum(1 for e in emails if e.get("status") != "draft"),
+                     "interested": sum(1 for e in emails if e.get("status") == "interested"),
+                     "declined": sum(1 for e in emails if e.get("status") == "not_interested"),
+                     "follow_ups_due": sum(1 for e in emails if follow_up_due(e)),
                      "updated_at": c.get("updated_at")})
     return sorted(rows, key=lambda r: r.get("updated_at") or "", reverse=True)
 
@@ -151,7 +157,7 @@ def _website(reg: dict) -> dict:
         site = guess[0] if guess else None
     if not site:
         return {"available": False}
-    return cs.scrape_website(site, max_pages=3)
+    return cs.scrape_website(site)  # all 5 pages: contact details are usually on a subpage
 
 
 def find_candidates(seller: dict, brief: dict, log: Callable[[str], None]) -> tuple[list[dict], dict]:
@@ -296,6 +302,8 @@ def sync_from_profile(out_dir: Path, p: dict) -> list[str]:
                 if b["business_id"] != bid:
                     continue
                 b.update({k: fresh[k] for k in REFRESHED if fresh.get(k) not in (None, "", [])})
+                b["contact_checked"] = _now()  # researched in full: its whole website was read, if it has one
+                b["has_website"] = bool((p.get("website") or {}).get("available"))
                 if not b.get("contact_email"):
                     b["contact_email"], name = pick_contact(b.get("emails") or [], b.get("people") or [], b.get("website"))
                     b["contact_name"] = name or b.get("contact_name") or ""
@@ -400,8 +408,10 @@ def apply_scores(buyers: list[dict], scores: list[dict]) -> list[dict]:
         b["concerns"] = (s.get("concerns") or "").strip()
         found = {e.lower(): e for e in b.get("emails") or []}
         email = (s.get("contact_email") or "").strip()
-        b["contact_email"] = found.get(email.lower()) or (b["emails"][0] if b.get("emails") else "")
-        b["contact_name"] = (s.get("contact_name") or "").strip() if email.lower() in found else ""
+        if email.lower() in found:
+            b["contact_email"], b["contact_name"] = found[email.lower()], (s.get("contact_name") or "").strip()
+        else:  # Claude picked none (or one that wasn't found): take a leader's address from the website
+            b["contact_email"], b["contact_name"] = pick_contact(b.get("emails") or [], b.get("people") or [], b.get("website"))
         b.setdefault("selected", False)
     return sorted(buyers, key=lambda b: b["fit"], reverse=True)
 
@@ -462,13 +472,46 @@ def finish_email(draft: dict, buyer: dict, sender: dict, language: str, anonymou
     return email
 
 
+def follow_up_due(email: dict) -> bool:
+    """Sent a week or more ago, no answer recorded and no follow-up sent yet."""
+    if email.get("status") != "sent" or not email.get("sent_at") or (email.get("follow_up") or {}).get("status") == "sent":
+        return False
+    try:
+        return (datetime.now() - datetime.fromisoformat(email["sent_at"])).days >= FOLLOW_UP_DAYS
+    except ValueError:
+        return False
+
+
+def set_status(email: dict, status: str) -> None:
+    if status not in STATUSES:
+        return
+    if status != "draft" and not email.get("sent_at"):
+        email["sent_at"] = _now()          # an answer implies it was sent
+    if status == "draft":
+        email["sent_at"] = None
+    email["answered_at"] = _now() if status in ("interested", "not_interested") else None
+    email["status"] = status
+
+
+def finish_follow_up(draft: dict, first: dict, sender: dict, language: str, anonymous: bool, seller: dict) -> dict:
+    subject = first.get("subject") or ""
+    body = f"{draft['body'].rstrip()}\n\n{signature(sender)}\n\n{OPT_OUT.get(language, OPT_OUT['en'])}"
+    follow = {"to": first.get("to") or "", "subject": subject if subject.lower().startswith("re:") else f"Re: {subject}",
+              "body": body, "status": "draft", "created_at": _now(), "model": draft.get("model")}
+    follow["warnings"] = check_email(follow, seller, anonymous)
+    return follow
+
+
 def emails_csv(c: dict) -> bytes:
     buf = io.StringIO()
     w = csv.writer(buf)
-    w.writerow(["to", "contact_name", "buyer", "business_id", "fit", "subject", "body", "status"])
+    w.writerow(["to", "contact_name", "buyer", "business_id", "fit", "subject", "body", "status",
+                "sent_at", "follow_up_subject", "follow_up_body"])
     for b in c.get("buyers") or []:
         e = (c.get("emails") or {}).get(b["business_id"])
         if e:
+            f = e.get("follow_up") or {}
             w.writerow([e.get("to"), e.get("contact_name"), b.get("name"), b["business_id"], b.get("fit"),
-                        e.get("subject"), e.get("body"), e.get("status")])
+                        e.get("subject"), e.get("body"), e.get("status"), e.get("sent_at") or "",
+                        f.get("subject", ""), f.get("body", "")])
     return ("﻿" + buf.getvalue()).encode("utf-8")

@@ -1,0 +1,10 @@
+# secrets
+.env
+# scraped companies, campaigns and emails (real names and addresses)
+output/
+# local environment and caches
+.venv/
+__pycache__/
+*.tmp
+.claude/
+.DS_Store

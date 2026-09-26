@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbrl xmlns="http://www.xbrl.org/2003/instance" xmlns:fi_MC="http://www.suomi.fi/xbrl/crr/dict/dom/MC" xmlns:fi_dim="http://www.suomi.fi/xbrl/crr/dict/dim" xmlns:fi_met="http://www.suomi.fi/xbrl/crr/dict/met" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+<link:schemaRef xlink:href="oytp_gaap_ind.xsd" xlink:type="simple"/>
+<unit id="ISO4217_EUR"><measure>iso4217:EUR</measure></unit>
+<context id="_ctx1"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period></context>
+<context id="_ctx2"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x2308</xbrldi:explicitMember></scenario></context>
+<context id="_ctx3"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x1036</xbrldi:explicitMember></scenario></context>
+<context id="_ctx4"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x816</xbrldi:explicitMember></scenario></context>
+<context id="_ctx5"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x360</xbrldi:explicitMember></scenario></context>
+<context id="_ctx6"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x4116</xbrldi:explicitMember></scenario></context>
+<context id="_ctx7"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x932</xbrldi:explicitMember></scenario></context>
+<context id="_ctx8"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x2895</xbrldi:explicitMember></scenario></context>
+<context id="_ctx9"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x376</xbrldi:explicitMember></scenario></context>
+<context id="_ctx10"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x424</xbrldi:explicitMember></scenario></context>
+<context id="_ctx11"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2025-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x481</xbrldi:explicitMember></scenario></context>
+<context id="_ctx12"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2024-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x2308</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x4</xbrldi:explicitMember></scenario></context>
+<context id="_ctx13"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2024-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x1036</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x4</xbrldi:explicitMember></scenario></context>
+<context id="_ctx14"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2024-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x360</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x4</xbrldi:explicitMember></scenario></context>
+<context id="_ctx15"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2024-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x376</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x4</xbrldi:explicitMember></scenario></context>
+<context id="_ctx16"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2024-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x424</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x4</xbrldi:explicitMember></scenario></context>
+<context id="_ctx17"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><instant>2024-12-31</instant></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x481</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x4</xbrldi:explicitMember></scenario></context>
+<context id="_ctx18"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x673</xbrldi:explicitMember></scenario></context>
+<context id="_ctx19"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x49</xbrldi:explicitMember></scenario></context>
+<context id="_ctx20"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x755</xbrldi:explicitMember></scenario></context>
+<context id="_ctx21"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x758</xbrldi:explicitMember></scenario></context>
+<context id="_ctx22"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x448</xbrldi:explicitMember></scenario></context>
+<context id="_ctx23"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x449</xbrldi:explicitMember></scenario></context>
+<context id="_ctx24"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x1869</xbrldi:explicitMember></scenario></context>
+<context id="_ctx25"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x689</xbrldi:explicitMember></scenario></context>
+<context id="_ctx26"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x12</xbrldi:explicitMember></scenario></context>
+<context id="_ctx27"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x738</xbrldi:explicitMember></scenario></context>
+<context id="_ctx28"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x541</xbrldi:explicitMember></scenario></context>
+<context id="_ctx29"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2025-01-01</startDate><endDate>2025-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x740</xbrldi:explicitMember></scenario></context>
+<context id="_ctx30"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x673</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<context id="_ctx31"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x49</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<context id="_ctx32"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x758</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<context id="_ctx33"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x448</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<context id="_ctx34"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x1869</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<context id="_ctx35"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x689</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<context id="_ctx36"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x738</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<context id="_ctx37"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x541</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<context id="_ctx38"><entity><identifier scheme="http://ytj.fi">0180611-0</identifier></entity><period><startDate>2024-01-01</startDate><endDate>2024-12-31</endDate></period><scenario><xbrldi:explicitMember dimension="fi_dim:MCY">fi_MC:x740</xbrldi:explicitMember><xbrldi:explicitMember dimension="fi_dim:REF">fi_MC:x53</xbrldi:explicitMember></scenario></context>
+<fi_met:si168 contextRef="_ctx1">Lapuan Kuljetus Oy</fi_met:si168>
+<fi_met:di120 contextRef="_ctx1">2025-01-01</fi_met:di120>
+<fi_met:di121 contextRef="_ctx1">2025-12-31</fi_met:di121>
+<fi_met:mi53 contextRef="_ctx2" unitRef="ISO4217_EUR" decimals="2">62498.50</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx3" unitRef="ISO4217_EUR" decimals="2">19217.64</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx4" unitRef="ISO4217_EUR" decimals="2">81716.14</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx5" unitRef="ISO4217_EUR" decimals="2">293916.79</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx6" unitRef="ISO4217_EUR" decimals="2">1513.80</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx7" unitRef="ISO4217_EUR" decimals="2">125529.93</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx8" unitRef="ISO4217_EUR" decimals="2">15770.38</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx9" unitRef="ISO4217_EUR" decimals="2">142814.11</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx10" unitRef="ISO4217_EUR" decimals="2">151102.68</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx11" unitRef="ISO4217_EUR" decimals="2">293916.79</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx12" unitRef="ISO4217_EUR" decimals="2">62498.50</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx13" unitRef="ISO4217_EUR" decimals="2">25623.51</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx14" unitRef="ISO4217_EUR" decimals="2">330361.16</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx15" unitRef="ISO4217_EUR" decimals="2">127043.73</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx16" unitRef="ISO4217_EUR" decimals="2">203317.43</fi_met:mi53>
+<fi_met:mi53 contextRef="_ctx17" unitRef="ISO4217_EUR" decimals="2">330361.16</fi_met:mi53>
+<fi_met:md103 contextRef="_ctx18" unitRef="ISO4217_EUR" decimals="2">1204342.08</fi_met:md103>
+<fi_met:md103 contextRef="_ctx19" unitRef="ISO4217_EUR" decimals="2">0.00</fi_met:md103>
+<fi_met:md103 contextRef="_ctx20" unitRef="ISO4217_EUR" decimals="2">1133497.10</fi_met:md103>
+<fi_met:md103 contextRef="_ctx21" unitRef="ISO4217_EUR" decimals="2">1140988.67</fi_met:md103>
+<fi_met:md103 contextRef="_ctx22" unitRef="ISO4217_EUR" decimals="2">6405.87</fi_met:md103>
+<fi_met:md103 contextRef="_ctx23" unitRef="ISO4217_EUR" decimals="2">6405.87</fi_met:md103>
+<fi_met:md103 contextRef="_ctx24" unitRef="ISO4217_EUR" decimals="2">35429.89</fi_met:md103>
+<fi_met:md103 contextRef="_ctx25" unitRef="ISO4217_EUR" decimals="2">21517.65</fi_met:md103>
+<fi_met:md103 contextRef="_ctx26" unitRef="ISO4217_EUR" decimals="2">2485.36</fi_met:md103>
+<fi_met:md103 contextRef="_ctx27" unitRef="ISO4217_EUR" decimals="2">19032.29</fi_met:md103>
+<fi_met:md103 contextRef="_ctx28" unitRef="ISO4217_EUR" decimals="2">3261.91</fi_met:md103>
+<fi_met:md103 contextRef="_ctx29" unitRef="ISO4217_EUR" decimals="2">15770.38</fi_met:md103>
+<fi_met:md103 contextRef="_ctx30" unitRef="ISO4217_EUR" decimals="2">2043365.45</fi_met:md103>
+<fi_met:md103 contextRef="_ctx31" unitRef="ISO4217_EUR" decimals="2">3242.86</fi_met:md103>
+<fi_met:md103 contextRef="_ctx32" unitRef="ISO4217_EUR" decimals="2">1951325.62</fi_met:md103>
+<fi_met:md103 contextRef="_ctx33" unitRef="ISO4217_EUR" decimals="2">8541.17</fi_met:md103>
+<fi_met:md103 contextRef="_ctx34" unitRef="ISO4217_EUR" decimals="2">28847.36</fi_met:md103>
+<fi_met:md103 contextRef="_ctx35" unitRef="ISO4217_EUR" decimals="2">57894.16</fi_met:md103>
+<fi_met:md103 contextRef="_ctx36" unitRef="ISO4217_EUR" decimals="2">55242.17</fi_met:md103>
+<fi_met:md103 contextRef="_ctx37" unitRef="ISO4217_EUR" decimals="2">4928.37</fi_met:md103>
+<fi_met:md103 contextRef="_ctx38" unitRef="ISO4217_EUR" decimals="2">50313.80</fi_met:md103>
+</xbrl>
