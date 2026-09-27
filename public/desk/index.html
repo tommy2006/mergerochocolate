@@ -77,6 +77,33 @@
 
         <!-- ===================== DATA SOURCES ===================== -->
         <section id="dataPanel" class="hidden space-y-6">
+            <div id="findPanel" class="glass-panel rounded-2xl p-5 space-y-3 border-emerald-500/20">
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                        <h2 class="text-base font-bold text-white"><span class="text-emerald-300">Step 1 ·</span> Find companies in the open registers</h2>
+                        <p class="text-xs text-slate-400 mt-1">Pull owner-led companies straight from the national register by industry and age, then add them to the pipeline. Norwegian imports get the CEO and chair with real ages from the roles register; Finnish and Danish ones get founding year and filed accounts. Any other company: <span class="text-slate-200">Tools → Screen a company</span>.</p>
+                    </div>
+                    <p id="reachMeta" class="text-[11px] text-slate-500 max-w-sm sm:text-right"></p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+                    <select id="findCountry" class="bg-slate-900 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                        <option value="NO">Norway · Brønnøysund</option>
+                        <option value="FI">Finland · PRH</option>
+                        <option value="DK">Denmark · CVR (by name)</option>
+                    </select>
+                    <input id="findIndustry" placeholder="Industry code, e.g. 28 (machinery)" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    <input id="findFounded" type="number" placeholder="Founded before, e.g. 2005" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    <input id="findStaff" type="number" placeholder="Min staff (Norway), e.g. 20" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    <button id="findBtn" onclick="findCompanies()" class="bg-emerald-500 hover:bg-emerald-400 disabled:opacity-60 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs cursor-pointer flex items-center justify-center gap-1.5"><i data-lucide="search" class="h-3.5 w-3.5"></i>Search register</button>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 text-[11px]">
+                    <span class="text-slate-500">Try:</span>
+                    <button onclick="tryFind('NO','28','2005','20')" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer">Norway · machinery makers founded before 2005, 20+ staff</button>
+                    <button onclick="tryFind('NO','25','2000','15')" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer">Norway · metal products, 15+ staff</button>
+                    <button onclick="tryFind('FI','62010','2010','')" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer">Finland · software houses founded before 2010</button>
+                </div>
+                <div id="findResult" class="hidden"></div>
+            </div>
             <div class="glass-panel rounded-xl px-4 py-3 space-y-2">
                 <div class="flex items-baseline justify-between gap-3">
                     <h2 class="text-sm font-semibold text-white tracking-tight">Data sources</h2>
@@ -125,10 +152,11 @@
                 <i data-lucide="compass" class="h-5 w-5 text-emerald-400 shrink-0 mt-0.5"></i>
                 <div class="flex-1 text-xs text-slate-300 space-y-1">
                     <div class="text-sm font-bold text-white">How it works</div>
-                    <div><span class="text-emerald-300 font-semibold">1.</span> We rank every company by how likely it is to need an M&amp;A advisor right now. Hot ones are at the top.</div>
-                    <div><span class="text-emerald-300 font-semibold">2.</span> Each one is scored against every buyer mandate (who they buy, where, and at what size). Charts show who fits and whether one buyer stands out.</div>
-                    <div><span class="text-emerald-300 font-semibold">3.</span> The <span class="text-white font-semibold">Today</span> list tells you the one next thing to do for each owner. Click the button.</div>
-                    <div><span class="text-emerald-300 font-semibold">4.</span> Log the owner's reply and we qualify it. Interested owners get a first call with an advisor and, after a few meetings, sign an engagement letter: the mandate.</div>
+                    <div><span class="text-emerald-300 font-semibold">1.</span> <span class="text-white font-semibold">Find companies</span> on the <span class="text-white font-semibold">Data</span> tab: pull owner-led companies from the open registers (Norway, Finland, Denmark), or screen any website under <span class="text-white font-semibold">Tools</span>.</div>
+                    <div><span class="text-emerald-300 font-semibold">2.</span> We rank every company by how likely it is to need an M&amp;A advisor right now (owner age, tenure, growth, filed accounts). Hot ones are at the top.</div>
+                    <div><span class="text-emerald-300 font-semibold">3.</span> Each one is scored against every buyer mandate (who they buy, where, and at what size). Charts show who fits and whether one buyer stands out.</div>
+                    <div><span class="text-emerald-300 font-semibold">4.</span> The <span class="text-white font-semibold">Today</span> list tells you the one next thing to do for each owner. Click the button: it drafts the personal first touch, sends it, logs the reply.</div>
+                    <div><span class="text-emerald-300 font-semibold">5.</span> Interested owners get a private intake link and a first call with an advisor. After a few meetings they sign the engagement letter: the mandate.</div>
                 </div>
                 <div class="flex flex-col gap-2 shrink-0">
                     <button onclick="startDemo()" class="text-[11px] font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg cursor-pointer">Watch the demo</button>
@@ -140,7 +168,7 @@
                 <div class="flex items-center justify-between gap-3">
                     <div class="min-w-0">
                         <h2 class="text-sm font-semibold text-white tracking-tight">Mandate pipeline</h2>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Data → owner conversation. First call and mandate are simulated.</p>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Data → owner conversation. First call and mandate are simulated. Mergero's benchmark: 1,000 first touches → 450–500 owner conversations; 50–100 personal touches per advisor per day.</p>
                     </div>
                     <div class="relative shrink-0">
                         <button id="refreshBtn" onclick="toggleMenu('refreshMenu', event)" class="text-slate-400 hover:text-white hover:bg-white/[0.04] font-medium px-2 py-1 rounded-md text-[11px] cursor-pointer flex items-center gap-1">
@@ -1095,6 +1123,18 @@
                        ${a.key === "log_reply" ? "" : `<button onclick="submitReply(${d.company_id})" class="text-[11px] font-bold bg-slate-100 hover:bg-white text-slate-900 px-2.5 py-1 rounded-lg cursor-pointer">Qualify reply</button>`}
                    </div>`;
 
+            const intakeUrl = intakeLinks[d.company_id];
+            const intakeBlock = stageIdx >= 1 && !conv.closed ? `<div id="intakeBox" class="rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-2 text-[11px] space-y-1">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="text-slate-200 font-semibold">Owner intake link</span>
+                        ${intakeUrl
+                            ? `<a href="${esc(intakeUrl)}" target="_blank" rel="noopener" class="text-teal-300 hover:text-teal-200 truncate max-w-[16rem]">${esc(intakeUrl)}</a>
+                               <button onclick="copyText('${esc(intakeUrl)}')" class="text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-md cursor-pointer">Copy</button>`
+                            : `<button onclick="makeIntakeLink(${d.company_id})" class="text-[11px] font-bold bg-teal-500 hover:bg-teal-400 text-slate-950 px-2.5 py-1 rounded-lg cursor-pointer">Create the owner's private link</button>`}
+                    </div>
+                    <div class="text-slate-500">Six questions on a phone: revenue split, top clients, EBITDA, timing, motivation. The structured summary lands on this record before the first call.</div>
+                </div>` : "";
+
             const handoffBody = `
                 ${q ? `<div class="text-[11px] text-slate-400">Owner said: <span class="${CATEGORY_TONE[q.category]} font-semibold">${esc(q.label)}</span> · timing ${esc(q.timing)} · ${q.mandate_likelihood}% potential mandate${q.mandate_type ? ` (${esc(q.mandate_type)})` : ""}</div>` : ""}
                 ${stageIdx < 1 && !conv.handoff ? `<div class="text-xs text-slate-500">Available once the owner has been contacted.</div>` : ""}
@@ -1164,7 +1204,7 @@
                 { n: 6, title: "Qualification", done: !!q,
                   help: "Log the owner's reply. We answer three questions: Interested? When? Is it a potential mandate?",
                   summary: q ? `${q.label} · ${q.timing} · ${q.mandate_likelihood}% potential mandate` : stageIdx >= 1 ? "Waiting for the owner's reply" : "After the first message",
-                  body: `${thread ? `<div class="space-y-2">${thread}</div>` : ""}${qualCard}${replyForm}` },
+                  body: `${thread ? `<div class="space-y-2">${thread}</div>` : ""}${qualCard}${replyForm}${intakeBlock}` },
                 { n: 7, title: "First call with advisor → engagement letter", tag: "simulated", done: stageIdx === 5,
                   help: "An interested owner gets a first call with an advisor, who receives a full briefing. After 2-4 meetings the owner signs the engagement letter: that is the mandate.",
                   summary: stageIdx === 5 ? "Engagement letter signed" : stageIdx === 4 ? `First call booked with ${conv.handoff?.advisor || "an advisor"}` : "After a positive reply",
@@ -1278,6 +1318,22 @@
             const sample = sampleReplies.find((r) => r.category === category);
             if (sample) document.getElementById("replyText").value = sample.text;
         }
+        // ---------- owner intake link: the external touchpoint ----------
+        let intakeLinks = {};
+        async function makeIntakeLink(deskId) {
+            const eid = prospectDetail?.record?.company?.engine_id || prospects.find((p) => p.company_id === deskId)?.engine_id;
+            if (!eid) { toast("Open the company first", "error"); return; }
+            try {
+                const r = await api(`/api/companies/${eid}/intake-link`, { method: "POST" });
+                intakeLinks[deskId] = `${location.origin}/intake/${r.token}`;
+                if (drawer?.mode === "prospect" && drawer.id === deskId) renderProspectDrawer();
+                toast("Owner intake link ready");
+            } catch (e) { toast(e.message, "error"); }
+        }
+        function copyText(text) {
+            (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(() => toast("Copied")).catch(() => toast(text));
+        }
+
         async function submitReply(id) {
             const text = document.getElementById("replyText")?.value.trim();
             if (!text) { toast("Paste the owner's reply, or pick one under Simulate an owner reply"); return; }
@@ -1302,6 +1358,7 @@
         const DEMO_SCREEN_URL = "https://www.aerfaber.no"; // a real Norwegian owner-led manufacturer: site + filed accounts + statement PDF
         const DEMO = [
             { title: () => `${prospects.length} companies, ranked`, text: "Every company is scored on how likely it is to need an M&A advisor right now. We open the hottest one.", step: -1 },
+            { title: "Where the companies come from", text: "Step 1 in daily use: pull owner-led companies from the open registers by industry and age. Norway also gives the CEO's real age from the roles register. Below the search, every data source behind the numbers with its live status.", view: "data", find: ["NO", "28", "2005", "20"], doit: true },
             { title: "Match statistics across the book", text: "Each company is scored against every buyer mandate. The histogram is the best score per company: how many have a strong buyer, and where the median sits.", view: "book" },
             { title: "Step 2 of 6 · Signals", text: "These events are why this owner may be ready to talk now, for example a founder nearing retirement.", step: 2 },
             { title: "Step 3 of 6 · Scoring", text: "Timing, fit and urgency add up to 100. Buyer-fit statistics show mean, median and spread. A large gap between best and median means one mandate stands out.", step: 3 },
@@ -1316,6 +1373,8 @@
               run: (id) => api(`/api/prospects/${id}/outreach/0/send`, { method: "POST" }) },
             { title: "Step 6 of 6 · Qualification", text: "The owner replies. We answer: interested? when? is it a potential mandate?", step: 6,
               run: (id) => api(`/api/prospects/${id}/replies`, { method: "POST", body: { text: DEMO_REPLY } }) },
+            { title: "The owner's private intake link", text: "An interested owner gets a private link: six questions about revenue split, top clients, EBITDA and timing, answered on a phone in five minutes. The structured summary lands on the record before the first call. This is the external touchpoint of an internal tool.", step: 6, intake: true, doit: true },
+            { title: "Sell-side owners: the warm-up in one click", text: "Owners who have opened up land here with their numbers. One click drafts a personal, no-pressure note in the right tone for the Nordics (email) or DACH (LinkedIn, then a call), with the buyer demand as the reason to talk.", view: "sell", doit: true },
             { title: "First call with an advisor (simulated)", text: "The interested owner gets a first call with an advisor, who receives a full briefing: profile, triggers, score, hypothesis and the conversation.", step: 7,
               run: (id) => api(`/api/prospects/${id}/handoff`, { method: "POST", body: { advisor: "Mergero advisor" } }) },
             { title: "Engagement letter signed (simulated)", text: "After 2-4 meetings the owner signs the engagement letter. That is the mandate, and it closes the loop.", step: 7,
@@ -1325,14 +1384,18 @@
 
         async function startDemo() {
             closeMenus();
-            const started = prospects.some((p) => p.stage !== "Prospect" || p.next_action.key !== "plan");
+            // Protected companies (the stage owners) are never reset and never used as the tour's company.
+            const mode = await api("/api/demo/mode").catch(() => ({ protected: [] }));
+            const guarded = new Set(mode.protected || []);
+            const started = prospects.some((p) => !guarded.has(p.company_id) && (p.stage !== "Prospect" || p.next_action.key !== "plan"));
             if (started && !confirm("The demo clears all outreach and replies so it can start fresh. Continue?")) return;
             try {
                 await api("/api/demo/reset", { method: "POST" });
                 dismissHowItWorks();
                 setTab("prospects");
                 await loadProspects();
-                demo = { i: 0, id: prospects[0].company_id, ran: new Set(), highlight: null, summary: null };
+                const pick = prospects.find((p) => !guarded.has(p.company_id)) || prospects[0];
+                demo = { i: 0, id: pick.company_id, ran: new Set(), highlight: null, summary: null };
                 await playDemoStep();
             } catch (e) { toast(e.message, "error"); }
         }
@@ -1385,6 +1448,23 @@
                 } else if (st.view === "screen") {
                     demo.highlight = null;
                     await demoScreen(demo.id);
+                } else if (st.view === "data") {
+                    demo.highlight = null;
+                    closeDrawer();
+                    setTab("data");
+                    if (st.find) await tryFind(...st.find);
+                    const panel = document.getElementById("findPanel");
+                    panel?.classList.add("demo-focus");
+                    panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+                } else if (st.view === "sell") {
+                    demo.highlight = null;
+                    closeDrawer();
+                    setTab("sell");
+                    await loadOwners();
+                    const name = prospects.find((p) => p.company_id === demo.id)?.company_name;
+                    const t = owners.find((x) => x.company === name) || owners[0];
+                    if (t) { openOwner(t.id); await writeOwnerDraft(t.id); }
+                    document.getElementById("ownerBody")?.parentElement?.classList.add("demo-focus");
                 } else if (st.view === "screen-url") {
                     demo.highlight = null;
                     closeDrawer();
@@ -1426,7 +1506,9 @@
                     }
                     demo.highlight = st.step > 0 ? st.step : null;
                     await openProspect(demo.id, st.step);
-                    if (st.step > 0) document.getElementById(`pstep-${st.step}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    if (st.intake && !intakeLinks[demo.id]) await makeIntakeLink(demo.id);
+                    if (st.intake) document.getElementById("intakeBox")?.classList.add("demo-focus");
+                    if (st.step > 0) document.getElementById(st.intake ? "intakeBox" : `pstep-${st.step}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }
             } catch (e) { toast(e.message, "error"); }
             renderDemo();
@@ -1438,7 +1520,7 @@
             const st = DEMO[demo.i];
             const s = demo.summary;
             const text = st.final && s
-                ? `From ${s.data.companies} companies to ${s.handoff.mandates} mandate: ${s.signals.with_triggers} with an M&A trigger, ${s.scoring.A} hot, ${s.outreach.sent} message sent, ${s.qualification.potential_mandates} potential mandate qualified. Now try it yourself from the Today list.`
+                ? `From ${s.data.companies} companies to ${s.handoff.mandates} mandate: ${s.signals.with_triggers} with an M&A trigger, ${s.scoring.A} hot, ${s.outreach.sent} message sent, ${s.qualification.potential_mandates} potential mandate qualified. Now try it yourself from the Today list. In daily use that is 50–100 personal first touches per advisor per day against Mergero's benchmark of 1,000 touches → 450–500 owner conversations, with every model call on Verda's EU servers. The advanced console at /engine holds the inbox, the learning card, the buyer network and settings.`
                 : st.text;
             const last = demo.i === DEMO.length - 1;
             bar.classList.remove("hidden");
@@ -1499,11 +1581,91 @@
             return source ? `<span class="ml-1 text-[9px] font-semibold uppercase tracking-wider px-1 py-px rounded ${SOURCE_TAG[source] || SOURCE_TAG.seed}">${esc(SOURCE_LABEL[source] || source)}</span>` : "";
         }
 
+        // ---------- step 1: find companies in the open registers ----------
+        let findRows = [];
+        const findVal = (id) => document.getElementById(id).value.trim();
+        function tryFind(country, industry, founded, staff) {
+            document.getElementById("findCountry").value = country;
+            document.getElementById("findIndustry").value = industry;
+            document.getElementById("findFounded").value = founded;
+            document.getElementById("findStaff").value = staff;
+            return findCompanies();
+        }
+        async function loadReach() {
+            try {
+                const r = await api("/api/registry/reach");
+                const live = (r.countries || []).filter((c) => c.companies);
+                document.getElementById("reachMeta").textContent = live.length
+                    ? `In reach right now: ${live.map((c) => `${Number(c.companies).toLocaleString()} companies in ${c.country} (${c.basis})`).join("; ")}.`
+                    : "";
+            } catch { /* the reach line is optional */ }
+        }
+        async function findCompanies() {
+            const country = findVal("findCountry"), industry = findVal("findIndustry"), founded_before = findVal("findFounded"), employees_min = findVal("findStaff");
+            const btn = document.getElementById("findBtn");
+            const label = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader-2" class="h-3.5 w-3.5 spin"></i>Asking the register…`;
+            icons();
+            const box = document.getElementById("findResult");
+            box.classList.remove("hidden");
+            box.innerHTML = `<div class="text-xs text-slate-400 py-2">Asking the ${country === "NO" ? "Brønnøysund" : country === "FI" ? "PRH" : "CVR"} register…</div>`;
+            try {
+                const p = new URLSearchParams({ country });
+                if (country === "DK") { if (industry) p.set("q", industry); }
+                else for (const [k, v] of [["industry_code", industry], ["founded_before", founded_before], ["employees_min", employees_min]]) if (v) p.set(k, v);
+                const r = await api(`/api/registry/search?${p}`);
+                findRows = r.results || [];
+                renderFind(r.total ?? findRows.length);
+            } catch (e) {
+                box.innerHTML = `<div class="text-xs text-rose-300 py-2">${esc(e.message)}</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = label;
+                icons();
+            }
+        }
+        function renderFind(total) {
+            const box = document.getElementById("findResult");
+            const fresh = findRows.filter((x) => !x.already_imported);
+            if (!findRows.length) {
+                box.innerHTML = `<div class="text-xs text-slate-500 py-2">Nothing found. Try a broader industry code (Norway: 28 machinery, 25 metal products, 62 software; Finland: 28, 25, 62010) or a company name for Denmark.</div>`;
+                return;
+            }
+            box.innerHTML = `<div class="flex flex-wrap items-center justify-between gap-3 py-2">
+                    <div class="text-xs text-slate-300"><span class="text-white font-semibold">${findRows.length}</span> shown${total > findRows.length ? ` of <span class="text-white font-semibold">${Number(total).toLocaleString()}</span> matching companies in the register` : ""} · ${fresh.length} not yet in the pipeline</div>
+                    <button onclick="importFound()" ${fresh.length ? "" : "disabled"} class="text-[11px] font-bold bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 px-3 py-1.5 rounded-lg cursor-pointer">Add ${fresh.length} to the pipeline</button>
+                </div>
+                <div class="overflow-x-auto"><table class="w-full text-left text-xs">
+                    <thead><tr class="border-b border-slate-800 text-slate-500 text-[11px] uppercase tracking-wider"><th class="py-1.5 pr-3">Company</th><th class="py-1.5 pr-3">City</th><th class="py-1.5 pr-3">Industry</th><th class="py-1.5 pr-3">Founded</th><th class="py-1.5 pr-3">Staff</th><th class="py-1.5"></th></tr></thead>
+                    <tbody class="divide-y divide-slate-800/60">${findRows.slice(0, 30).map((r) => `<tr>
+                        <td class="py-1.5 pr-3 text-white">${esc(r.name)}</td>
+                        <td class="py-1.5 pr-3 text-slate-400">${esc(r.city || "")}</td>
+                        <td class="py-1.5 pr-3 text-slate-400">${esc(String(r.industry || "").slice(0, 48))}</td>
+                        <td class="py-1.5 pr-3 text-slate-400">${r.founded || esc(r.founded_note || "–")}</td>
+                        <td class="py-1.5 pr-3 text-slate-400">${r.employees ?? "–"}</td>
+                        <td class="py-1.5 text-[11px] ${r.already_imported ? "text-teal-300" : "text-slate-600"}">${r.already_imported ? "in pipeline" : ""}</td></tr>`).join("")}</tbody>
+                </table></div>${findRows.length > 30 ? `<div class="text-[11px] text-slate-500 py-1">Showing 30 of ${findRows.length} on this page; Add takes all ${findRows.length}.</div>` : ""}`;
+        }
+        async function importFound() {
+            const fresh = findRows.filter((x) => !x.already_imported);
+            if (!fresh.length) return;
+            try {
+                const r = await api("/api/companies/bulk", { method: "POST", body: { companies: fresh } });
+                toast(`${r.imported} companies added to the pipeline${r.people_looked_up ? `, ${r.people_looked_up} with the CEO's age from the roles register` : ""}`);
+                findRows = findRows.map((x) => ({ ...x, already_imported: true }));
+                renderFind(findRows.length);
+                await loadCompanies();
+                refreshMetrics();
+            } catch (e) { toast(e.message, "error"); }
+        }
+
         async function loadDataSources() {
             if (!sourcesLoaded) {
                 document.getElementById("sourceCards").innerHTML = `<div class="col-span-full text-xs text-slate-500">Checking sources…</div>`;
             }
             await Promise.all([loadSources(), loadCompanies()]);
+            if (!sourcesLoaded) loadReach();
             sourcesLoaded = true;
         }
 

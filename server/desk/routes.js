@@ -282,7 +282,8 @@ export function legacyRewrite(req, res, next) {
 export function register(app, { baseUrl } = {}) {
   if (baseUrl) BASE_URL = baseUrl;
   app.use(legacyRewrite);
-  app.get("/", (req, res) => res.sendFile(PAGE));
+  // "/" is the guided front door (public/front); the full desk stays at /desk.
+  app.get("/", (req, res) => res.sendFile(path.join(here, "..", "..", "public", "front", "index.html")));
   app.get("/desk", (req, res) => res.sendFile(PAGE));
 
   // Buyers, screening and deals (the Buy-side screen tab)
@@ -552,10 +553,17 @@ export function register(app, { baseUrl } = {}) {
   app.get("/api/funnel", (req, res) => res.json({ status: "success", data: E.funnel(allProspects().map(({ b }) => b.conversation.stage)) }));
   app.get("/api/dialogues", (req, res) => res.json({ status: "success", count: desk().dialogues }));
   app.get("/api/metrics", (req, res) => { const d = desk(); res.json({ status: "success", buyers: deskBuyers().length, matches: d.deals.length, outreach_ready: d.deals.filter((x) => ["Warm-up drafted", "Outreach ready", "Mandate conversation"].includes(x.stage)).length, dialogues: d.dialogues }); });
+  // Demo protection: companies listed in DEMO_PROTECT_IDS (engine ids, comma-separated) keep their emails, replies and
+  // deals through a reset, so the stage owners survive anyone clicking "Watch the demo" minutes before the pitch.
+  const protectedIds = () => new Set(String(process.env.DEMO_PROTECT_IDS || "").split(",").map((x) => x.trim()).filter(Boolean));
+  app.get("/api/demo/mode", (req, res) => {
+    ensureIds(); const keep = protectedIds();
+    res.json({ status: "success", protected: db.load().companies.filter((c) => keep.has(c.id)).map((c) => c.desk_id), protected_count: keep.size });
+  });
   app.post("/api/demo/reset", (req, res) => {
     // His reset: clear outreach and replies so the guided demo starts fresh; research, scores and register data stay.
-    const s = db.load();
-    for (const c of s.companies) { c.messages = []; c.conversation = []; c.desk_handoff = null; c.desk_follow_up_on = null; if (c.stage !== "disqualified") c.stage = c.enrichment ? "enriched" : "new"; }
-    desk().deals = []; db.save(); log("demo_reset", {}); res.json({ status: "success" });
+    const s = db.load(); const keep = protectedIds();
+    for (const c of s.companies) { if (keep.has(c.id)) continue; c.messages = []; c.conversation = []; c.desk_handoff = null; c.desk_follow_up_on = null; if (c.stage !== "disqualified") c.stage = c.enrichment ? "enriched" : "new"; }
+    desk().deals = desk().deals.filter((d) => d.company_id && keep.has(d.company_id)); db.save(); log("demo_reset", { protected: keep.size }); res.json({ status: "success", protected: keep.size });
   });
 }

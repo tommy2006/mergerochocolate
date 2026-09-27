@@ -64,3 +64,26 @@ Sample history in the app shows referrals replying at roughly 2–3× the rate o
 4. Approve and send touch 1 (mailto). Paste an owner reply → triage: intent, extracted facts, next step, reply draft.
 5. Owner intake link on a phone → 6 questions → structured summary lands on the record → stage moves to warm-up.
 6. Back to Dashboard → *Run pipeline on all NEW* → the scale story.
+
+## Gap analysis against the brief (27 Sep, before the deadline)
+
+| Brief / Q&A requirement | In the app | Closed today |
+|---|---|---|
+| Identify the right companies at the right moment (owner 55+, founder-owned, €2–50M, before they know) | Registers (NO with real owner ages, FI, DK), readiness signals, rule engine + model scoring, watch mode | **Find companies** card in the desk (was only in `/engine`): live register search by industry/age/size, one-click import with owner ages, reach counter (35,113 NO companies) |
+| Contact them personally at far larger scale; no templates; value at first contact | 4-touch sequences, humanizer, linter (2 sourced facts, AI-tell score), per-advisor caps, framing (open / growth / minority), channel by country (Nordics email, DACH LinkedIn + call) | why-now prompt now leads with the plain reason (age, tenure, succession, filed figure) so cards and emails say why *this* owner |
+| Data on targets: financial reports, websites, revenue split, top-10 clients | Site crawl with quotes, filed accounts (Brønnøysund/PRH/CVR), enrichment (products, customers, segments, data gaps), owner intake asks for the rest | **Dig deeper** on the buy-side screen: statement PDFs read by OCR on the server + Mistral (EBITDA with source), customers named; evidence shown as text |
+| Internal tool with an external touchpoint | Owner intake link (conversational, phone-friendly), public demand page | Intake link exposed in the desk's qualification step and in the tour |
+| Scalability: thousands of companies, several countries | 3 open registers, pipeline runs, hours-saved and cost meters | Reach counter live in the UI; register import from the desk |
+| Feasibility: pilot after the event | pm2 deployment, MGX sync over API/MCP, Resend, per-advisor identity | Strict EU-only mode: every model call stays on Verda's servers (no Anthropic dependency), documented reboot runbook |
+| Concreteness: show how it works in practice | Guided demo | Tour covers every page and feature (18 steps); "How it works" is the five-step flow |
+| Innovation: something Mergero does not do today | Demand-led first touch, readiness before the owner knows, learning loop by framing/source/country | EU-sovereign model + OCR of register scans (no vendor sees owner data); register-to-pipeline in one click |
+
+Still open (honest list): Sweden and DACH have no free register API (import from a prospect database; Sweden preferred by Timo); Finnish owner ages are not public (founding year is the proxy); Norwegian statement PDFs depend on the register's PDF service, which answers 503 on and off; the Claude web-search sweep is off in strict mode, so third-party press facts only come from the crawl and the registers.
+
+## Innovations to stand out (proposed, not all built)
+
+1. **Owner value page.** A private, personal page per prospect (no login): "N buyers in Mergero's network fit your company; this is what they look for; indicative range from your filed accounts; talk to an advisor." Linked from the first touch, it turns the cold email into value delivered at first contact. One route plus the existing hypothesis data.
+2. **Timing alerts into the Today list.** Watch mode already re-crawls sites and flags leadership changes, expansions and hiring spikes; surfacing those as "call this week" cards makes "the right moment" a standing feature, not a one-off score.
+3. **Referral channels measured like outbound.** Accountants, banks' SME advisors and succession programmes get a partner tag on the demand page (`?partner=`) so replies, calls and mandates are compared per channel with the same funnel.
+4. **Register-native sourcing in every market.** Norway today; Denmark's CVR and Finland's PRH are wired; Sweden and DACH via prospect-database import until an open register exists. The same import path scales to tens of thousands of companies.
+5. **Data sovereignty as a sales argument.** Owner data, statements and drafts never leave EU compute (Verda), including OCR of register scans. For a Swiss-Finnish advisor this is a differentiator with owners and buyers alike.

@@ -9,7 +9,7 @@ npm install
 npm start
 ```
 
-Open http://localhost:3000 — the Origination Desk. The advanced console (inbox, buyer notes, learning loop, settings) is at http://localhost:3000/engine. Put your keys in `.env` (copy `.env.example`): `ANTHROPIC_API_KEY` (+ `ANTHROPIC_WORKSPACE_ID` for org keys), optional `RESEND_API_KEY`/`RESEND_FROM` for real email and `DEMO_EMAIL` to redirect every send to yourself.
+Open http://localhost:3000 — the guided front door (the pitch). The Origination Desk is at http://localhost:3000/desk. The advanced console (inbox, buyer notes, learning loop, settings) is at http://localhost:3000/engine. Put your keys in `.env` (copy `.env.example`): `ANTHROPIC_API_KEY` (+ `ANTHROPIC_WORKSPACE_ID` for org keys), optional `RESEND_API_KEY`/`RESEND_FROM` for real email and `DEMO_EMAIL` to redirect every send to yourself.
 
 Optional Python parts (Finnish profiler, Amir's engine tests): see `docs/python-setup.md`. The app runs without them.
 
@@ -17,7 +17,7 @@ Optional Python parts (Finnish profiler, Amir's engine tests): see `docs/python-
 
 | Layer | From | Notes |
 |---|---|---|
-| UI, workflow, guided demo (`public/desk/index.html`) | Amir | served at `/`; his API contract is implemented by `server/desk/routes.js` |
+| UI, workflow, guided demo (`public/desk/index.html`) | Amir | served at `/desk` (the front door `public/front` is at `/`); his API contract is implemented by `server/desk/routes.js` |
 | Rule engines: trigger decay, scoring parts, buyer-fit checks and charts, hypothesis, CRM rules, templates (`server/desk/engine.js`) | Amir | faithful JS port; used for the desk's numbers and as the no-API-key fallback |
 | Data: registries (FI/NO/DK, owner ages), research dossiers, Claude enrichment/scoring/matching, humanised outreach + linter, Resend email, advisor caps, triage + re-score, intake, learning loop (`server/*.js`) | Dang (+ two helper sessions) | replaces Amir's CSV/mock data and simulated sending |
 | Finnish per-fact profiles from PRH + XBRL + website (`python/company-scraper`, `server/adapters/son_scraper.js`) | Son | optional source for Finnish companies |
@@ -26,7 +26,11 @@ Optional Python parts (Finnish profiler, Amir's engine tests): see `docs/python-
 
 Click **Start demo** on the Desk. The engine drafts four personal messages (Claude + humanizer, linter-checked), "sends" the first one for real through Resend to `DEMO_EMAIL`, triages the owner's reply with Claude and re-scores, then walks through first call and engagement letter. Pre-run *Enrich* on the demo companies beforehand so research is already there.
 
-The demo also walks through **company screening** (three steps after "Matching"): it pastes a real website (`https://www.aerfaber.no`), shows the quick sector guess and the buyer scores with `Pending` placeholders, clicks **Dig deeper**, then adds the best-fitting mandate to the pipeline.
+The guided tour (18 steps, **Watch the demo** on the desk at `/desk`) now visits every page and every essential feature, in the order an advisor would use them:
+
+1. The ranked pipeline · 2. **Data tab: find companies in the open registers** (live Brønnøysund search: "50 of 123 machinery makers founded before 2005", 35,113 Norwegian companies in reach, one click adds them with the CEO's real age) · 3. match statistics across the buyer book · 4. signals · 5. scoring · 6. matching · 7. **screen any website** (`https://www.aerfaber.no`) · 8. **Dig deeper** (10 pages, filed accounts, OCR'd statement, customers) · 9. add it to the pipeline · 10. AI hypothesis · 11. four personal messages · 12. send (Resend demo mode) · 13. the owner's reply, qualified · 14. **the owner's private intake link** (the external touchpoint) · 15. **Sell-side owners: warm-up in one click** · 16. first call with an advisor · 17. engagement letter · 18. the numbers: capacity per advisor, Mergero's 1,000 → 450–500 benchmark, EU-only compute, the advanced console at `/engine`.
+
+Two things the tour relies on were added for it: the **Find companies** card (Data tab, step 1 of the flow; `GET /api/registry/search` + `POST /api/companies/bulk`, Norway/Finland/Denmark) and the **owner intake link** in the qualification step (`POST /api/companies/:id/intake-link`; six questions on a phone, summary lands on the record). The "How it works" box on the pipeline now reads as the five-step flow: find → rank → match → Today list → intake and first call.
 
 **Dig deeper** (`POST /api/analyze`) is what the `Pending Analysis` / `Pending Audit` placeholders link to, on the screen result and in the deal drawer. It reads up to 10 pages of the site (30 s budget), pulls the filed accounts from the open registers (PRH iXBRL, Brønnøysund, CVR), reads the statement PDF when the register has EBIT but no depreciation line (Norway: free copies from Brønnøysund; text layer → any model, scans → Claude's document reader), and names customers and the offering from the sourced facts. EBITDA shows with its year, basis (reported or EBIT + depreciation) and source; when it cannot be derived the screen says why and shows EBIT and revenue instead. Research is reused for a week, so the demo company answers instantly after the first run; **Re-analyze** forces a fresh pass. Sector labels are derived from the enrichment when the register's NACE text is not one of the desk's sectors, and the "Found on the site" line is plain text (fixes the `[object Object]` rendering).
 

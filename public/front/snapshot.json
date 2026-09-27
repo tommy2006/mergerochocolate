@@ -1,0 +1,2597 @@
+{
+ "baked_at": "2026-09-27T02:03:25.532Z",
+ "source": "http://95.133.253.84:3000",
+ "companies": [
+  {
+   "id": "c_klh2wf1yu",
+   "name": "AER FABER AS",
+   "country": "NO",
+   "city": "SPYDEBERG",
+   "industry": "Produksjon av kjøle- og ventilasjonsanlegg, unntatt til husholdningsbruk",
+   "website": "https://www.aerfaber.no",
+   "founded": 2009,
+   "employees": 25,
+   "revenue_eur": 6644515,
+   "ebitda_eur": 1312211,
+   "ownership_type": "unknown",
+   "stage": "enriched",
+   "enrichment": {
+    "products": [
+     "Circular and rectangular ventilation ducts and duct parts (own production)",
+     "Stainless steel hoods, grilles, transitions, silencers, spiro",
+     "Stocked fittings Ø80–Ø1250, dampers, valves, silencers, technical insulation"
+    ],
+    "summary": "Aer Faber AS is a Spydeberg-based (Østfold, NO) manufacturer and distributor of ventilation components — circular and rectangular ducts, stainless hoods, grilles, transitions, silencers and spiro — with its own machine park, plus a stocked trade counter/shop selling fittings (Ø80–Ø1250), dampers, valves, insulation, sheet-metal tools and workwear (f2, f6, f7, f8). Since December 2020 the company has been owned by the Swedish listed Lindab Group, and it now operates as part of Lindab's Norwegian organisation while also reselling Lindab and other suppliers' products (f24, f23, f9). Revenue was ~€6.6M in 2025 with ~25 employees and strong reported margins (EBIT €1.1M)."
+   },
+   "owner": {
+    "name": "Erik Iversen",
+    "title": "CEO (daglig leder)",
+    "age": 45,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 8,
+    "attractiveness": 30,
+    "recommended_timing": "not yet",
+    "why_now": "On paper this looks like the perfect Nordic industrial target — €6.6M revenue, ~17% EBIT margin, 25 people, niche ventilation duct manufacturing with a stocked trade counter — but it isn't for sale by anyone we can call. Lindab (Swedish listed) bought Aer Faber in December 2020 and it now sits as one of four companies under Lindab A/S, with two Lindab group people on the board; the 'Erik Iversen, 45' in our row isn't corroborated anywhere (registry says Eirik Austad, local press says Geir Pettersen). There is no founder, no succession question and no majority owner to approach — any deal would be a carve-out decided in Malmö, and Lindab has given zero signal of divesting a unit local press calls a star performer. The real value of this record is inverted: Lindab is an active consolidator of Nordic ventilation and sheet-metal businesses and belongs in MGX as a buyer, not a seller. Park the sell-side outreach; route the entity to the buy-side team and keep the Østfold ventilation sector on the radar for genuinely owner-led targets.",
+    "signals": [
+     {
+      "signal": "PE/strategic ownership — Lindab acquired 2020",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Corporate subsidiary since Dec 2020, part of a four-company group under Lindab A/S; no owner-led decision-maker."
+     },
+     {
+      "signal": "No founder or succession angle",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Board seats held by Lindab group representatives (Lönnberg, Ranstam); daglig leder is a hired manager, not an owner."
+     },
+     {
+      "signal": "Decision-maker data unverified",
+      "direction": "negative",
+      "weight": "medium",
+      "note": "Three different names across sources; the prospect row's CEO (age 45) is not corroborated by any research source."
+     },
+     {
+      "signal": "Strategic fit as an asset",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Industrial manufacturing, NO, €6.6M revenue, ~€1.1M EBIT — squarely inside the Nordic lower-mid-market PE, Finnish family office and listed Nordic engineering group mandates if it were ever available."
+     },
+     {
+      "signal": "Revenue drift €7.3M (2023) → €6.6M (2025) with margins intact",
+      "direction": "neutral",
+      "weight": "low",
+      "note": "Mild top-line decline is a classic carve-out trigger, but profitability stayed strong and management publicly expects growth."
+     },
+     {
+      "signal": "Owner is an active acquirer",
+      "direction": "neutral",
+      "weight": "medium",
+      "note": "Lindab consolidates Nordic ventilation/sheet-metal; better added to MGX as a buyer profile than worked as a seller."
+     },
+     {
+      "signal": "Registry-sourced NO lead, channel converts at 17%",
+      "direction": "neutral",
+      "weight": "low",
+      "note": "Channel history is decent but does not override the ownership disqualifier."
+     }
+    ],
+    "risks": [
+     "Not owner-led — outreach would land with a subsidiary manager who has no mandate to transact",
+     "Any transaction would be a corporate carve-out decided at Lindab group level in Sweden, with a long, low-probability process",
+     "EBITDA not derivable from the open NO API (no depreciation line); valuation band is EBIT-proxy only",
+     "Intercompany revenue and transfer pricing with Lindab entities post-2020 would materially distort standalone economics",
+     "Stand-alone viability unclear: significant resale of Lindab product and integration into Lindab's nine-branch Norwegian network",
+     "Employee/leadership data inconsistencies suggest the record itself is poorly matched"
+    ],
+    "valuation_band_eur": {
+     "low": 6000000,
+     "high": 9500000
+    },
+    "history": []
+   },
+   "matches": [
+    {
+     "buyer_id": "b_10",
+     "buyer_name": "Listed Nordic engineering group",
+     "buyer_type": "strategic",
+     "fit": 58,
+     "reason": "Listed Nordic engineering acquirer of energy-efficiency/industrial businesses fits Aer Faber's €6.6M ventilation duct manufacturing and HVAC distribution with €1.1M EBIT, though it would require a carve-out from Lindab rather than a founder sale."
+    },
+    {
+     "buyer_id": "b_01",
+     "buyer_name": "Nordic lower-mid-market PE fund",
+     "buyer_type": "PE",
+     "fit": 52,
+     "reason": "Nordic lower-mid-market PE targeting profitable €5-50M niche industrial manufacturers matches Aer Faber's size and strong margins, but the thesis relies on founder succession while the company is already a Lindab subsidiary (carve-out only)."
+    }
+   ],
+   "research": {
+    "facts": [
+     {
+      "id": "f1",
+      "category": "other",
+      "claim": "Aer Faber was established in 2002 as a partner and supplier to the ventilation industry.",
+      "url": "https://www.aerfaber.no/",
+      "as_of": "2002"
+     },
+     {
+      "id": "f2",
+      "category": "offering",
+      "claim": "Aer Faber produces and delivers ducts, stainless hoods, grilles, transitions, silencers and spiro, plus stocks bends, fittings and air technical products.",
+      "url": "https://www.aerfaber.no/",
+      "as_of": null
+     },
+     {
+      "id": "f3",
+      "category": "financials",
+      "claim": "Aer Faber has 23 employees.",
+      "url": "https://www.aerfaber.no/",
+      "as_of": null
+     },
+     {
+      "id": "f4",
+      "category": "footprint",
+      "claim": "Aer Faber delivers to all of Østfold, the Oslo region and large parts of southern Norway.",
+      "url": "https://www.aerfaber.no/",
+      "as_of": null
+     },
+     {
+      "id": "f5",
+      "category": "footprint",
+      "claim": "Aer Faber AS is located at Næringsveien 13 in Spydeberg, phone +47 69 89 90 80.",
+      "url": "https://www.aerfaber.no/kontakt-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f6",
+      "category": "footprint",
+      "claim": "The company is based in Spydeberg with a modern machine park producing circular and rectangular ducts and parts.",
+      "url": "https://www.aerfaber.no/om-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f7",
+      "category": "offering",
+      "claim": "Aer Faber stocks fittings in all dimensions between Ø80 and Ø1250, plus dampers, valves, silencers and insulation.",
+      "url": "https://www.aerfaber.no/om-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f8",
+      "category": "offering",
+      "claim": "The shop sells tools for sheet metal workers, work clothes and protective equipment, with own heat press for logo printing.",
+      "url": "https://www.aerfaber.no/om-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f9",
+      "category": "offering",
+      "claim": "Aer Faber is mainly a production company but also stocks products from Lindab and other external suppliers.",
+      "url": "https://www.aerfaber.no/egne-produkter/",
+      "as_of": null
+     },
+     {
+      "id": "f10",
+      "category": "ownership",
+      "claim": "Lindab Norge AS (org. no. 929805925) is part of Lindab Group AB, headquartered in Sweden.",
+      "url": "https://www.aerfaber.no/barekraft/apenhetsloven/",
+      "as_of": null
+     },
+     {
+      "id": "f11",
+      "category": "people",
+      "claim": "The Åpenhetsloven project at Lindab Norge is led by Endre Nybråten with Cecilia Cederek and Frode Hansen as project participants.",
+      "url": "https://www.aerfaber.no/barekraft/apenhetsloven/",
+      "as_of": null
+     },
+     {
+      "id": "f12",
+      "category": "events",
+      "claim": "Lindab Group has been a member of UN Global Compact since 2009.",
+      "url": "https://www.aerfaber.no/barekraft/apenhetsloven/",
+      "as_of": "2009"
+     },
+     {
+      "id": "f13",
+      "category": "footprint",
+      "claim": "Lindab Norge's suppliers are mainly in the Nordics, with some in Europe and Asia.",
+      "url": "https://www.aerfaber.no/barekraft/apenhetsloven/",
+      "as_of": null
+     },
+     {
+      "id": "f14",
+      "category": "footprint",
+      "claim": "Lindab has over 50 production units in Europe.",
+      "url": "https://www.aerfaber.no/barekraft/barekraft/drive-en-barekraftig-virksomhet/",
+      "as_of": null
+     },
+     {
+      "id": "f15",
+      "category": "direction",
+      "claim": "Lindab aims to use fossil-free transport at the latest by 2050.",
+      "url": "https://www.aerfaber.no/barekraft/barekraft/drive-en-barekraftig-virksomhet/",
+      "as_of": "2050"
+     },
+     {
+      "id": "f16",
+      "category": "direction",
+      "claim": "Lindab positions itself as market leader for ventilation in Europe and aims to influence standards and legislation.",
+      "url": "https://www.aerfaber.no/barekraft/barekraft/skape-sunne-bygninger/",
+      "as_of": null
+     },
+     {
+      "id": "f17",
+      "category": "offering",
+      "claim": "Ventilation catalogue covers duct systems, silencers, indoor climate, fire safety, fans, roof hoods, technical insulation, offshore, marine and commercial kitchen ventilation from Jeven.",
+      "url": "https://www.aerfaber.no/catalog/ventilasjon/",
+      "as_of": null
+     },
+     {
+      "id": "f18",
+      "category": "footprint",
+      "claim": "Marine products such as pre-insulated ducts are stocked and sold from the Ålesund department.",
+      "url": "https://www.aerfaber.no/catalog/ventilasjon/marine/",
+      "as_of": null
+     },
+     {
+      "id": "f19",
+      "category": "offering",
+      "claim": "Building products offered include flat sheets, gutters, roofing, roof safety, wall & facade, steel profiles and flashings.",
+      "url": "https://www.aerfaber.no/catalog/byggprodukter/",
+      "as_of": null
+     },
+     {
+      "id": "f20",
+      "category": "other",
+      "claim": "Lindab has published a sustainability report as part of its annual report since 2018.",
+      "url": "https://www.aerfaber.no/barekraft/barekraftsrapport/",
+      "as_of": "2018"
+     },
+     {
+      "id": "f21",
+      "category": "events",
+      "claim": "Lindab reported on the Transparency Act for the period 01.07.22 - 01.07.23, with only one supplier refusing to sign.",
+      "url": "https://www.aerfaber.no/barekraft/apenhetsloven/",
+      "as_of": "2023"
+     },
+     {
+      "id": "f22",
+      "category": "other",
+      "claim": "Opening hours are 05.00-16.00 (Friday to 14.00), with summer weeks 28-31 at 06.00-14:00.",
+      "url": "https://www.aerfaber.no/kontakt-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f23",
+      "category": "ownership",
+      "claim": "AER FABER AS is part of a group of four companies with Lindab A/S as parent company",
+      "url": "https://www.proff.no/selskap/aer-faber-as/spydeberg/kj%C3%B8le-og-ventilasjonsanlegg/IGAGITY10OT",
+      "as_of": null
+     },
+     {
+      "id": "f24",
+      "category": "events",
+      "claim": "Lindab announced the acquisition of Aer Faber on 4 December 2020, expanding its Norwegian operations",
+      "url": "https://www.mynewsdesk.com/no/lindab/pressreleases/lindab-kjoeper-ventilasjonsfirmaet-aer-faber-3056113",
+      "as_of": "2020-12"
+     },
+     {
+      "id": "f25",
+      "category": "offering",
+      "claim": "Aer Faber has shop, warehouse and production outside Oslo, with solid experience in rectangular ventilation ducts, complementing Lindab's Norwegian business",
+      "url": "https://www.lindab.no/om-lindab/presseogmeedier/pressemeldinger/nyheter/?item_id=3056113&typeOfMedia=pressrelease",
+      "as_of": "2020"
+     },
+     {
+      "id": "f26",
+      "category": "footprint",
+      "claim": "Registered at Næringsveien 13, 1820 Spydeberg; incorporated 4 June 2009, registered 8 July 2009; NACE 28.250",
+      "url": "https://virksomhet.brreg.no/nb/oppslag/enheter/994273728",
+      "as_of": null
+     },
+     {
+      "id": "f27",
+      "category": "offering",
+      "claim": "Registry purpose: production and sale of ventilation equipment and related activity; share capital NOK 100,000",
+      "url": "https://www.proff.no/selskap/aer-faber-as/spydeberg/kj%C3%B8le-og-ventilasjonsanlegg/IGAGITY10OT",
+      "as_of": null
+     },
+     {
+      "id": "f28",
+      "category": "people",
+      "claim": "Eirik Austad is listed as managing director (daglig leder)",
+      "url": "https://www.proff.no/selskap/aer-faber-as/spydeberg/kj%C3%B8le-og-ventilasjonsanlegg/IGAGITY10OT",
+      "as_of": null
+     },
+     {
+      "id": "f29",
+      "category": "people",
+      "claim": "Board members include Eirik Austad, Kent Bo Joakim Lönnberg and Ola Henrik Goesta Ranstam",
+      "url": "http://www.gulesider.no/f/aer-faber-as:84326846?search_word=faber+%C3%B8stlandet",
+      "as_of": null
+     },
+     {
+      "id": "f30",
+      "category": "offering",
+      "claim": "Describes itself as a supplier of ventilation, tools and workwear to the construction industry",
+      "url": "https://www.facebook.com/p/Aer-Faber-As-100057171441350/",
+      "as_of": null
+     },
+     {
+      "id": "f31",
+      "category": "people",
+      "claim": "Geir Pettersen is referred to as general manager of Aer Faber",
+      "url": "https://www.smaalenene.no/lokalt-selskap-tjener-godt-pa-ventilasjon-og-klar/s/5-38-1515430",
+      "as_of": null
+     },
+     {
+      "id": "f32",
+      "category": "direction",
+      "claim": "Company expects to grow despite the high-cost climate and is regarded as a star performer within the Lindab group",
+      "url": "https://www.smaalenene.no/lokalt-selskap-tjener-godt-pa-ventilasjon-og-klar/s/5-38-1515430",
+      "as_of": null
+     },
+     {
+      "id": "f33",
+      "category": "footprint",
+      "claim": "Parent Lindab in Norway has nine local branches including Oslo, Drammen, Kristiansand, Sandnes and Bergen",
+      "url": "https://www.lindab.no/om-lindab/presseogmeedier/pressemeldinger/nyheter/?item_id=3056113&typeOfMedia=pressrelease",
+      "as_of": null
+     },
+     {
+      "id": "f34",
+      "category": "customers",
+      "claim": "Supplied ventilation and dehumidification units for the Ekeberghallene rock-cavern facility, installed by Askim & Mysen Rør AS",
+      "url": "https://www.facebook.com/p/Aer-Faber-As-100057171441350/",
+      "as_of": null
+     }
+    ],
+    "financials": {
+     "identifier": {
+      "country": "NO",
+      "id": "994273728",
+      "source": "registry_id"
+     },
+     "rows": [
+      {
+       "year": 2025,
+       "period_start": "2025-01-01",
+       "period_end": "2025-12-31",
+       "currency": "NOK",
+       "revenue": 72026548,
+       "gross_profit": null,
+       "ebit": 12454251,
+       "depreciation": null,
+       "ebitda": 14224366,
+       "net_income": 10746088,
+       "total_assets": 44048533,
+       "equity": 19907788,
+       "employees": 25,
+       "revenue_eur": 6644515,
+       "gross_profit_eur": null,
+       "ebit_eur": 1148916,
+       "ebitda_eur": 1312211,
+       "net_income_eur": 991337,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": "derived",
+       "source": "Brønnøysund Regnskapsregisteret (NO)",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/994273728",
+       "confidence": "high",
+       "also_from": [
+        "Annual report PDF"
+       ]
+      },
+      {
+       "year": 2024,
+       "period_start": null,
+       "period_end": null,
+       "currency": "EUR",
+       "revenue": 79310842,
+       "gross_profit": null,
+       "ebit": 14856029,
+       "depreciation": null,
+       "ebitda": 16672440,
+       "net_income": 12305001,
+       "total_assets": null,
+       "equity": null,
+       "employees": 27,
+       "revenue_eur": 7316498,
+       "gross_profit_eur": null,
+       "ebit_eur": 1370482,
+       "ebitda_eur": 1538048,
+       "net_income_eur": 1135148,
+       "fx_to_eur": 1,
+       "ebitda_basis": "derived",
+       "source": "Published figure (press/directory)",
+       "url": "https://www.proff.no/selskap/aer-faber-as/spydeberg/kj%C3%B8le-og-ventilasjonsanlegg/IGAGITY10OT",
+       "confidence": "medium",
+       "also_from": [
+        "Annual report PDF"
+       ]
+      },
+      {
+       "year": 2023,
+       "period_start": null,
+       "period_end": null,
+       "currency": "NOK",
+       "revenue": 79382000,
+       "gross_profit": null,
+       "ebit": 14856000,
+       "depreciation": null,
+       "ebitda": null,
+       "net_income": 12305001,
+       "total_assets": null,
+       "equity": null,
+       "employees": 24,
+       "revenue_eur": 7323063,
+       "gross_profit_eur": null,
+       "ebit_eur": 1370480,
+       "ebitda_eur": null,
+       "net_income_eur": 1135148,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": null,
+       "source": "Published figure (press/directory)",
+       "url": "https://www.purehelp.no/m/company/details/aerfaberas/994273728",
+       "confidence": "medium",
+       "also_from": [
+        "Published figure (press/directory)"
+       ]
+      },
+      {
+       "year": 2022,
+       "period_start": null,
+       "period_end": null,
+       "currency": "NOK",
+       "revenue": null,
+       "gross_profit": null,
+       "ebit": null,
+       "depreciation": null,
+       "ebitda": null,
+       "net_income": 12639000,
+       "total_assets": null,
+       "equity": null,
+       "employees": null,
+       "revenue_eur": null,
+       "gross_profit_eur": null,
+       "ebit_eur": null,
+       "ebitda_eur": null,
+       "net_income_eur": 1165959,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": null,
+       "source": "Published figure (press/directory)",
+       "url": "https://yra.no/en/company/994273728",
+       "confidence": "medium"
+      }
+     ],
+     "notes": [
+      "Open API only exposes the latest financial year — earlier years as PDF copies (see documents)",
+      "Open API has no depreciation line — EBITDA not derivable (see PDF)",
+      "Employees = current headcount in Enhetsregisteret (not year-specific)",
+      "EUR figures use the latest ECB reference rate (1 EUR = 10.84 NOK, 2026-09-25), not period averages"
+     ],
+     "checked": [
+      "Brønnøysund Regnskapsregisteret",
+      "Brønnøysund Enhetsregisteret"
+     ],
+     "documents": [
+      {
+       "type": "annual_report",
+       "year": 2025,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/994273728/2025",
+       "source": "Read from PDF (ocr)"
+      }
+     ],
+     "conflicts": []
+    }
+   },
+   "messages": [],
+   "conversation": []
+  },
+  {
+   "id": "c_qwdoi11yu",
+   "name": "AGROMILJØ AS",
+   "country": "NO",
+   "city": "FINNØY",
+   "industry": "Produksjon av jordbruks- og skogbruksmaskiner",
+   "website": "https://www.agromiljo.no",
+   "founded": 2007,
+   "employees": 21,
+   "revenue_eur": null,
+   "ebitda_eur": null,
+   "ownership_type": "unknown",
+   "stage": "enriched",
+   "enrichment": {
+    "products": [
+     "AM-Stripespreder stripe spreaders (patented distributor housing, models Z40/Z50/Z60, 120-300 m3/h)",
+     "Fan spreaders and pasture spreaders",
+     "Wet-sowing/seed drill attachment for meadow renewal"
+    ],
+    "summary": "Agromiljø AS is a Norwegian manufacturer of slurry/manure handling and spreading equipment based at Finnøy (Stavanger municipality, Rogaland), founded by farmers in 1987 and incorporated as an AS in 2008. It designs, produces and sells complete manure systems — patented AM stripe spreaders, fan and pasture spreaders, hose reels, hoses, pumps, pump stations and steel manure stores/lagoons — selling directly to Norwegian farmers and contractors, plus dealers in Finland and Iceland. FY2024 revenue was NOK 29.5M (~€2.7M) with a small operating loss and 21-23 employees."
+   },
+   "owner": {
+    "name": "Kyrre Vastveit",
+    "title": "CEO (daglig leder)",
+    "age": 62,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 50,
+    "attractiveness": 40,
+    "recommended_timing": "not yet",
+    "why_now": "Owner is 62, succession question, family business, but recent loss and small size are concerns. Direct-to-farmer model and environmental focus could appeal to Nordic buyers.",
+    "signals": [
+     {
+      "signal": "Owner age",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Owner is 62, classic succession window"
+     },
+     {
+      "signal": "Family business",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Likely first-generation/family ownership with succession question"
+     },
+     {
+      "signal": "Recent loss",
+      "direction": "negative",
+      "weight": "high",
+      "note": "FY2024 operating loss, trend deterioration"
+     },
+     {
+      "signal": "Small size",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Revenue ~€2.7M is small relative to Mergero's €3-5M enterprise-value floor"
+     },
+     {
+      "signal": "Direct-to-farmer model",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Could appeal to Nordic buyers looking for bolt-ons"
+     },
+     {
+      "signal": "Environmental focus",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Patented technology, regulatory tailwind in Norway"
+     }
+    ],
+    "risks": [
+     "Valuation below €3M floor",
+     "Recent operating loss",
+     "Limited export footprint",
+     "Unclear ownership structure"
+    ],
+    "valuation_band_eur": {
+     "low": 2.7,
+     "high": 4
+    },
+    "history": []
+   },
+   "matches": [
+    {
+     "buyer_id": "b_10",
+     "buyer_name": "Listed Nordic engineering group",
+     "buyer_type": "strategic",
+     "fit": 56,
+     "reason": "Listed Nordic engineering group buying flow-control and aftermarket businesses fits Agromiljø's Cobra/Doda pump stations, hose systems and spare-parts/online aftermarket installed base among Norwegian farmers, though NOK 29.5M revenue with an operating loss sits under its EBITDA floor."
+    },
+    {
+     "buyer_id": "b_01",
+     "buyer_name": "Nordic lower-mid-market PE fund",
+     "buyer_type": "PE",
+     "fit": 52,
+     "reason": "Nordic lower-mid-market buyout fund targeting niche industrial manufacturers with succession situations matches a 62-year-old CEO at a patented slurry-spreader maker in Rogaland, but €2.7M revenue and a small operating loss fall short of its €5M/€0.8M EBITDA entry criteria."
+    }
+   ],
+   "research": {
+    "facts": [
+     {
+      "id": "f1",
+      "category": "offering",
+      "claim": "Agromiljø AS specialises in producing stripe spreaders (AM-Stripespreder) with a patented distributor housing.",
+      "url": "https://www.agromiljo.no/",
+      "as_of": null
+     },
+     {
+      "id": "f2",
+      "category": "events",
+      "claim": "The company was founded in 1987.",
+      "url": "https://www.agromiljo.no/",
+      "as_of": "1987"
+     },
+     {
+      "id": "f3",
+      "category": "events",
+      "claim": "In 2018 Agromiljø expanded its premises for greater production capacity and stock.",
+      "url": "https://www.agromiljo.no/",
+      "as_of": "2018"
+     },
+     {
+      "id": "f4",
+      "category": "footprint",
+      "claim": "Agromiljø describes itself as a local company in Stavanger municipality.",
+      "url": "https://www.agromiljo.no/",
+      "as_of": null
+     },
+     {
+      "id": "f5",
+      "category": "offering",
+      "claim": "Product range includes manure spreaders, pumps, hose reels, hoses, manure stores, lagoons, buffer tanks, pump stations, couplings and compressors.",
+      "url": "https://www.agromiljo.no/",
+      "as_of": null
+     },
+     {
+      "id": "f6",
+      "category": "offering",
+      "claim": "Agromiljø operates an online shop for equipment and parts.",
+      "url": "https://www.agromiljo.no/",
+      "as_of": null
+     },
+     {
+      "id": "f7",
+      "category": "footprint",
+      "claim": "Head office is at Fåholmen 3, 4160 Finnøy, phone 51 71 20 20.",
+      "url": "https://www.agromiljo.no/kontakt/",
+      "as_of": null
+     },
+     {
+      "id": "f8",
+      "category": "people",
+      "claim": "Kyrre Vastveit is CEO (daglig leder) of Agromiljø.",
+      "url": "https://www.agromiljo.no/om-oss/ansatte/",
+      "as_of": "2024"
+     },
+     {
+      "id": "f9",
+      "category": "ownership",
+      "claim": "Agromiljø was started by farmers in 1987 and is still run by farmers.",
+      "url": "https://www.agromiljo.no/om-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f10",
+      "category": "direction",
+      "claim": "The company develops, produces and sells machines and equipment for Norwegian farmers, focusing on agronomy, economy, efficiency and environment.",
+      "url": "https://www.agromiljo.no/om-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f11",
+      "category": "direction",
+      "claim": "All product development is done together with Norwegian farmers and/or Norsk Landbruksrådgiving.",
+      "url": "https://www.agromiljo.no/om-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f12",
+      "category": "customers",
+      "claim": "Agromiljø participates in environmental projects with NLR, Tine and Yara.",
+      "url": "https://www.agromiljo.no/om-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f13",
+      "category": "footprint",
+      "claim": "Bullfighter OY is Agromiljø's dealer in Finland.",
+      "url": "https://www.agromiljo.no/om-oss/samarbeidspartnere/",
+      "as_of": null
+     },
+     {
+      "id": "f14",
+      "category": "footprint",
+      "claim": "Vinnuvélar og landbúnaður ehf is Agromiljø's dealer in Iceland.",
+      "url": "https://www.agromiljo.no/om-oss/samarbeidspartnere/",
+      "as_of": null
+     },
+     {
+      "id": "f15",
+      "category": "offering",
+      "claim": "AM-Kum manure stores are offered in sizes from 107 to 1566 m3, 3 metres high, with 2 mm aluzinc-coated steel plates.",
+      "url": "https://www.agromiljo.no/produkter/am-kum-gjodsellager/",
+      "as_of": null
+     },
+     {
+      "id": "f16",
+      "category": "offering",
+      "claim": "AM hose reels come in models 700, 1200 and 1500 with capacities of 700, 1200 and 1500+ metres of 90 mm hose.",
+      "url": "https://www.agromiljo.no/produkter/slangetromler/",
+      "as_of": null
+     },
+     {
+      "id": "f17",
+      "category": "offering",
+      "claim": "Spreader product families are stripe spreaders, fan spreaders and pasture spreaders, with spreading capacity of 120-300 m3 per hour.",
+      "url": "https://www.agromiljo.no/produkter/gjodselspredere-og-vatsaing/",
+      "as_of": null
+     },
+     {
+      "id": "f18",
+      "category": "offering",
+      "claim": "The stripe spreader can be equipped with a seed drill for wet sowing/meadow renewal.",
+      "url": "https://www.agromiljo.no/produkter/gjodselspredere-og-vatsaing/",
+      "as_of": null
+     },
+     {
+      "id": "f19",
+      "category": "offering",
+      "claim": "Pump range includes Cobra hydraulic pumps and Doda high-pressure pumps and pump stations.",
+      "url": "https://www.agromiljo.no/produkter/gjodselpumper/",
+      "as_of": null
+     },
+     {
+      "id": "f20",
+      "category": "customers",
+      "claim": "Customer Jakob Eskeland, contractor in Vindafjord, bought his first Agromiljø spreader in 2009 and a new 12 m AM stripe spreader in 2014.",
+      "url": "https://www.agromiljo.no/kundehistorier/slangespreder-er-ideelt-for-leiekjoring/",
+      "as_of": "2014"
+     },
+     {
+      "id": "f21",
+      "category": "customers",
+      "claim": "That customer serves about 26-27 customers with roughly NOK 700,000 annual turnover from contract spreading.",
+      "url": "https://www.agromiljo.no/kundehistorier/slangespreder-er-ideelt-for-leiekjoring/",
+      "as_of": null
+     },
+     {
+      "id": "f22",
+      "category": "customers",
+      "claim": "Håvard Knygh and two other farmers in Sømna bought a large stripe spreader system with 1,200 m of 5-inch and 600 m of 4.5-inch hose, capacity 250 m3/hour.",
+      "url": "https://www.agromiljo.no/kundehistorier/stripespreder-system-pa-deling/",
+      "as_of": "2018"
+     },
+     {
+      "id": "f23",
+      "category": "events",
+      "claim": "Agromiljø personnel assisted the Sømna customers with start-up in May 2018.",
+      "url": "https://www.agromiljo.no/kundehistorier/stripespreder-system-pa-deling/",
+      "as_of": "2018-05"
+     },
+     {
+      "id": "f24",
+      "category": "financials",
+      "claim": "A 2018 press article reported a turnover record for Agromiljø.",
+      "url": "https://www.agromiljo.no/nyheter/",
+      "as_of": "2018"
+     },
+     {
+      "id": "f25",
+      "category": "direction",
+      "claim": "A 2015 Nationen article stated Agromiljø wants to grow with environmentally friendly manure spreaders.",
+      "url": "https://www.agromiljo.no/nyheter/",
+      "as_of": "2015"
+     },
+     {
+      "id": "f26",
+      "category": "direction",
+      "claim": "The company states it is expanding and regularly advertises positions, including sales consultant/representative roles.",
+      "url": "https://www.agromiljo.no/ledige-stillinger/",
+      "as_of": "2022"
+     },
+     {
+      "id": "f27",
+      "category": "offering",
+      "claim": "Agromiljø offers a free, non-binding site inspection to assess hose spreading suitability.",
+      "url": "https://www.agromiljo.no/",
+      "as_of": null
+     },
+     {
+      "id": "f28",
+      "category": "offering",
+      "claim": "Production uses stainless and galvanised steel; the company has produced stripe spreaders for more than 30 years.",
+      "url": "https://www.agromiljo.no/",
+      "as_of": null
+     },
+     {
+      "id": "f29",
+      "category": "offering",
+      "claim": "Pump models include Cobra 50, 100, 150, HP 180, HP 300, 200 and Doda Grande L-35 and Maxi L-27; spreader models Z40, 50 and Z60.",
+      "url": "https://www.agromiljo.no/befaring/",
+      "as_of": null
+     },
+     {
+      "id": "f30",
+      "category": "offering",
+      "claim": "Hose range includes Mandals supply hoses (Standard and Extra) and drag hoses Ultraman and Dragman, supplied in lengths up to 200 metres.",
+      "url": "https://www.agromiljo.no/produkter/slanger/",
+      "as_of": null
+     },
+     {
+      "id": "f31",
+      "category": "offering",
+      "claim": "Agromiljø offers a 'Slangeflytter' (hose mover) hose wheel with extendable arm for moving slurry hoses into ditches and around obstacles.",
+      "url": "https://www.agromiljo.no/produkter/slangeflytter/",
+      "as_of": null
+     },
+     {
+      "id": "f32",
+      "category": "offering",
+      "claim": "The Slangeflytter weighs 140 kg, has a 3 metre swing width and connects via Triangel or HMV.",
+      "url": "https://www.agromiljo.no/produkter/slangeflytter/",
+      "as_of": null
+     },
+     {
+      "id": "f33",
+      "category": "offering",
+      "claim": "A silo adapter allows the hose mover to be used with a tyre for silo work.",
+      "url": "https://www.agromiljo.no/produkter/slangeflytter/",
+      "as_of": null
+     },
+     {
+      "id": "f34",
+      "category": "people",
+      "claim": "Agromiljø AS recruits sales consultants/representatives to handle quotes, farm visits and demonstrations of fertiliser equipment.",
+      "url": "https://www.agromiljo.no/category/stillinger/",
+      "as_of": "2021-01"
+     },
+     {
+      "id": "f35",
+      "category": "customers",
+      "claim": "Agromiljø serves agriculture, with sales activity based on farm visits and fertiliser plant demonstrations.",
+      "url": "https://www.agromiljo.no/category/stillinger/",
+      "as_of": "2021"
+     },
+     {
+      "id": "f36",
+      "category": "financials",
+      "claim": "FY2024: revenue NOK 29,475,000, operating result NOK −717,000, equity NOK 9,889,000",
+      "url": "https://www.purehelp.no/m/company/details/agromiljoeas/992138394",
+      "as_of": "2024"
+     },
+     {
+      "id": "f37",
+      "category": "financials",
+      "claim": "FY2024 detail: operating income NOK 29,475,380; net result −NOK 781,733; equity NOK 9,889,159; total assets NOK 22,473,716; 23 employees",
+      "url": "https://www.merinfo.no/bedrift/AS/992138394/AGROMILJ%C3%98-AS",
+      "as_of": "2024"
+     },
+     {
+      "id": "f38",
+      "category": "people",
+      "claim": "CEO is Kyrre Vastveit (born 1964)",
+      "url": "https://www.merinfo.no/bedrift/AS/992138394/AGROMILJ%C3%98-AS",
+      "as_of": "2024"
+     },
+     {
+      "id": "f39",
+      "category": "financials",
+      "claim": "Gulesider lists revenue 29,475 tNOK, profit margin −3.1% and 21 employees",
+      "url": "https://www.gulesider.no/agromilj%C3%B8+as+finn%C3%B8y/84209745/bedrift",
+      "as_of": "2024"
+     },
+     {
+      "id": "f40",
+      "category": "financials",
+      "claim": "Parent Agromiljø Eiendom AS (org. 946 399 302) last filed accounts for 2021: revenue NOK 1,597,000, operating result NOK 1,259,000, equity NOK 17,727,000",
+      "url": "https://www.purehelp.no/m/company/details/agromiljoeeiendomas/946399302",
+      "as_of": "2021"
+     }
+    ],
+    "financials": {
+     "identifier": {
+      "country": "NO",
+      "id": "992138394",
+      "source": "registry_id"
+     },
+     "rows": [
+      {
+       "year": 2024,
+       "period_start": null,
+       "period_end": null,
+       "currency": "NOK",
+       "revenue": 29475000,
+       "gross_profit": null,
+       "ebit": -717000,
+       "depreciation": null,
+       "ebitda": null,
+       "net_income": -781733,
+       "total_assets": null,
+       "equity": null,
+       "employees": 23,
+       "revenue_eur": 2719096,
+       "gross_profit_eur": null,
+       "ebit_eur": -66144,
+       "ebitda_eur": null,
+       "net_income_eur": -72116,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": null,
+       "source": "Published figure (press/directory)",
+       "url": "https://www.purehelp.no/m/company/details/agromiljoeas/992138394",
+       "confidence": "medium",
+       "also_from": [
+        "Published figure (press/directory)"
+       ]
+      },
+      {
+       "year": 2021,
+       "period_start": null,
+       "period_end": null,
+       "currency": "NOK",
+       "revenue": 1597000,
+       "gross_profit": null,
+       "ebit": 1259000,
+       "depreciation": null,
+       "ebitda": null,
+       "net_income": null,
+       "total_assets": null,
+       "equity": null,
+       "employees": null,
+       "revenue_eur": 147325,
+       "gross_profit_eur": null,
+       "ebit_eur": 116144,
+       "ebitda_eur": null,
+       "net_income_eur": null,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": null,
+       "source": "Published figure (press/directory)",
+       "url": "https://www.purehelp.no/m/company/details/agromiljoeeiendomas/946399302",
+       "confidence": "medium"
+      }
+     ],
+     "notes": [
+      "Registry lookup failed: data.brreg.no responded 503"
+     ],
+     "checked": [
+      "Brønnøysund Regnskapsregisteret",
+      "Brønnøysund Enhetsregisteret"
+     ],
+     "documents": [],
+     "conflicts": []
+    }
+   },
+   "messages": [],
+   "conversation": []
+  },
+  {
+   "id": "c_8uezzc1yu",
+   "name": "AQUASERVICE AS",
+   "country": "NO",
+   "city": "STRAUMGJERDE",
+   "industry": "Produksjon av kraner og ventiler ellers",
+   "website": "https://www.aquaservice.no",
+   "founded": 2021,
+   "employees": 21,
+   "revenue_eur": 4373616,
+   "ebitda_eur": null,
+   "ownership_type": "unknown",
+   "stage": "mandate_signed",
+   "enrichment": {
+    "products": [
+     "Aquatrans three-way valve for fish transport (design-protected)",
+     "Aquafilter self-cleaning industrial pressure filters (HDPE housing, stainless V-strainer)",
+     "AquaUV pool systems and UV plants"
+    ],
+    "summary": "Aquaservice AS is a Norwegian manufacturer of HDPE-based water-handling equipment for aquaculture and maritime industries, operating a 12,000 m² engineering and production facility in Straumgjerde, Sykkylven (f4, f9). Its product range spans self-cleaning industrial pressure filters, the design-protected Aquatrans three-way fish-transport valve, UV plants, pool treatment systems, sea pipelines, certified service rafts and HardRIB boats (f9, f20, f23, f8). Founded in 1985, the company passed through Ocea/Steinsvik/ScaleAQ ownership before key personnel bought it back in 2021, and it is now expanding internationally with units in the UK (2025) and Chile (2026) (f7, f3, f2, f5, f6)."
+   },
+   "owner": {
+    "name": "Asgeir Kjetil Skogstad",
+    "title": "CEO (daglig leder)",
+    "age": 50,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 70,
+    "attractiveness": 55,
+    "recommended_timing": "now",
+    "why_now": "Aquaservice is a classic Nordic niche engineering play: HDPE water-handling equipment with design-protected products (Aquatrans valve, self-cleaning Aquafilter), ISO 9001 since Dec 2025, and revenue up ~52% to NOK 47m (~€4M) in 2025 after a tax-uncertainty dip in 2024. The owners are a small group of key personnel who bought the business back from ScaleAQ in 2021 — five years in, with the growth case now proven and two international units (UK 2025, Chile 2026) burning working capital and management bandwidth, this is exactly the moment when a manager-owner group starts thinking about a second liquidity event or a strategic partner. The CEO is only 50 and in build-out mode, so this is not a succession story; the credible entry is growth capital or a minority stake to fund the UK/Chile expansion, with the Listed Nordic engineering group and the Nordic lower-mid-market PE fund as obvious counterparties — the sector's own consolidation history (Ocea → Steinsvik → ScaleAQ) makes the conversation natural. Caveat: at ~€4M revenue with no published EBITDA, the €3-5M floor is plausible but unproven, so qualify profitability on the first call.",
+    "signals": [
+     {
+      "signal": "Management/employee buy-back from ScaleAQ in 2021",
+      "direction": "positive",
+      "weight": "high",
+      "note": "Owner-manager group, five years into the hold — typical window for a second liquidity event or partial de-risking; not PE-backed, so no holding-period conflict."
+     },
+     {
+      "signal": "Aggressive international expansion (UK 2025, Chile 2026, senior hires)",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Capital and partner need is real; growth-capital or minority-stake framing is the natural soft entry."
+     },
+     {
+      "signal": "Sector consolidation precedent in own history (Ocea → Steinsvik → ScaleAQ)",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Aquaculture equipment is actively consolidating; strategics know the asset and the team."
+     },
+     {
+      "signal": "Proprietary/design-protected IP and ISO 9001:2015 certification",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Defensible products plus professionalising governance improve both attractiveness and sale-readiness."
+     },
+     {
+      "signal": "CEO aged 50, no succession pressure, growth mode",
+      "direction": "negative",
+      "weight": "high",
+      "note": "No retirement or succession trigger; openness will rest on capital and partnership logic, not exit intent."
+     },
+     {
+      "signal": "Revenue ~NOK 47m (~€4M), below most buyer mandate floors of €5M+",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Sits just under the Nordic PE and listed engineering group revenue thresholds; EV likely near the €3-5M floor."
+     },
+     {
+      "signal": "No public EBITDA, EBIT or balance sheet; brreg lookup failed",
+      "direction": "neutral",
+      "weight": "medium",
+      "note": "Profitability entirely unverified — valuation band is indicative only."
+     },
+     {
+      "signal": "Recent capacity build-out and hiring across production/automation",
+      "direction": "negative",
+      "weight": "low",
+      "note": "Recent investment cycle reduces near-term appetite for a full sale."
+     },
+     {
+      "signal": "Registry-sourced NO prospect; 'open' framing has 33% reply rate in Norway",
+      "direction": "positive",
+      "weight": "low",
+      "note": "Channel and framing historically convert well in this market (17% mandate rate on registry leads)."
+     }
+    ],
+    "risks": [
+     "Size risk: ~€4M revenue puts EV close to or below the €3-5M hard floor if margins are thin; a weak 2024 suggests volatility.",
+     "Ownership split after the 2021 buy-back is undisclosed — there may be no single majority owner, meaning a multi-party decision rather than one decision-maker.",
+     "Pitchbook still lists Ocea as an investor; residual institutional ownership would change the readiness picture entirely.",
+     "Project/equipment revenue with unknown customer concentration and little visible recurring aftermarket income.",
+     "Heavy exposure to Norwegian aquaculture capex cycles and resource rent tax policy, which already caused a poor 2024.",
+     "Two loss-making-by-default start-up units (UK, Chile) will drag consolidated EBITDA and complicate valuation.",
+     "CEO in expansion mode may simply not engage on ownership topics for another 12-24 months."
+    ],
+    "valuation_band_eur": {
+     "low": 3500000,
+     "high": 7000000
+    },
+    "history": [
+     {
+      "at": "2026-09-26T19:12:47.996Z",
+      "source": "reply",
+      "entry_id": "e_cxt05fg5n",
+      "from": {
+       "readiness": 45,
+       "attractiveness": 55,
+       "recommended_timing": "6-12 months"
+      },
+      "to": {
+       "readiness": 60,
+       "attractiveness": 55,
+       "recommended_timing": "now"
+      },
+      "reason": "The owner is open to a discussion and proposed a meeting next week, which raises readiness.",
+      "evidence": [
+       {
+        "quote": "Thanks for reaching out, happy to talk. Coffee next week works for me.",
+        "reading": "The owner is open to discussing a potential transaction and proposed a meeting next week.",
+        "effect": "raises",
+        "weight": "medium"
+       }
+      ],
+      "confidence": "medium"
+     },
+     {
+      "at": "2026-09-27T01:49:22.054Z",
+      "source": "reply",
+      "entry_id": "e_mo6fhtf9c",
+      "from": {
+       "readiness": 60,
+       "attractiveness": 55,
+       "recommended_timing": "now"
+      },
+      "to": {
+       "readiness": 70,
+       "attractiveness": 55,
+       "recommended_timing": "now"
+      },
+      "reason": "The owner's willingness to meet next week raises readiness. The attractiveness remains unchanged as no new business facts were revealed.",
+      "evidence": [
+       {
+        "quote": "Coffee next week works for me.",
+        "reading": "The owner is open to meeting soon",
+        "effect": "raises",
+        "weight": "medium"
+       }
+      ],
+      "confidence": "medium"
+     }
+    ]
+   },
+   "matches": [
+    {
+     "buyer_id": "b_10",
+     "buyer_name": "Listed Nordic engineering group",
+     "buyer_type": "strategic",
+     "fit": 82,
+     "reason": "Listed Nordic engineering group buying flow-control and aftermarket businesses fits Aquaservice's design-protected Aquatrans three-way valves, self-cleaning pressure filters and UV plants plus its Norwegian service/raft certification work."
+    },
+    {
+     "buyer_id": "b_01",
+     "buyer_name": "Nordic lower-mid-market PE fund",
+     "buyer_type": "PE",
+     "fit": 74,
+     "reason": "Nordic lower-mid-market fund targeting niche industrial manufacturers matches this 21-employee Møre og Romsdal aquaculture equipment maker with a 12,000 m² plant and management-buyback owners who could reinvest while expanding to the UK and Chile."
+    },
+    {
+     "buyer_id": "b_02",
+     "buyer_name": "DACH industrial buyout fund",
+     "buyer_type": "PE",
+     "fit": 52,
+     "reason": "Industrial-technology buyout thesis with >30% export share fits Aquaservice's UK and Chile units, though the fund's DACH-only geography and €10M+ revenue floor are a stretch for a Norwegian target."
+    }
+   ],
+   "research": {
+    "facts": [
+     {
+      "id": "f1",
+      "category": "financials",
+      "claim": "Aquaservice's operating revenue rose from about NOK 31 million in 2024 to NOK 47 million in 2025.",
+      "url": "https://aquaservice.no/pilene-peker-oppover/",
+      "as_of": "2025"
+     },
+     {
+      "id": "f2",
+      "category": "ownership",
+      "claim": "In 2021 key personnel bought the company back from ScaleAQ, making it Aquaservice AS again; it is locally owned.",
+      "url": "https://aquaservice.no/om-oss/",
+      "as_of": "2021"
+     },
+     {
+      "id": "f3",
+      "category": "ownership",
+      "claim": "Aquaservice was acquired by Ocea AS in 2008; Ocea was bought by Steinsvik Group in 2015, which became ScaleAQ in 2019.",
+      "url": "https://aquaservice.no/om-oss/",
+      "as_of": "2008"
+     },
+     {
+      "id": "f4",
+      "category": "footprint",
+      "claim": "Headquarters and all engineering/production are at a 12,000 m² factory in Straumgjerde, Sykkylven, with branches in the UK and Chile.",
+      "url": "https://aquaservice.no/om-oss/",
+      "as_of": null
+     },
+     {
+      "id": "f5",
+      "category": "events",
+      "claim": "Aquaservice Water Engineering UK Ltd. was established in 2025, entering the British market.",
+      "url": "https://aquaservice.no/om-oss/",
+      "as_of": "2025"
+     },
+     {
+      "id": "f6",
+      "category": "events",
+      "claim": "In 2026 Aquaservice opened an office in Puerto Montt / Puerto Varas, Chile.",
+      "url": "https://aquaservice.no/om-oss/",
+      "as_of": "2026"
+     },
+     {
+      "id": "f7",
+      "category": "events",
+      "claim": "Magnar Støylen founded Aquaservice in Sykkylven in 1985.",
+      "url": "https://aquaservice.no/om-oss/",
+      "as_of": "1985"
+     },
+     {
+      "id": "f8",
+      "category": "events",
+      "claim": "Filter production with a patented solution started in 1986, and Aquatrans, a design-protected three-way valve for fish transport, was launched in 2000.",
+      "url": "https://aquaservice.no/om-oss/",
+      "as_of": "2000"
+     },
+     {
+      "id": "f9",
+      "category": "offering",
+      "claim": "Aquaservice designs and produces HDPE products including Aquatrans valves, AquaUV pool systems, Aquafilter, static mixers, UV plants, sea pipelines, pipe fittings, service rafts, HardRIB boats and custom products.",
+      "url": "https://aquaservice.no/",
+      "as_of": null
+     },
+     {
+      "id": "f10",
+      "category": "customers",
+      "claim": "Customer segments include aquaculture, wellboats, service companies, smolt plants, RAS, shipyards, municipalities, waterworks, power plants, other industry and swimming pool treatment.",
+      "url": "https://aquaservice.no/",
+      "as_of": null
+     },
+     {
+      "id": "f11",
+      "category": "financials",
+      "claim": "Aquaservice has about 30 employees and 12,000 m² of production premises.",
+      "url": "https://aquaservice.no/",
+      "as_of": null
+     },
+     {
+      "id": "f12",
+      "category": "financials",
+      "claim": "The production facility in Straumgjerde, Sykkylven counts 25 employees.",
+      "url": "https://aquaservice.no/stillinger/produksjonsarbeidere/",
+      "as_of": null
+     },
+     {
+      "id": "f13",
+      "category": "events",
+      "claim": "Aquaservice became ISO 9001:2015 certified, announced 17 December 2025.",
+      "url": "https://aquaservice.no/aktuelt/",
+      "as_of": "2025-12"
+     },
+     {
+      "id": "f14",
+      "category": "people",
+      "claim": "Asgeir Skogstad is Managing Director (Daglig leder) of Aquaservice.",
+      "url": "https://aquaservice.no/kontakt/",
+      "as_of": null
+     },
+     {
+      "id": "f15",
+      "category": "people",
+      "claim": "Diane White is Managing Director, UK.",
+      "url": "https://aquaservice.no/kontakt/",
+      "as_of": null
+     },
+     {
+      "id": "f16",
+      "category": "footprint",
+      "claim": "Head office/factory is at Sørestrandvegen 33, 6220 Straumgjerde, Norway; UK branch at Unit 1 – Douglas Court, Chinnor, Oxon OX39 4HA.",
+      "url": "https://aquaservice.no/kontakt/",
+      "as_of": null
+     },
+     {
+      "id": "f17",
+      "category": "events",
+      "claim": "Andrea Catalan-Hernandez was hired as country manager in Chile, coming from ScaleAQ where she was Head of Equipment Business Chile.",
+      "url": "https://aquaservice.no/aquaservice-satser-i-chile/",
+      "as_of": "2026-06"
+     },
+     {
+      "id": "f18",
+      "category": "events",
+      "claim": "In August 2025 Aquaservice opened a new UK head office and hired Duncan Ockendon as Sales Director UK, responsible for the UV product line.",
+      "url": "https://aquaservice.no/nytt-kontor-i-storbritannia/",
+      "as_of": "2025-08"
+     },
+     {
+      "id": "f19",
+      "category": "events",
+      "claim": "Eivind Ove Sætre was hired in September 2025 as salesperson with project responsibility for Norway.",
+      "url": "https://aquaservice.no/norge-salgs-og-prosjektansvarlig-ansatt/",
+      "as_of": "2025-09"
+     },
+     {
+      "id": "f20",
+      "category": "offering",
+      "claim": "Service rafts are certified per NYTEK23 § 29 and NS 9415:2021 up to Hs 6m, made of PEHD, with space for 2×11 feed hoses.",
+      "url": "https://aquaservice.no/produkt/serviceflater/",
+      "as_of": null
+     },
+     {
+      "id": "f21",
+      "category": "customers",
+      "claim": "Kime Akva, represented by operations manager Simon Berntsen, is a reference customer for Aquaservice's certified service/power rafts.",
+      "url": "https://aquaservice.no/produkt/serviceflater/",
+      "as_of": null
+     },
+     {
+      "id": "f22",
+      "category": "direction",
+      "claim": "Aquaservice has performed a materiality analysis mapping its contribution to the UN Sustainable Development Goals and publishes a sustainability report.",
+      "url": "https://aquaservice.no/baerekraft/",
+      "as_of": null
+     },
+     {
+      "id": "f23",
+      "category": "offering",
+      "claim": "Aquaservice positions itself as a leading supplier of self-cleaning industrial pressure filters with HDPE housings and stainless steel V-shaped strainer inserts.",
+      "url": "https://aquaservice.no/en/filters-for-aquaculture-and-maritime-industries/",
+      "as_of": "2024"
+     },
+     {
+      "id": "f24",
+      "category": "financials",
+      "claim": "The company had a difficult year in 2024, attributed to uncertainty around the Norwegian resource rent tax (grunnrenteskatt).",
+      "url": "https://aquaservice.no/pilene-peker-oppover/",
+      "as_of": "2024"
+     },
+     {
+      "id": "f25",
+      "category": "events",
+      "claim": "Aquaservice made its debut at the Spatex trade show in the UK in early 2026.",
+      "url": "https://aquaservice.no/aktuelt/",
+      "as_of": "2026-02"
+     },
+     {
+      "id": "f26",
+      "category": "events",
+      "claim": "Aquaservice attended the Aquatech conference in Amsterdam, 6-9 November 2023, focusing on Aquafilter products.",
+      "url": "https://aquaservice.no/vi-tester-et-nytt-blogginnlegg/",
+      "as_of": "2023-11"
+     },
+     {
+      "id": "f27",
+      "category": "offering",
+      "claim": "Production uses technical plastics PE-HD and POM plus steel, with CNC machines, welding machines and special tools.",
+      "url": "https://aquaservice.no/stillinger/produksjonsarbeidere/",
+      "as_of": null
+     },
+     {
+      "id": "f28",
+      "category": "events",
+      "claim": "An Aquaservice employee received a salmon award in Chile, announced 15 September 2026.",
+      "url": "https://aquaservice.no/en/filters-for-aquaculture-and-maritime-industries/",
+      "as_of": "2026-09"
+     },
+     {
+      "id": "f29",
+      "category": "people",
+      "claim": "Aquaservice is recruiting service technicians/automation engineers, CNC operators, production workers and installation fitters.",
+      "url": "https://aquaservice.no/ledige-stillinger/",
+      "as_of": null
+     },
+     {
+      "id": "f30",
+      "category": "footprint",
+      "claim": "Aquaservice was founded in 1985 and is headquartered in Straumgjerde, Norway",
+      "url": "https://pitchbook.com/profiles/company/1002327-76",
+      "as_of": null
+     },
+     {
+      "id": "f31",
+      "category": "financials",
+      "claim": "Aquaservice is listed with 21 employees",
+      "url": "https://pitchbook.com/profiles/company/1002327-76",
+      "as_of": null
+     },
+     {
+      "id": "f32",
+      "category": "offering",
+      "claim": "Aquaservice's primary industry is classified as Industrial Supplies and Parts",
+      "url": "https://pitchbook.com/profiles/company/1002327-76",
+      "as_of": null
+     },
+     {
+      "id": "f33",
+      "category": "ownership",
+      "claim": "Ocea (Aquaculture) is listed as an investor in Aquaservice, which was recorded as acquired on 1 January 2021",
+      "url": "https://pitchbook.com/profiles/company/1002327-76",
+      "as_of": "2021-01"
+     },
+     {
+      "id": "f34",
+      "category": "footprint",
+      "claim": "Aquaservice AS has Norwegian organisation number 927 160 811 and is located in Straumgjerde, Sykkylven (Møre og Romsdal)",
+      "url": "https://www.proff.no/selskap/aquaservice-as/straumgjerde/produsenter/IFC09UZ016D",
+      "as_of": null
+     }
+    ],
+    "financials": {
+     "identifier": {
+      "country": "NO",
+      "id": "927160811",
+      "source": "registry_id"
+     },
+     "rows": [
+      {
+       "year": 2026,
+       "period_start": null,
+       "period_end": null,
+       "currency": "EUR",
+       "revenue": null,
+       "gross_profit": null,
+       "ebit": null,
+       "depreciation": null,
+       "ebitda": null,
+       "net_income": null,
+       "total_assets": null,
+       "equity": null,
+       "employees": 21,
+       "revenue_eur": null,
+       "gross_profit_eur": null,
+       "ebit_eur": null,
+       "ebitda_eur": null,
+       "net_income_eur": null,
+       "fx_to_eur": 1,
+       "ebitda_basis": null,
+       "source": "Published figure (press/directory)",
+       "url": "https://pitchbook.com/profiles/company/1002327-76",
+       "confidence": "medium"
+      },
+      {
+       "year": 2025,
+       "period_start": "2025-01-01",
+       "period_end": "2025-12-31",
+       "currency": "NOK",
+       "revenue": 47409994,
+       "gross_profit": null,
+       "ebit": 767520,
+       "depreciation": null,
+       "ebitda": null,
+       "net_income": -671625,
+       "total_assets": 32319435,
+       "equity": -123168,
+       "employees": 21,
+       "revenue_eur": 4373616,
+       "gross_profit_eur": null,
+       "ebit_eur": 70804,
+       "ebitda_eur": null,
+       "net_income_eur": -61958,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": null,
+       "source": "Brønnøysund Regnskapsregisteret (NO)",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/927160811",
+       "confidence": "high"
+      }
+     ],
+     "notes": [
+      "Open API only exposes the latest financial year — earlier years as PDF copies (see documents)",
+      "Open API has no depreciation line — EBITDA not derivable (see PDF)",
+      "Employees = current headcount in Enhetsregisteret (not year-specific)",
+      "EUR figures use the latest ECB reference rate (1 EUR = 10.84 NOK, 2026-09-25), not period averages"
+     ],
+     "checked": [
+      "Brønnøysund Regnskapsregisteret",
+      "Brønnøysund Enhetsregisteret"
+     ],
+     "documents": [
+      {
+       "type": "annual_report",
+       "year": 2025,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/927160811/2025",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2024,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/927160811/2024",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2023,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/927160811/2023",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      }
+     ],
+     "conflicts": []
+    }
+   },
+   "messages": [
+    {
+     "id": "m_880tbwc2p",
+     "step": 1,
+     "channel": "email",
+     "subject": "Capital for Aquaservice's Chile expansion",
+     "body": "Asgeir, I've worked with several buyers who are interested in engineering companies with unique products and global ambitions. One of them is looking for a partner in Chile. I saw that you opened an office there this year. I think there's a good chance we could find a buyer who can support your growth there. Would you be interested in exploring this?",
+     "status": "replied",
+     "send_after_days": 0,
+     "lint": {
+      "score": 0,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_u2zke1bov",
+     "step": 2,
+     "channel": "email",
+     "subject": "Aquaservice's growth in Norway",
+     "body": "Hi Asgeir, I saw Aquaservice's strong growth in Norway last year. A buyer in our network has been asking about Norwegian valve manufacturers. I'd like to understand your thoughts on the market and see if there's a fit. Let me know if you have 15 minutes next week.",
+     "status": "draft",
+     "send_after_days": 4,
+     "lint": {
+      "score": 24,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_5248mab5i",
+     "step": 3,
+     "channel": "email",
+     "subject": "Buyer demand for aquaculture equipment",
+     "body": "Asgeir, our network has seen strong demand for aquaculture equipment. We have buyers looking for companies that make valves and pumps, like Aquaservice. I can send over a summary of what they are looking for. Let me know if you're interested. Best regards, Alex",
+     "status": "draft",
+     "send_after_days": 10,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_t4sow7bdo",
+     "step": 4,
+     "channel": "email",
+     "subject": "Aquaservice AS: Opportunity to discuss buyer demand for your custom valve solutions",
+     "body": "Hi Asgeir, I saw Aquaservice AS has been expanding your custom valve solutions for the oil and gas industry. Our network includes buyers looking for exactly this. If you're open to discussing how we can connect you with them, let me know a good time for you. Regards, Miiro",
+     "status": "draft",
+     "send_after_days": 21,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_1p7qj2gvc",
+     "step": 0,
+     "channel": "email",
+     "subject": "Capital for Chile expansion",
+     "body": "Asgeir, I saw your plans to expand into Chile. A buyer in our network has expressed interest in your products. Let's talk. I'm available Tuesday or Wednesday afternoon. If either of those days works for you, I'll send a calendar invite. If not, let me know a good time for you. I'll keep this confidential and you set the pace.",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 0,
+      "blocks_send": false
+     },
+     "in_reply_to": "e_mo6fhtf9c"
+    }
+   ],
+   "conversation": [
+    {
+     "id": "e_csaj9hd9h",
+     "direction": "outbound",
+     "channel": "email",
+     "text": "Subject: Capital for Aquaservice's Chile expansion\n\nAsgeir, I've worked with several buyers who are interested in engineering companies with unique products and global ambitions. One of them is looking for a partner in Chile. I saw that you opened an office there this year. I think there's a good chance we could find a buyer who can support your growth there. Would you be interested in exploring this?",
+     "at": "2026-09-27T01:49:12.485Z",
+     "triage": null,
+     "score_update": null
+    },
+    {
+     "id": "e_mo6fhtf9c",
+     "direction": "inbound",
+     "channel": "email",
+     "text": "Thanks for reaching out, happy to talk. Coffee next week works for me.",
+     "at": "2026-09-27T01:49:15.072Z",
+     "triage": {
+      "intent": "interested",
+      "sentiment": "warm",
+      "next_step": "Book a 30-minute call with Miiro Nygrén"
+     },
+     "score_update": {
+      "from": {
+       "readiness": 60,
+       "attractiveness": 55,
+       "recommended_timing": "now"
+      },
+      "to": {
+       "readiness": 70,
+       "attractiveness": 55,
+       "recommended_timing": "now"
+      },
+      "delta": 10,
+      "reason": "The owner's willingness to meet next week raises readiness. The attractiveness remains unchanged as no new business facts were revealed.",
+      "evidence": [
+       {
+        "quote": "Coffee next week works for me.",
+        "reading": "The owner is open to meeting soon",
+        "effect": "raises",
+        "weight": "medium"
+       }
+      ],
+      "confidence": "medium",
+      "dropped_quotes": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": "c_re124x1yu",
+   "name": "ARGUS REMOTE SYSTEMS AS",
+   "country": "NO",
+   "city": "LAKSEVÅG",
+   "industry": "Produksjon av andre spesialmaskiner ikke nevnt annet sted",
+   "website": "https://www.argus-rs.no",
+   "founded": 1986,
+   "employees": 48,
+   "revenue_eur": 31813532,
+   "ebitda_eur": null,
+   "ownership_type": "unknown",
+   "stage": "enriched",
+   "enrichment": {
+    "products": [
+     "Argus Worker XL heavy work-class deepwater ROV (144-240kW, 1000-7000msw, 3500kg lift)",
+     "Argus Worker work-class ROV (95-200kW, to 7000msw)",
+     "Argus Worker Compact (to 4000msw, 130HP)"
+    ],
+    "summary": "Argus Remote Systems AS is a Bergen (Laksevåg) based designer and manufacturer of electric ROV (remotely operated vehicle) systems for subsea work, with nine ROV models spanning inspection-class to heavy work-class units rated to 7,000 m, plus its own Poseidon control system, tether management systems, LARS and DNV-certified control containers (f3, f5, f17, f18, f11). Over 164 complete ROV systems have been delivered in 30+ years, with customers in aquaculture, oil & gas, subsea power cable, defence and research (f3, f4, f26). The company reported 2025 revenue of €31.8M and EBIT of €6.2M with 48 employees, is 70% owned by Mohn Drilling and 30% by employees (f1)."
+   },
+   "owner": {
+    "name": "Frode Korneliussen",
+    "title": "CEO (daglig leder)",
+    "age": 67,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 45,
+    "attractiveness": 86,
+    "recommended_timing": "3-6 months",
+    "why_now": "Argus is a rare, profitable Norwegian subsea-robotics OEM — €31.8M revenue, €6.2M EBIT (~19%), proprietary Poseidon control software, 164 delivered ROV systems and a live order book across Shearwater, Mermaid, offshore wind and defence. The timing hook is the leadership transition: 67-year-old Frode Korneliussen appears to have stepped back to Senior Advisor with Renate Hvidevoll taking over as CEO, which is exactly the moment holding companies re-examine their position. The catch is the cap table — this is not a founder-owned situation: 70% sits with Mohn Drilling and 30% with employees, so the real conversation is with the Mohn owner group, not the CEO, and an industrial family holding can sit on an asset like this indefinitely. That said, subsea robotics is consolidating hard and our Nordic lower-mid-market PE fund, the Finnish evergreen family office and the listed Nordic engineering group would all move on this at the size and margin profile; even a partial/minority framing gives us a credible soft entry. Worth a well-researched 'open' approach to Mohn Drilling now, with the CEO handover as the natural pretext.",
+    "signals": [
+     {
+      "signal": "CEO succession in progress (Korneliussen, 67 → Senior Advisor)",
+      "direction": "positive",
+      "weight": "high",
+      "note": "Classic transition moment that reopens ownership questions; confirm whether the handover is formal."
+     },
+     {
+      "signal": "Strong, verified profitability",
+      "direction": "positive",
+      "weight": "high",
+      "note": "€31.8M revenue, €6.2M EBIT (~19%), €5.0M net on 48 employees — well above the network's EBITDA thresholds."
+     },
+     {
+      "signal": "Consolidating niche with scarce independent targets",
+      "direction": "positive",
+      "weight": "high",
+      "note": "Subsea robotics OEMs of this size and independence are rare; strategic and PE appetite is active."
+     },
+     {
+      "signal": "Ownership sits with an industrial holding (70% Mohn Drilling), not a founder",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Decision-maker is not the CEO; Mergero must approach the Mohn owner group. Falls outside the ideal founder-owned profile."
+     },
+     {
+      "signal": "30% employee ownership",
+      "direction": "neutral",
+      "weight": "medium",
+      "note": "Adds process complexity (shareholder agreement, drag/tag) but also creates a liquidity motive for a partial transaction."
+     },
+     {
+      "signal": "Order-book momentum and international references",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Shearwater (2x Worker XL), Mermaid (4x Worker Compact), US/Korea/Croatia deliveries — growth story, not distress."
+     },
+     {
+      "signal": "Diversification into offshore wind and defence",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Reduces oil & gas cyclicality perception and widens thematic buyer appeal."
+     },
+     {
+      "signal": "IP-backed differentiation (Poseidon, 25% of staff in R&D)",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Supports a premium multiple versus a pure assembly business."
+     },
+     {
+      "signal": "Company in growth mode, no distress trigger",
+      "direction": "negative",
+      "weight": "medium",
+      "note": "No flat/declining revenue signal; owner has no forced reason to act in the next 12 months."
+     },
+     {
+      "signal": "Registry-sourced Norwegian lead",
+      "direction": "positive",
+      "weight": "low",
+      "note": "NO 'open' framing shows the best reply rate (33%) and registry leads convert to mandate at ~17% in our sample."
+     }
+    ],
+    "risks": [
+     "Seller is Mohn Drilling, a private industrial holding with no visible exit pressure and potentially a very long horizon — access to the real decision-maker is the main hurdle.",
+     "30% employee shareholding plus any shareholder agreement (drag/tag) could complicate or block a clean control sale.",
+     "EBITDA not derivable from filed data (no depreciation line) and only one year of API-visible history — valuation band is indicative and needs normalisation.",
+     "Project-based capital equipment revenue: order-book lumpiness and unknown customer concentration could swing multiples materially.",
+     "Offshore/oil & gas exposure remains cyclical; aftermarket/recurring share is unknown.",
+     "Defence-sector (FSi) membership may bring export-control or foreign-ownership review constraints on certain buyer profiles.",
+     "New CEO recently installed may argue for stability and push any ownership conversation out 12-24 months."
+    ],
+    "valuation_band_eur": {
+     "low": 38000000,
+     "high": 65000000
+    },
+    "history": []
+   },
+   "matches": [
+    {
+     "buyer_id": "b_01",
+     "buyer_name": "Nordic lower-mid-market PE fund",
+     "buyer_type": "PE",
+     "fit": 83,
+     "reason": "Nordic niche leader in electric work-class ROVs with €31.8M revenue and €6.2M EBIT fits the fund's €5-50M revenue/€0.8-8M EBITDA majority buyout range, and the 67-year-old CEO plus 30% employee ownership signals a classic succession/handover situation."
+    },
+    {
+     "buyer_id": "b_10",
+     "buyer_name": "Listed Nordic engineering group",
+     "buyer_type": "strategic",
+     "fit": 74,
+     "reason": "Listed Nordic engineering group buying automation and aftermarket businesses would value Argus's installed base of 164+ delivered ROV systems and its service, training and operational support revenue."
+    },
+    {
+     "buyer_id": "b_02",
+     "buyer_name": "DACH industrial buyout fund",
+     "buyer_type": "PE",
+     "fit": 58,
+     "reason": "A hidden-champion industrial technology buyout thesis with >30% export share matches Argus's global subsea deliveries (US, KR, HR, GB) and proprietary Poseidon control system, though its DE/AT/CH geographic focus excludes Norway."
+    },
+    {
+     "buyer_id": "b_08",
+     "buyer_name": "Swiss entrepreneurial family office",
+     "buyer_type": "family_office",
+     "fit": 50,
+     "reason": "Family office open to selected European manufacturing/technology holdings with a 10-15 year horizon could suit this Bergen ROV manufacturer's capital-project cycles, but the mandate is DACH-centric."
+    }
+   ],
+   "research": {
+    "facts": [
+     {
+      "id": "f1",
+      "category": "ownership",
+      "claim": "Argus RS is independent and 100% locally owned, 70% by Mohn Drilling and 30% by employees.",
+      "url": "https://www.argus-rs.no/about-us",
+      "as_of": null
+     },
+     {
+      "id": "f2",
+      "category": "footprint",
+      "claim": "Argus Remote Systems AS was founded in 1991 and is based in Bergen, Norway.",
+      "url": "https://www.argus-rs.no/about-us",
+      "as_of": "1991"
+     },
+     {
+      "id": "f3",
+      "category": "offering",
+      "claim": "The company has delivered more than 164 electric ROV systems over 30 years and offers nine distinct ROV models.",
+      "url": "https://www.argus-rs.no/about-us",
+      "as_of": null
+     },
+     {
+      "id": "f4",
+      "category": "customers",
+      "claim": "Main customers are in aquaculture, oil & gas, military and research industries.",
+      "url": "https://www.argus-rs.no/about-us",
+      "as_of": null
+     },
+     {
+      "id": "f5",
+      "category": "offering",
+      "claim": "164 complete ROV systems built, of which 22 are work-class ROVs and 10 are 6000m systems.",
+      "url": "https://www.argus-rs.no/",
+      "as_of": null
+     },
+     {
+      "id": "f6",
+      "category": "financials",
+      "claim": "25% of staff is dedicated to R&D.",
+      "url": "https://www.argus-rs.no/",
+      "as_of": null
+     },
+     {
+      "id": "f7",
+      "category": "events",
+      "claim": "In September 2025 Argus signed a contract to deliver two Argus Worker XL WROV and TMS systems rated to 4,000 m to Shearwater Geoservices.",
+      "url": "https://www.argus-rs.no/news/argus-announces-contract-with-shearwater-geoservices",
+      "as_of": "2025-09"
+     },
+     {
+      "id": "f8",
+      "category": "people",
+      "claim": "Frode Korneliussen is CEO at Argus Remote Systems (per Sept 2025 news).",
+      "url": "https://www.argus-rs.no/news/argus-announces-contract-with-shearwater-geoservices",
+      "as_of": "2025-09"
+     },
+     {
+      "id": "f9",
+      "category": "people",
+      "claim": "Renate Hvidevoll is CEO; Jan Bryn CTO; Erik Kleppe VP Sales; Frode Korneliussen Senior Advisor.",
+      "url": "https://www.argus-rs.no/contact-1",
+      "as_of": null
+     },
+     {
+      "id": "f10",
+      "category": "events",
+      "claim": "Mermaid Subsea Services, a subsidiary of Mermaid Maritime PCL, ordered four Argus Worker Compact electric WROVs, deployment scheduled Q3 2025.",
+      "url": "https://www.argus-rs.no/news/argus-announces-contract-with-mermaid-subsea-services",
+      "as_of": "2025"
+     },
+     {
+      "id": "f11",
+      "category": "offering",
+      "claim": "Systems supplied with Argus Poseidon control platform, top hat TMS, DNV certified containers and Hydramec LARS.",
+      "url": "https://www.argus-rs.no/news/argus-announces-contract-with-mermaid-subsea-services",
+      "as_of": "2025"
+     },
+     {
+      "id": "f12",
+      "category": "footprint",
+      "claim": "Office address is Nygårdsviken 1, 5165 Laksevåg, phone +47 56 11 30 50.",
+      "url": "https://www.argus-rs.no/contact-1",
+      "as_of": null
+     },
+     {
+      "id": "f13",
+      "category": "events",
+      "claim": "In March 2024 Argus delivered its 150th vehicle, an ROV to Marine Imaging Technologies, LLC in Cape Cod, USA.",
+      "url": "https://www.argus-rs.no/news/ff",
+      "as_of": "2024-03"
+     },
+     {
+      "id": "f14",
+      "category": "events",
+      "claim": "An Argus Mariner with top-hat TMS and Hydramec LARS was delivered to GeoView in South Korea.",
+      "url": "https://www.argus-rs.no/news/vd6z8dmolz81391ejbkk254a2w9vpg",
+      "as_of": "2024-12"
+     },
+     {
+      "id": "f15",
+      "category": "events",
+      "claim": "An Argus Inspector ROV rated to 600 m was delivered to Adriatic Commercial Diving LTD in Croatia in December 2024.",
+      "url": "https://www.argus-rs.no/news/delivery-of-argus-inspector-rov-to-adriatic-commercial-diving",
+      "as_of": "2024-12"
+     },
+     {
+      "id": "f16",
+      "category": "offering",
+      "claim": "Argus offers hardware, service, training and operational support, and has delivered over 135 complete subsea systems including ROVs and TMS.",
+      "url": "https://www.argus-rs.no/about-us-1",
+      "as_of": null
+     },
+     {
+      "id": "f17",
+      "category": "offering",
+      "claim": "Ultra deep systems have a track record at 7,000 m water depth.",
+      "url": "https://www.argus-rs.no/about-us-1",
+      "as_of": null
+     },
+     {
+      "id": "f18",
+      "category": "offering",
+      "claim": "Argus developed its own control system, Poseidon, which allows third-party application interfacing.",
+      "url": "https://www.argus-rs.no/control-system",
+      "as_of": null
+     },
+     {
+      "id": "f19",
+      "category": "offering",
+      "claim": "Worker XL is a heavy work class deepwater ROV, 144-240kW, depth 1000-7000msw, lift capacity 3500kg.",
+      "url": "https://www.argus-rs.no/argus-worker-xl",
+      "as_of": null
+     },
+     {
+      "id": "f20",
+      "category": "offering",
+      "claim": "Worker UC is an ultra compact work class ROV for the windfarm industry, 72kW, 300msw depth.",
+      "url": "https://www.argus-rs.no/worker-ultra-compact",
+      "as_of": null
+     },
+     {
+      "id": "f21",
+      "category": "offering",
+      "claim": "Worker Compact is a compact work class ROV rated down to 4000msw with 130HP.",
+      "url": "https://www.argus-rs.no/argus-worker-compact",
+      "as_of": null
+     },
+     {
+      "id": "f22",
+      "category": "events",
+      "claim": "Argus will exhibit at ONS in Stavanger 24–27 August 2026 at booth 290, displaying the Worker Ultra Compact.",
+      "url": "https://www.argus-rs.no/events",
+      "as_of": "2026-08"
+     },
+     {
+      "id": "f23",
+      "category": "events",
+      "claim": "Argus plans to exhibit at Oceanology International in London in March 2026.",
+      "url": "https://www.argus-rs.no/events",
+      "as_of": "2026-03"
+     },
+     {
+      "id": "f24",
+      "category": "events",
+      "claim": "Argus announced a contract with NCT Offshore in March 2024.",
+      "url": "https://www.argus-rs.no/news",
+      "as_of": "2024-03"
+     },
+     {
+      "id": "f25",
+      "category": "people",
+      "claim": "Argus is recruiting for ROV-tekniker and Senior HSEQ Manager positions.",
+      "url": "https://www.argus-rs.no/recruitment",
+      "as_of": null
+     },
+     {
+      "id": "f26",
+      "category": "customers",
+      "claim": "Argus has experience with oil and gas, subsea power cable industries, research institutions and aquaculture.",
+      "url": "https://www.argus-rs.no/about-us-1",
+      "as_of": null
+     },
+     {
+      "id": "f27",
+      "category": "offering",
+      "claim": "The Argus Worker work class ROV offers 95-200kW power and depth ratings to 7000msw.",
+      "url": "https://www.argus-rs.no/argus-worker",
+      "as_of": null
+     },
+     {
+      "id": "f28",
+      "category": "footprint",
+      "claim": "ARGUS REMOTE SYSTEMS AS is registered with org. no. 940 229 294 and located in Laksevåg (Bergen), Norway.",
+      "url": "https://www.proff.no/selskap/argus-remote-systems-as/laksev%C3%A5g/produsenter/IFJSDKE016D",
+      "as_of": null
+     },
+     {
+      "id": "f29",
+      "category": "offering",
+      "claim": "Argus Remote Systems supplies underwater ROVs, including the Worker XL intervention ROV.",
+      "url": "https://www.nauticexpo.com/prod/argus-remote-systems-as/product-39762-312919.html",
+      "as_of": null
+     },
+     {
+      "id": "f30",
+      "category": "offering",
+      "claim": "The company's ROV product range includes the Rover and Rover MKII models.",
+      "url": "https://pdf.nauticexpo.com/pdf/argus-remote-systems-as/rover-mkii/39762-34277.html",
+      "as_of": null
+     },
+     {
+      "id": "f31",
+      "category": "offering",
+      "claim": "The Argus Mariner is a light work class ROV marketed as ideal for aquaculture applications.",
+      "url": "https://argusrs.squarespace.com/s/05-Datasheet-Argus-Mariner-March-2024.pdf",
+      "as_of": "2024-03"
+     },
+     {
+      "id": "f32",
+      "category": "events",
+      "claim": "Argus delivered its first ROV in the 1980s and signed a new contract with AQS.",
+      "url": "https://ilaks.no/argus-leverte-sin-forste-rov-pa-attitallet-i-dag-inngikk-de-ny-kontrakt-med-aqs/",
+      "as_of": null
+     },
+     {
+      "id": "f33",
+      "category": "other",
+      "claim": "Argus Remote Systems AS is a member of FSi (Norwegian Defence and Security Industries Association).",
+      "url": "https://www.fsi.no/medlemsskap/medlemsbedrifter/argus-remote-systems-as/",
+      "as_of": null
+     },
+     {
+      "id": "f34",
+      "category": "other",
+      "claim": "Argus Remote Systems is a member of the Norwegian Offshore Wind cluster.",
+      "url": "https://www.norwegianoffshorewind.no/members/member-200",
+      "as_of": null
+     }
+    ],
+    "financials": {
+     "identifier": {
+      "country": "NO",
+      "id": "940229294",
+      "source": "registry_id"
+     },
+     "rows": [
+      {
+       "year": 2025,
+       "period_start": "2025-01-01",
+       "period_end": "2025-12-31",
+       "currency": "NOK",
+       "revenue": 344858685,
+       "gross_profit": null,
+       "ebit": 67127698,
+       "depreciation": null,
+       "ebitda": null,
+       "net_income": 53806361,
+       "total_assets": 232095032,
+       "equity": 76417518,
+       "employees": 48,
+       "revenue_eur": 31813532,
+       "gross_profit_eur": null,
+       "ebit_eur": 6192592,
+       "ebitda_eur": null,
+       "net_income_eur": 4963686,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": null,
+       "source": "Brønnøysund Regnskapsregisteret (NO)",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/940229294",
+       "confidence": "high"
+      }
+     ],
+     "notes": [
+      "Open API only exposes the latest financial year — earlier years as PDF copies (see documents)",
+      "Open API has no depreciation line — EBITDA not derivable (see PDF)",
+      "Employees = current headcount in Enhetsregisteret (not year-specific)",
+      "EUR figures use the latest ECB reference rate (1 EUR = 10.84 NOK, 2026-09-25), not period averages"
+     ],
+     "checked": [
+      "Brønnøysund Regnskapsregisteret",
+      "Brønnøysund Enhetsregisteret"
+     ],
+     "documents": [
+      {
+       "type": "annual_report",
+       "year": 2025,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/940229294/2025",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2024,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/940229294/2024",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2023,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/940229294/2023",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2024,
+       "format": "pdf",
+       "url": "https://argusrs.squarespace.com/s/ROV-model-comparison-March-2024.pdf",
+       "source": "Read from PDF"
+      }
+     ],
+     "conflicts": []
+    }
+   },
+   "messages": [],
+   "conversation": []
+  },
+  {
+   "id": "c_o0w23p1yu",
+   "name": "7 STEEL SERVICE NORWAY AS",
+   "country": "NO",
+   "city": "OSLO",
+   "industry": "Produksjon av varer av metalltråd, kjetting og fjærer",
+   "website": "https://www.7-steelservice.no/",
+   "founded": 1998,
+   "employees": 146,
+   "revenue_eur": 117989114,
+   "ebitda_eur": null,
+   "ownership_type": "unknown",
+   "stage": "enriched",
+   "enrichment": {
+    "products": [
+     "Cut-and-bend rebar (kamstål/kamtråd)",
+     "Standard and project-specific welded reinforcement mesh (spesialnett, NS 3576-4, Kontrollrådet Class K)",
+     "Roll reinforcement (BAMTEC)"
+    ],
+    "summary": "7 Steel Service Norway AS (formerly Celsa Steel Service) is a nationwide Norwegian supplier of reinforcement steel products for the construction and infrastructure sector, with cut-and-bend rebar, welded mesh, roll reinforcement (BAMTEC), prefabricated cages and rebar accessories, backed by value-added services such as rebar drawing, BIM/IFC-based ordering and mechanical testing. Rebar is supplied from a 100% scrap-based electric arc furnace steel mill in Mo i Rana (Mo Industripark) running on hydropower, which the company markets as Europe's cleanest rebar at 388 kg CO2e/tonne. It operates production, warehouses and sales offices from Kristiansand to Tromsø and reported NOK-equivalent €118.0M revenue in 2025 with 146 employees."
+   },
+   "owner": {
+    "name": "Espen Marthinsen",
+    "title": "CEO (daglig leder)",
+    "age": 61,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 20,
+    "attractiveness": 30,
+    "recommended_timing": "not yet",
+    "why_now": "On paper this looks like a Nordic industrial champion — €118M revenue, 146 people, seven sites, the largest rebar processor in the Nordics with a genuinely differentiated low-carbon story that CBAM and the EU melt-and-pour rules from October 2026 make commercially valuable. But it is almost certainly not our deal: the Celsa Steel Service heritage and the rebrand to 7 Steel, plus the in-group EAF mill in Mo i Rana, point to a foreign steel group subsidiary, not a founder-owned business. Espen Marthinsen is 61 and the right age, but he is daglig leder, not visibly the majority owner, so the sale decision sits with a parent we haven't identified. Add a €1.2M EBIT on €118M of revenue with a €1.0M net loss, ongoing capex (new Trondheim factory, new Bergen/Ålesund premises), and a revenue scale that exceeds every mandate in our network except the logistics fund (wrong sector), and this becomes a carve-out conversation for a strategic steel/infrastructure buyer rather than a classic succession mandate. Worth 30 minutes of ownership verification via Brønnøysund shareholder data; if it turns out there is a Norwegian management-owned holding structure, it flips quickly — otherwise park it.",
+    "signals": [
+     {
+      "signal": "CEO aged 61 (succession window)",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Espen Marthinsen is 61, but tenure and whether he holds equity are unknown; if he is a hired group CEO the age signal carries no transaction weight."
+     },
+     {
+      "signal": "Likely group subsidiary / carve-out, not founder-owned",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Rebrand from Celsa Steel Service to 7 Steel Service and reliance on an in-group Mo i Rana steel mill strongly suggest a foreign parent controls the decision — outside Mergero's ideal majority-owner profile."
+     },
+     {
+      "signal": "Thin earnings profile",
+      "direction": "negative",
+      "weight": "high",
+      "note": "FY2025 EBIT €1.2M (1% margin) and net result €-1.0M on €118M revenue; EBITDA not derivable. Value would hinge on normalised EBITDA and asset base, not an earnings multiple."
+     },
+     {
+      "signal": "Recent and ongoing capex",
+      "direction": "negative",
+      "weight": "medium",
+      "note": "New Trondheim factory staffed up in 2023, new Bergen and Ålesund premises — an investment/expansion posture rather than a harvest posture."
+     },
+     {
+      "signal": "Revenue above core buyer-network range",
+      "direction": "negative",
+      "weight": "medium",
+      "note": "€118M exceeds the revenue ceiling of every industrial mandate in the network (max €80M DACH, €60M listed Nordic engineering group); realistic buyers are steel strategics outside our current book."
+     },
+     {
+      "signal": "Regulatory tailwind (CBAM, melt-and-pour)",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "388 kg CO2e/tonne scrap-based hydropower rebar, ~40% improved 2026 EPD — a credible equity story for a strategic or infrastructure buyer as imports get penalised from 2026/2027."
+     },
+     {
+      "signal": "Blue-chip customer base and frame agreements",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Skanska, NCC, Hent, Contiga, Statens vegvesen; nationwide logistics footprint from Kristiansand to Tromsø creates defensible market position."
+     },
+     {
+      "signal": "No shareholder or board information found",
+      "direction": "neutral",
+      "weight": "high",
+      "note": "Ownership structure is the single gating data gap; everything else in the scoring is provisional until it is resolved."
+     },
+     {
+      "signal": "Registry-sourced lead in NO",
+      "direction": "neutral",
+      "weight": "low",
+      "note": "Registry leads convert at 17% (n=6) and the 'open' framing replies best in Norway at 33% — but that base rate is drawn from owner-led SMEs, not group subsidiaries."
+     }
+    ],
+    "risks": [
+     "Decision-maker is almost certainly a foreign parent/group, not the 61-year-old CEO — outreach to Marthinsen may never reach the shareholder.",
+     "Transaction perimeter unclear: is the Mo i Rana EAF mill in or out? Intercompany rebar supply pricing would determine standalone margin and could make the entity unsaleable separately.",
+     "Commodity steel price exposure and working-capital swings; the 2025 net loss is unexplained and may be structural rather than one-off.",
+     "Customer concentration among a handful of large Norwegian contractors with project-based, cyclical volumes tied to Norwegian construction activity.",
+     "Size and sector place it outside every active mandate in the current buyer network; Mergero would be originating for buyers it does not yet have.",
+     "Asset-heavy balance sheet with unknown net debt after recent capex — equity value could be materially below any revenue-based intuition."
+    ],
+    "valuation_band_eur": {
+     "low": 10000000,
+     "high": 35000000
+    },
+    "history": []
+   },
+   "matches": [],
+   "research": {
+    "facts": [
+     {
+      "id": "f1",
+      "category": "offering",
+      "claim": "7 Steel Service is a total supplier of reinforcement products to the Norwegian market, including cut-and-bend rebar, mesh, roll reinforcement, prefabricated cages and specification/drawing services.",
+      "url": "https://7-steelservice.no/",
+      "as_of": null
+     },
+     {
+      "id": "f2",
+      "category": "offering",
+      "claim": "Product categories include rebar (kamstål), reinforcement accessories, technical accessories, formwork and waterproofing.",
+      "url": "https://7-steelservice.no/",
+      "as_of": null
+     },
+     {
+      "id": "f3",
+      "category": "offering",
+      "claim": "7 Steel's steel mill in Mo i Rana, Norway supplies the company's rebar, which is distributed via 7 Steel facilities around Norway.",
+      "url": "https://7-steelservice.no/produkter/",
+      "as_of": null
+     },
+     {
+      "id": "f4",
+      "category": "offering",
+      "claim": "The company claims its rebar is Europe's cleanest with only 388 kg CO2 equivalents per tonne of steel produced.",
+      "url": "https://7-steelservice.no/produkter/",
+      "as_of": null
+     },
+     {
+      "id": "f5",
+      "category": "other",
+      "claim": "7 Steel Service Norway AS is certified to NS-EN ISO 14001:2015 and products certified by Kontrollrådet to NS-EN 10080:2005 and NS 3576-3:2012.",
+      "url": "https://7-steelservice.no/produkter/",
+      "as_of": null
+     },
+     {
+      "id": "f6",
+      "category": "direction",
+      "claim": "The company positions itself as the Nordics' largest manufacturer of reinforcement products.",
+      "url": "https://7-steelservice.no/produkter/",
+      "as_of": null
+     },
+     {
+      "id": "f7",
+      "category": "footprint",
+      "claim": "7 Steel delivers nationwide in Norway with production and warehouses in several locations and sales offices from Kristiansand in the south to Tromsø in the north.",
+      "url": "https://7-steelservice.no/kontakt-oss/salg/entreprenorer/",
+      "as_of": null
+     },
+     {
+      "id": "f8",
+      "category": "footprint",
+      "claim": "Certificates cover sites in Oslo, Drammen, Kristiansand, Bergen, Ålesund, Trondheim and Tromsø.",
+      "url": "https://7-steelservice.no/sertifikater/",
+      "as_of": null
+     },
+     {
+      "id": "f9",
+      "category": "other",
+      "claim": "The company holds NS-EN ISO 9001:2015 and NS-EN ISO 14001:2015 certificates, ECOproduct, a product certificate for stainless/acid-proof rebar, and is a member of Grønt Punkt Norge.",
+      "url": "https://7-steelservice.no/sertifikater/",
+      "as_of": null
+     },
+     {
+      "id": "f10",
+      "category": "people",
+      "claim": "Richard Buskum is Sales Manager (Salgssjef) for Oslo/Akershus/Østfold/Hedmark/Oppland.",
+      "url": "https://7-steelservice.no/kontakt-oss/salg/entreprenorer/",
+      "as_of": null
+     },
+     {
+      "id": "f11",
+      "category": "people",
+      "claim": "Arild Larsen is Sales Manager and department head in Trondheim.",
+      "url": "https://7-steelservice.no/kontakt-oss/salg/entreprenorer/",
+      "as_of": null
+     },
+     {
+      "id": "f12",
+      "category": "people",
+      "claim": "Stian Pareliussen is Production Manager in Drammen.",
+      "url": "https://7-steelservice.no/kontakt-oss/salg/entreprenorer/",
+      "as_of": null
+     },
+     {
+      "id": "f13",
+      "category": "people",
+      "claim": "Jan Malyszko is Technical Manager (Teknisk sjef).",
+      "url": "https://7-steelservice.no/kontakt-oss/salg/teknisk/",
+      "as_of": null
+     },
+     {
+      "id": "f14",
+      "category": "events",
+      "claim": "In May 2023 the Trondheim department hired technical advisor Kinga Walawender (29) for its new factory.",
+      "url": "https://7-steelservice.no/teknisk-kompetanse-til-ny-fabrikk-i-trondheim/",
+      "as_of": "2023-05"
+     },
+     {
+      "id": "f15",
+      "category": "events",
+      "claim": "A new, improved EPD was published, giving roughly 40% reduction in climate impact.",
+      "url": "https://7-steelservice.no/ny-forbedret-epd/",
+      "as_of": "2026-05"
+     },
+     {
+      "id": "f16",
+      "category": "offering",
+      "claim": "Low climate impact is attributed to hydropower, circular Nordic scrap, hot charging, and the steel mill in Mo Industripark.",
+      "url": "https://7-steelservice.no/ny-forbedret-epd/",
+      "as_of": "2026"
+     },
+     {
+      "id": "f17",
+      "category": "direction",
+      "claim": "The company sees CBAM as a strategic confirmation of its 100% scrap-based, hydropower-driven EAF production model.",
+      "url": "https://7-steelservice.no/cbam/",
+      "as_of": "2026-09"
+     },
+     {
+      "id": "f18",
+      "category": "offering",
+      "claim": "Production is 100% scrap-based using an electric arc furnace with best available technology and hydropower as primary energy source.",
+      "url": "https://7-steelservice.no/cbam/",
+      "as_of": "2026"
+     },
+     {
+      "id": "f19",
+      "category": "offering",
+      "claim": "Value-added services include rebar drawing, 3D/BIM modelling, colour marking, bundle sorting by colour, and technical advisory including Bamtec and prefabricated cages.",
+      "url": "https://7-steelservice.no/tjenester/",
+      "as_of": null
+     },
+     {
+      "id": "f20",
+      "category": "offering",
+      "claim": "The company performs mechanical testing of rebar according to NS-EN 15630-1 and NS-EN 15630-2.",
+      "url": "https://7-steelservice.no/tjenester/mekanisk-testing-av-kamstal/",
+      "as_of": null
+     },
+     {
+      "id": "f21",
+      "category": "offering",
+      "claim": "Customers can order rebar digitally from IFC/BIM models; standard diameters delivered are 8, 10, 12, 16, 20, 25 and 32 mm, with Ø40 as a special order.",
+      "url": "https://7-steelservice.no/tjenester/bim/",
+      "as_of": null
+     },
+     {
+      "id": "f22",
+      "category": "offering",
+      "claim": "Special welded mesh (spesialnett) is produced to NS 3576 part 4 and is certified by Kontrollrådet, Class K.",
+      "url": "https://7-steelservice.no/produkter/prosjektnett/",
+      "as_of": null
+     },
+     {
+      "id": "f23",
+      "category": "customers",
+      "claim": "The company supplied reinforcement to NCC's Valle Wood office project in Oslo, whose first phase contract was worth NOK 190 million.",
+      "url": "https://7-steelservice.no/valle-wood-kontorprosjekt-i-oslo/",
+      "as_of": "2017"
+     },
+     {
+      "id": "f24",
+      "category": "customers",
+      "claim": "Supplied Skanska's EK3 Farriseidet project in Larvik with a project volume of about 800 tonnes, final delivery autumn 2019.",
+      "url": "https://7-steelservice.no/prosjekt-ek3-farriseidet-skanska-norge-as/",
+      "as_of": "2019"
+     },
+     {
+      "id": "f25",
+      "category": "customers",
+      "claim": "In January 2020 a new cooperation agreement was signed with Hent AS covering all reinforcement products.",
+      "url": "https://7-steelservice.no/nyheter-2/",
+      "as_of": "2020-01"
+     },
+     {
+      "id": "f26",
+      "category": "customers",
+      "claim": "In December 2019 a contract was signed with Contiga for rebar deliveries to all their factories in Norway.",
+      "url": "https://7-steelservice.no/nyheter-2/",
+      "as_of": "2019-12"
+     },
+     {
+      "id": "f27",
+      "category": "customers",
+      "claim": "Supplies prefabricated reinforcement solutions to Brødrene Ulveseth in Bergen.",
+      "url": "https://7-steelservice.no/nyheter-2/",
+      "as_of": "2020-02"
+     },
+     {
+      "id": "f28",
+      "category": "customers",
+      "claim": "The company supplies its steel to Statens vegvesen's Lepsøyrevet project, part of FV 659 Nordøyvegen.",
+      "url": "https://7-steelservice.no/nyheter-2/",
+      "as_of": "2019"
+     },
+     {
+      "id": "f29",
+      "category": "customers",
+      "claim": "Strand AS renewed its agreement for all reinforcement solutions with the Bergen department in March 2019.",
+      "url": "https://7-steelservice.no/strand-as-har-signert-ny-avtale-med-celsa-steel-service-avd-bergen/",
+      "as_of": "2019-03"
+     },
+     {
+      "id": "f30",
+      "category": "people",
+      "claim": "Asle Nordås is regional manager at the Bergen department.",
+      "url": "https://7-steelservice.no/strand-as-har-signert-ny-avtale-med-celsa-steel-service-avd-bergen/",
+      "as_of": "2019"
+     },
+     {
+      "id": "f31",
+      "category": "ownership",
+      "claim": "The company was previously known as Celsa Steel Service and refers to Celsa Steel Service's value chain.",
+      "url": "https://7-steelservice.no/teknisk-kompetanse-til-ny-fabrikk-i-trondheim/",
+      "as_of": "2023"
+     },
+     {
+      "id": "f32",
+      "category": "events",
+      "claim": "In May 2022 the company confirmed compliance with international sanctions on goods and services from Russia and Belarus.",
+      "url": "https://7-steelservice.no/nyheter-2/",
+      "as_of": "2022-05"
+     },
+     {
+      "id": "f33",
+      "category": "events",
+      "claim": "In March 2018 the company marked 10 years without a lost-time injury.",
+      "url": "https://7-steelservice.no/nyheter/",
+      "as_of": "2018-03"
+     },
+     {
+      "id": "f34",
+      "category": "events",
+      "claim": "The Bergen department moved into new premises in October 2017; new premises in Ålesund in July 2017.",
+      "url": "https://7-steelservice.no/nyheter/",
+      "as_of": "2017"
+     },
+     {
+      "id": "f35",
+      "category": "customers",
+      "claim": "Brødrene Ulveseth was the first company to attend a technical day at the Bergen department, focused on BIM solutions.",
+      "url": "https://7-steelservice.no/fagdag-celsa-steel-service-avd-bergen/",
+      "as_of": "2018-03"
+     },
+     {
+      "id": "f36",
+      "category": "offering",
+      "claim": "All rebar delivered is environmentally declared through an underlying LCA analysis, stated at 388 kg CO2/ton.",
+      "url": "https://7-steelservice.no/tjenester/",
+      "as_of": null
+     },
+     {
+      "id": "f37",
+      "category": "direction",
+      "claim": "The company promotes Melt and Pour documentation requirements ahead of new EU steel import rules from 1 October 2026.",
+      "url": "https://7-steelservice.no/melt-and-pour/",
+      "as_of": "2026"
+     },
+     {
+      "id": "f38",
+      "category": "other",
+      "claim": "Norway will begin applying CBAM from 1 January 2027, while EU importers started paying from 1 January 2026.",
+      "url": "https://7-steelservice.no/cbam/",
+      "as_of": "2026-09"
+     },
+     {
+      "id": "f39",
+      "category": "people",
+      "claim": "Marius Haagensen Bonkerud joined the Oslo department as production planner in December 2019.",
+      "url": "https://7-steelservice.no/nyheter-2/",
+      "as_of": "2019-12"
+     },
+     {
+      "id": "f40",
+      "category": "offering",
+      "claim": "7 Steel Service Norway supplies reinforcement steel (kamstål, kamtråd), roll reinforcement (BAMTEC), stainless/acid-proof reinforcement, standard and project-specific reinforcement mesh, prefabricated reinforcement solutions (SWP), and concrete/rebar accessories.",
+      "url": "https://7-steelservice.no",
+      "as_of": "2025"
+     }
+    ],
+    "financials": {
+     "identifier": {
+      "country": "NO",
+      "id": "980345106",
+      "source": "registry_id"
+     },
+     "rows": [
+      {
+       "year": 2025,
+       "period_start": "2025-01-01",
+       "period_end": "2025-12-31",
+       "currency": "NOK",
+       "revenue": 1279002000,
+       "gross_profit": null,
+       "ebit": 13102000,
+       "depreciation": null,
+       "ebitda": null,
+       "net_income": -10714000,
+       "total_assets": 618031000,
+       "equity": 78756000,
+       "employees": 146,
+       "revenue_eur": 117989114,
+       "gross_profit_eur": null,
+       "ebit_eur": 1208672,
+       "ebitda_eur": null,
+       "net_income_eur": -988376,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": null,
+       "source": "Brønnøysund Regnskapsregisteret (NO)",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/980345106",
+       "confidence": "high"
+      }
+     ],
+     "notes": [
+      "Open API only exposes the latest financial year — earlier years as PDF copies (see documents)",
+      "Open API has no depreciation line — EBITDA not derivable (see PDF)",
+      "Employees = current headcount in Enhetsregisteret (not year-specific)",
+      "EUR figures use the latest ECB reference rate (1 EUR = 10.84 NOK, 2026-09-25), not period averages"
+     ],
+     "checked": [
+      "Brønnøysund Regnskapsregisteret",
+      "Brønnøysund Enhetsregisteret"
+     ],
+     "documents": [],
+     "conflicts": []
+    }
+   },
+   "messages": [],
+   "conversation": []
+  }
+ ],
+ "settings": {
+  "funnel_assumptions": {
+   "contact_to_reply": 0.475,
+   "reply_to_meeting": 0.45,
+   "meeting_to_mandate": 0.3
+  },
+  "advisors": [
+   {
+    "id": "adv_timo",
+    "name": "Timo Tontti",
+    "title": "Managing Partner, Head of Sell-side Advisory",
+    "markets": [
+     "FI",
+     "DE",
+     "AT",
+     "CH"
+    ],
+    "daily_cap": 75
+   },
+   {
+    "id": "adv_miiro",
+    "name": "Miiro Nygrén",
+    "title": "Associate Director, Nordics",
+    "markets": [
+     "SE",
+     "NO",
+     "DK",
+     "IS"
+    ],
+    "daily_cap": 75
+   }
+  ],
+  "sender": {
+   "name": "Timo Tontti",
+   "title": "Managing Partner, Head of Sell-side Advisory",
+   "firm": "Mergero"
+  }
+ },
+ "capacity": {
+  "advisors": [
+   {
+    "id": "adv_timo",
+    "name": "Timo Tontti",
+    "title": "Managing Partner, Head of Sell-side Advisory",
+    "markets": [
+     "FI",
+     "DE",
+     "AT",
+     "CH"
+    ],
+    "daily_cap": 75,
+    "sent_today": 0,
+    "prospects": 13,
+    "first_touches_queued": 0
+   },
+   {
+    "id": "adv_miiro",
+    "name": "Miiro Nygrén",
+    "title": "Associate Director, Nordics",
+    "markets": [
+     "SE",
+     "NO",
+     "DK",
+     "IS"
+    ],
+    "daily_cap": 75,
+    "sent_today": 1,
+    "prospects": 10,
+    "first_touches_queued": 0
+   }
+  ],
+  "emails_per_day": 150,
+  "new_owners_per_month": 1050,
+  "conversations_per_month": 499,
+  "benchmark": "Mergero: 1,000 outbound contacts → ~450–500 owner conversations"
+ },
+ "reach": {
+  "as_of": "2026-09-27T01:58:24.338Z",
+  "countries": [
+   {
+    "country": "NO",
+    "companies": 35113,
+    "basis": "AS with 10–250 employees (Brønnøysund, live)",
+    "live": true
+   },
+   {
+    "country": "FI",
+    "companies": null,
+    "basis": "PRH open data has no size filter; filter by industry code and registration year, size from iXBRL accounts",
+    "live": false
+   },
+   {
+    "country": "DK",
+    "companies": null,
+    "basis": "CVR name lookup only in this build; size from Virk XBRL accounts",
+    "live": false
+   },
+   {
+    "country": "SE",
+    "companies": null,
+    "basis": "No free API (Bolagsverket); import from a prospect database",
+    "live": false
+   },
+   {
+    "country": "DE/AT/CH",
+    "companies": null,
+    "basis": "No free registry API; LinkedIn + calls channel, import from a prospect database",
+    "live": false
+   }
+  ]
+ },
+ "scale": {
+  "api_spend_usd": 6.34,
+  "cost_per_prospect_usd": 1.06,
+  "minutes_per_prospect": 3.1,
+  "prospects_per_hour_at_3": 58,
+  "prospects_measured": 3
+ },
+ "total": 23
+}
