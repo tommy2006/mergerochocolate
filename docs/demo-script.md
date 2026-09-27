@@ -51,7 +51,7 @@ Drag one slider:
 ## Before you go on stage
 - [ ] Vercel URL loads and the top-right dot says **Live data** (not "Offline copy")
 - [ ] The planned owner's email reads well and shows "Reads like a person"
-- [ ] If anything on the instance breaks: `ssh verda-mergero 'cd /opt/mergero && pm2 stop mergero && tar xzf /opt/backups/demo-state-20260927-0225.tgz && pm2 start mergero'` restores the demo data
+- [ ] If anything on the instance breaks: `ssh verda-mergero 'cd /opt/mergero && pm2 stop mergero && tar xzf /opt/backups/demo-state-20260927-0230.tgz && pm2 start mergero'` restores the demo data
 - [ ] Rehearse the reply on the **second** owner, never on the stage owner: a second reply starts from the already-raised score, so the jump on stage would be small. The rehearsal owner is your fallback if the model is slow.
 - [ ] The stage owner's step-1 email is still unsent (Approve & send visible)
 - [ ] Demo inbox open on your phone

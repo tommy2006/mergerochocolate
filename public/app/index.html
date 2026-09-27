@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mergero · Owners to call</title>
+<meta name="description" content="Mergero's origination desk in one page: find owner-led companies, see who to call and why, send the first email in the advisor's voice, read the replies, book the first call.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app/app.css?v=1">
+<style>
+/* one-page desk on top of the front door's tokens */
+.top .steps .step .n { display: none; }
+.top .steps .step { padding: 8px 16px; }
+.top-right .btn { padding: 8px 14px; font-size: 13.5px; border-radius: 10px; }
+main { padding-top: 28px; }
+.page-h { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-bottom: 18px; }
+.page-h h2 { margin: 0; }
+.page-h .sub { margin: 6px 0 0; }
+.kpis { display: flex; gap: 10px; flex-wrap: wrap; }
+.kpi { padding: 10px 14px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); min-width: 110px; }
+.kpi b { display: block; font-size: 22px; letter-spacing: -.5px; }
+.kpi span { font-size: 12px; color: var(--dim); }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 14px 0 18px; }
+.filters .chip { cursor: pointer; user-select: none; }
+.filters .chip.on { color: var(--text); border-color: var(--green); background: var(--green-bg); }
+.filters .sep { width: 1px; height: 22px; background: var(--line-2); margin: 0 4px; }
+.filters input { margin-left: auto; min-width: 220px; background: var(--panel); border: 1px solid var(--line-2); border-radius: 10px; color: var(--text); padding: 8px 12px; font: inherit; font-size: 13.5px; }
+.list { display: grid; gap: 12px; }
+.oc { overflow: hidden; }
+.oc-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; padding: 18px 20px; cursor: pointer; }
+.oc-head:hover { background: rgba(255, 255, 255, .015); }
+.oc-main { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.oc-name { font-size: 18px; font-weight: 800; letter-spacing: -.3px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.oc-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; min-width: 200px; }
+.oc-side .acts { display: flex; gap: 8px; align-items: center; }
+.chev { color: var(--dim); font-size: 12px; margin-left: 4px; transition: transform .15s; }
+.oc.open .chev { transform: rotate(180deg); }
+.oc.open .oc-head { border-bottom: 1px solid var(--line); }
+.oc-body { padding: 18px 20px 20px; background: rgba(0, 0, 0, .12); }
+.stage { font-weight: 600; font-size: 11.5px; letter-spacing: .3px; text-transform: uppercase; }
+.stage.s1 { color: var(--sky); border-color: rgba(56, 189, 248, .35); }
+.stage.s2 { color: var(--amber); border-color: rgba(251, 191, 36, .35); }
+.stage.s3 { color: var(--green); border-color: var(--green-d); }
+.oc-why { margin: 0; }
+.cols3 { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 16px; align-items: start; }
+.sec h4 { margin: 0 0 10px; font-size: 12.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; }
+.sec + .sec { margin-top: 18px; }
+.rows { display: grid; gap: 7px; }
+.row { font-size: 13.5px; line-height: 1.45; color: #cbd5e1; padding-left: 10px; border-left: 2px solid var(--line-2); }
+.row small { color: var(--dim); display: block; font-size: 12px; }
+.row a { color: var(--sky); text-decoration: none; font-size: 12px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { text-align: left; color: var(--dim); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .6px; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.tbl td { padding: 7px 8px; border-bottom: 1px solid var(--line); color: #cbd5e1; vertical-align: top; }
+.tbl td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.tbl tr:last-child td { border-bottom: 0; }
+.msg { padding: 10px 12px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); font-size: 13px; }
+.msg .m { color: var(--dim); font-size: 11.5px; margin-bottom: 4px; display: flex; gap: 10px; flex-wrap: wrap; }
+.msg .m b { color: var(--text); }
+.msg pre { margin: 0; white-space: pre-wrap; font: inherit; line-height: 1.5; color: #dbe3ee; }
+.actions-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.empty { padding: 26px; text-align: center; color: var(--dim); font-size: 14.5px; }
+/* owner page */
+.section { padding: 22px 24px; margin-bottom: 16px; }
+.section > h3 { margin: 0 0 14px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.section > h3 .n { width: 22px; height: 22px; border-radius: 50%; background: var(--green-bg); color: var(--green); display: grid; place-items: center; font-size: 12px; }
+.section > h3 .st { margin-left: auto; font-size: 12px; text-transform: none; letter-spacing: 0; color: var(--dim); font-weight: 600; }
+.two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; align-items: start; }
+details.evidence summary { cursor: pointer; color: var(--sky); font-weight: 600; font-size: 13.5px; }
+.q-card { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0 14px; }
+.q-card div { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.q-card b { display: block; font-size: 16px; }
+.q-card span { font-size: 11.5px; color: var(--dim); }
+.link-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13.5px; }
+.link-row code { background: var(--panel); border: 1px solid var(--line-2); padding: 4px 8px; border-radius: 8px; color: var(--sky); font-size: 12.5px; max-width: 420px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* add owners */
+.form { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 12px 0; }
+.form input, .form select, .form-1 input { background: var(--panel); border: 1px solid var(--line-2); border-radius: 10px; color: var(--text); padding: 10px 12px; font: inherit; font-size: 13.5px; min-width: 0; }
+.form-1 { display: flex; gap: 8px; margin: 12px 0; }
+.form-1 input { flex: 1; }
+.try { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 12.5px; color: var(--dim); }
+.try button { font-size: 12px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--panel); color: var(--muted); }
+.try button:hover { color: var(--text); border-color: var(--dim); }
+.busy { opacity: .6; pointer-events: none; }
+.spin-inline { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--line-2); border-top-color: var(--green); border-radius: 50%; animation: sp .8s linear infinite; vertical-align: -2px; margin-right: 6px; }
+@media (max-width: 1100px) { .cols3 { grid-template-columns: 1fr 1fr; } .two { grid-template-columns: 1fr; } .form { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) { .oc-head { grid-template-columns: 1fr; } .oc-side { align-items: flex-start; flex-direction: row; flex-wrap: wrap; } .cols3 { grid-template-columns: 1fr; } .q-card { grid-template-columns: 1fr; } .filters input { min-width: 0; width: 100%; margin-left: 0; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><div class="mark">M</div><div>Mergero<small>Origination desk</small></div></div>
+  <nav class="steps" id="nav"></nav>
+  <div class="top-right">
+    <span id="live"><span class="dot"></span>Live data</span>
+    <a class="btn sm" href="#/add" id="addBtn">+ Add owners</a>
+    <a href="/desk" title="The classic desk with the guided tour">Classic desk</a>
+    <a href="/engine" title="Engine console: research, inbox, settings">Engine</a>
+  </div>
+</header>
+<main id="app"><div class="empty">Loading…</div></main>
+<script src="/app/app.js?v=1"></script>
+</body>
+</html>
