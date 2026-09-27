@@ -13,11 +13,11 @@ Point at the three numbers: 35,113 Norwegian companies in range, live from the r
 Point at the "Also screened, and deliberately not contacted" row:
 > "It also tells you who *not* to call, and why. That's what keeps the outreach from feeling like spam."
 
-Click the top owner (planned: Argus Remote Systems, owner 67).
+Click the **Argus Remote Systems** card (owner 67, 30 years at the helm, readiness 60). Click it by name: ties at 60 sort by buyer fit, so Agromiljø may sit first.
 
 ## 1:05–2:10 · Screen 3 "The conversation" (the core)
 1. **Why now** (left): "Two sentences an advisor can say out loud, and every fact links to its source."
-2. **Buyers** (right): "Four mandates in the MGX network want this profile. The email mentions the demand, never the names."
+2. **Buyers** (right): "Mandates in the MGX network want this profile. The email mentions the demand, never the names."
 3. **Email** (middle): "Written from this company's own facts, in the advisor's voice. It never says 'sell' in a first touch, and a checker blocks anything that reads templated, which is exactly what Timo said failed before." Click **Approve & send**. It lands on your phone (demo mode); hold the phone up.
 4. **Reply** (bottom): click the **Interested** sample → **Read this reply**. While it runs (~30 s), say:
    > "When the owner answers, an agent reads their own words, in any language, and moves the score."
@@ -51,6 +51,7 @@ Drag one slider:
 ## Before you go on stage
 - [ ] Vercel URL loads and the top-right dot says **Live data** (not "Offline copy")
 - [ ] The planned owner's email reads well and shows "Reads like a person"
+- [ ] If anything on the instance breaks: `ssh verda-mergero 'cd /opt/mergero && pm2 stop mergero && tar xzf /opt/backups/demo-state-20260927-0225.tgz && pm2 start mergero'` restores the demo data
 - [ ] Rehearse the reply on the **second** owner, never on the stage owner: a second reply starts from the already-raised score, so the jump on stage would be small. The rehearsal owner is your fallback if the model is slow.
 - [ ] The stage owner's step-1 email is still unsent (Approve & send visible)
 - [ ] Demo inbox open on your phone

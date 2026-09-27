@@ -39,10 +39,13 @@
     const t = typeof p === 'string' ? p : p && (p.name || p.product || p.line);
     return firstSentence(String(t || c.industry || '').replace(/\s*\([^)]*\)?/g, '').trim(), 48);
   };
+  // Readiness bands. Cards show owners at CARD or above; the rest are listed as screened and deliberately not contacted.
+  const HOT = 60, WARM = 45, CARD = 50;
+  const bestFit = (c) => Math.max(0, ...(c.matches || []).map((m) => m.fit || 0));
   function band(r) {
     if (r == null) return { cls: 's-cold', lab: 'Not scored' };
-    if (r >= 65) return { cls: 's-hot', lab: 'Call now' };
-    if (r >= 40) return { cls: 's-warm', lab: 'Warm' };
+    if (r >= HOT) return { cls: 's-hot', lab: 'Call now' };
+    if (r >= WARM) return { cls: 's-warm', lab: 'Warm' };
     return { cls: 's-cold', lab: 'Not now' };
   }
   function toast(msg, err) {
@@ -77,7 +80,8 @@
       try { S.data = await api('/front/snapshot.json'); S.live = false; }
       catch (e) { S.data = { companies: [], settings: {}, capacity: null, reach: null }; }
     }
-    S.data.companies.sort((a, b) => (b.score.readiness || 0) - (a.score.readiness || 0));
+    // Ties on readiness break by the strongest buyer demand.
+    S.data.companies.sort((a, b) => (b.score.readiness || 0) - (a.score.readiness || 0) || bestFit(b) - bestFit(a));
     document.getElementById('live').innerHTML = S.live ? '<span class="dot"></span>Live data' : '<span class="dot off"></span>Offline copy';
   }
   const companyById = (id) => S.data.companies.find((c) => c.id === id);
@@ -116,7 +120,7 @@
   /* ---------- 1 · Why ---------- */
   function vWhy() {
     const cs = S.data.companies;
-    const worth = cs.filter((c) => (c.score.readiness || 0) >= 40).length;
+    const worth = cs.filter((c) => (c.score.readiness || 0) >= CARD).length;
     const sc = S.data.scale || {};
     const reg = noReg();
     return '<div class="eyebrow">Mergero · sell-side origination</div>' +
@@ -144,17 +148,29 @@
       '<div class="src">' + esc(o.title || 'Owner') + (o.age_source ? ' · age from the ' + esc(/brønnøysund/i.test(o.age_source) ? 'Norwegian register' : o.age_source) : '') + '</div></div></div>';
   }
   // For a low score, the sentence that says why not ("…but it isn't for sale"), not the "on paper it looks great" opener.
+  // The why-now as sentences: drops the "Owner is 62, 17 years at the helm…" opener (age and role are already on screen)
+  // and repeated sentences, so the specific reason leads.
+  function reasons(t) {
+    const seen = new Set();
+    return String(t || '').replace(/\s+/g, ' ').trim().split(/(?<=[.!?])\s+/).filter((x) => {
+      const k = x.toLowerCase();
+      if (!x || seen.has(k)) return false;
+      seen.add(k);
+      return !/^(the )?(owner|ceo)( [\p{L}.-]+){0,3} is \d{2}\b/iu.test(x);
+    });
+  }
+  const clip = (t, n) => { t = String(t || ''); return t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : t; };
   function whyNot(t) {
-    const parts = String(t || '').replace(/\s+/g, ' ').split(/(?<=[.!?])\s+/);
-    const hit = parts.find((p) => /\b(but|however|isn't|is not|not for sale|no reason|unlikely|recently|just)\b/i.test(p));
+    const parts = reasons(t);
+    const hit = parts.find((p) => /\b(acquired|subsidiary|part of the|owned by|holding period)\b/i.test(p)) || parts.find((p) => /\b(but|however|isn't|is not|not for sale|no reason|unlikely|recently|just)\b/i.test(p));
     let s = (hit || parts[0] || '').replace(/^(but|however),?\s*/i, '');
     s = s.charAt(0).toUpperCase() + s.slice(1);
     return s.length > 190 ? s.slice(0, 189).replace(/\s+\S*$/, '') + '…' : s;
   }
   function vWho() {
     const cs = S.data.companies;
-    const top = cs.filter((c) => (c.score.readiness || 0) >= 25);
-    const rest = cs.filter((c) => (c.score.readiness || 0) < 25);
+    const top = cs.filter((c) => (c.score.readiness || 0) >= CARD);
+    const rest = cs.filter((c) => (c.score.readiness || 0) < CARD && reasons(c.score.why_now).length);
     const card = (c) => {
       const b = band(c.score.readiness);
       const m = (c.matches || []).slice().sort((x, y) => y.fit - x.fit);
@@ -162,7 +178,7 @@
         '<div class="oc-top"><div><div class="oc-name">' + esc(titleCase(c.name)) + '</div><div class="oc-meta">' + esc([titleCase(c.city), COUNTRY[c.country] || c.country].filter(Boolean).join(', ')) + (whatTheyDo(c) ? ' · ' + esc(whatTheyDo(c)) : '') + '</div></div>' +
         '<div class="score ' + b.cls + '"><div class="num">' + (c.score.readiness ?? '—') + '</div><div class="lab">' + b.lab + '</div></div></div>' +
         ownerLine(c) +
-        '<div class="oc-why">' + esc(firstSentence(c.score.why_now, 190)) + '</div>' +
+        '<div class="oc-why">' + esc(clip(reasons(c.score.why_now).slice(0, 2).join(' ') || c.score.why_now, 190)) + '</div>' +
         '<div class="chips">' + signalChips(c, 3) + '</div>' +
         '<div class="oc-foot"><span>' + (m.length ? '<b>' + m.length + ' buyer' + (m.length > 1 ? 's' : '') + '</b> want this · best fit <b>' + m[0].fit + '%</b>' : 'No buyer match yet') + '</span><span class="go">Open →</span></div>' +
         '</button>';
@@ -179,12 +195,12 @@
   const PRIORITY = { ownership: 0, people: 1, events: 2, financials: 3, direction: 4, customers: 5, offering: 6, footprint: 7 };
   function ring(v) {
     const r = 40, circ = 2 * Math.PI * r, val = Math.max(0, Math.min(100, v || 0));
-    const col = val >= 65 ? '#34d399' : val >= 40 ? '#fbbf24' : '#64748b';
+    const col = val >= HOT ? '#34d399' : val >= WARM ? '#fbbf24' : '#64748b';
     return '<div class="ring"><svg width="92" height="92"><circle cx="46" cy="46" r="' + r + '" fill="none" stroke="#1e293b" stroke-width="8"/><circle cx="46" cy="46" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="8" stroke-linecap="round" stroke-dasharray="' + circ.toFixed(1) + '" stroke-dashoffset="' + (circ * (1 - val / 100)).toFixed(1) + '"/></svg><div class="c"><div><b>' + (v ?? '—') + '</b><span>Readiness</span></div></div></div>';
   }
   // Two sentences on screen (readable from the back of the room); the full reasoning one click away.
   function whyNowHtml(t) {
-    const parts = String(t || '').replace(/\s+/g, ' ').trim().split(/(?<=[.!?])\s+/);
+    const parts = reasons(t);
     let head = parts.slice(0, 2).join(' ');
     if (head.length > 320) head = head.slice(0, 319).replace(/\s+\S*$/, '') + '…';
     const rest = parts.length > 2 || head.endsWith('…');

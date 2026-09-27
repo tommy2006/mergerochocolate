@@ -412,15 +412,21 @@ async function researchWithWeb(company, facts, settings) {
 export async function score(company, buyers, settings, { learning } = {}) {
   const activeBuyers = buyers.filter((b) => b.active !== false);
   const buyerSummary = activeBuyers.map((b) => `- ${b.name} (${b.buyer_type}): sectors ${b.sectors.join("/")}, geo ${b.geographies.join("/")}, revenue ${eur(b.revenue_min_eur)}-${eur(b.revenue_max_eur)}, EBITDA ${eur(b.ebitda_min_eur)}-${eur(b.ebitda_max_eur)}`).join("\n");
-  return {
-    ...(await parse(settings, {
+  const out = await parse(settings, {
       schema: ScoreSchema,
       effort: "medium",
-      system: `${MERGERO_CONTEXT}\nYou are Mergero's origination analyst. Score prospects for sell-side outreach. Readiness = probability the owner is open to a transaction in 6-18 months (succession age 58+, long tenure, flat growth, no successor, PE consolidation in sector, recent inbound interest are positive; fresh PE ownership (holding period <3y), recent large investment, young founder in growth mode are negative). Attractiveness = fit with the buyer network below. Valuation: rule of thumb 5-8x EBITDA for profitable SMEs, 0.8-2x revenue for software; the hard minimum Mergero accepts is €3-5M valuation. Be calibrated: most prospects should land 30-70; reserve 80+ for strong, multi-signal cases.\n${icpForPrompt()}\nReadiness signals Mergero cares about — positive: ${READINESS_SIGNALS.positive.join("; ")}. Negative: ${READINESS_SIGNALS.negative.join("; ")}. Remember the owner usually has not considered selling yet: readiness measures openness to a first conversation, including growth capital or a minority stake, not a declared intent to sell. Write why_now as 3-5 short sentences on separate lines, not one long paragraph. Sentence 1 states the concrete reason in plain words from the facts (the owner's age and tenure, succession, a filed figure, a dated event), for example "Owner is 67, 30 years at the helm, no successor named." Never open with "On paper", "This looks like" or a summary of the company.`,
+      system: `${MERGERO_CONTEXT}\nYou are Mergero's origination analyst. Score prospects for sell-side outreach. Readiness = probability the owner is open to a transaction in 6-18 months (succession age 58+, long tenure, flat growth, no successor, PE consolidation in sector, recent inbound interest are positive; fresh PE ownership (holding period <3y), recent large investment, young founder in growth mode are negative). Attractiveness = fit with the buyer network below. Valuation: rule of thumb 5-8x EBITDA for profitable SMEs, 0.8-2x revenue for software; the hard minimum Mergero accepts is €3-5M valuation. Be calibrated: most prospects should land 30-70; reserve 80+ for strong, multi-signal cases.\n${icpForPrompt()}\nReadiness signals Mergero cares about — positive: ${READINESS_SIGNALS.positive.join("; ")}. Negative: ${READINESS_SIGNALS.negative.join("; ")}. Remember the owner usually has not considered selling yet: readiness measures openness to a first conversation, including growth capital or a minority stake, not a declared intent to sell. Write why_now as 3-5 short sentences on separate lines, not one long paragraph. Sentence 1 states the concrete reason in plain words from the facts: the owner's age and tenure when known, then the strongest dated or filed fact (flat or falling revenue, a contract, an expansion, a change of leadership). Mention a successor only when the facts say something about succession or ownership; never assume one is missing. State only what the prospect data and the research facts show, in your own words: never copy the readiness-signal list wording, never repeat a sentence, never open with "On paper", "This looks like" or a summary of the company.`,
       user: `Prospect:\n${companyFacts(company)}\n\nEnrichment profile:\n${JSON.stringify(company.enrichment || {}, null, 1)}\n\n${researchBrief(company) ? `Sourced research (filed accounts beat database figures; dated events matter for timing):\n${researchBrief(company)}\n\n` : ""}Buyer network (anonymised mandates):\n${buyerSummary}\n\n${learning ? `What has worked so far for prospects like this (observed outcomes; weigh them, do not copy them):\n${learning}\n\n` : ""}Score this prospect.`,
-    })),
-    scored_at: new Date().toISOString(),
-  };
+    });
+  // The model sometimes repeats a why_now line; keep the first of each (the cards print these verbatim).
+  const seen = new Set();
+  out.why_now = String(out.why_now || "").split(/\n+/).map((l) => l.trim()).filter((l) => {
+    const k = l.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+    if (!k || seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  }).join("\n");
+  return { ...out, scored_at: new Date().toISOString() };
 }
 
 // ---------- 3. Buyer-demand matching (deterministic prefilter + LLM rerank) ----------

@@ -1,6 +1,6 @@
 {
- "baked_at": "2026-09-27T02:03:25.532Z",
- "source": "http://95.133.253.84:3000",
+ "baked_at": "2026-09-27T02:27:04.409Z",
+ "source": "https://mergero-abarofchocolate.vercel.app",
  "companies": [
   {
    "id": "c_klh2wf1yu",
@@ -14,14 +14,14 @@
    "revenue_eur": 6644515,
    "ebitda_eur": 1312211,
    "ownership_type": "unknown",
-   "stage": "enriched",
+   "stage": "outreach_ready",
    "enrichment": {
     "products": [
-     "Circular and rectangular ventilation ducts and duct parts (own production)",
-     "Stainless steel hoods, grilles, transitions, silencers, spiro",
-     "Stocked fittings Ø80–Ø1250, dampers, valves, silencers, technical insulation"
+     "Ducts",
+     "Stainless hoods",
+     "Grilles"
     ],
-    "summary": "Aer Faber AS is a Spydeberg-based (Østfold, NO) manufacturer and distributor of ventilation components — circular and rectangular ducts, stainless hoods, grilles, transitions, silencers and spiro — with its own machine park, plus a stocked trade counter/shop selling fittings (Ø80–Ø1250), dampers, valves, insulation, sheet-metal tools and workwear (f2, f6, f7, f8). Since December 2020 the company has been owned by the Swedish listed Lindab Group, and it now operates as part of Lindab's Norwegian organisation while also reselling Lindab and other suppliers' products (f24, f23, f9). Revenue was ~€6.6M in 2025 with ~25 employees and strong reported margins (EBIT €1.1M)."
+    "summary": "Aer Faber AS produces and delivers ventilation systems, including ducts, hoods, grilles, and related products. The company also stocks and sells tools, workwear, and building materials, serving the construction industry in Norway."
    },
    "owner": {
     "name": "Erik Iversen",
@@ -30,82 +30,62 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 8,
-    "attractiveness": 30,
-    "recommended_timing": "not yet",
-    "why_now": "On paper this looks like the perfect Nordic industrial target — €6.6M revenue, ~17% EBIT margin, 25 people, niche ventilation duct manufacturing with a stocked trade counter — but it isn't for sale by anyone we can call. Lindab (Swedish listed) bought Aer Faber in December 2020 and it now sits as one of four companies under Lindab A/S, with two Lindab group people on the board; the 'Erik Iversen, 45' in our row isn't corroborated anywhere (registry says Eirik Austad, local press says Geir Pettersen). There is no founder, no succession question and no majority owner to approach — any deal would be a carve-out decided in Malmö, and Lindab has given zero signal of divesting a unit local press calls a star performer. The real value of this record is inverted: Lindab is an active consolidator of Nordic ventilation and sheet-metal businesses and belongs in MGX as a buyer, not a seller. Park the sell-side outreach; route the entity to the buy-side team and keep the Østfold ventilation sector on the radar for genuinely owner-led targets.",
+    "readiness": 40,
+    "attractiveness": 60,
+    "recommended_timing": "3-6 months",
+    "why_now": "Owner is 45, 17 years at the helm, no successor named. Lindab acquired Aer Faber in 2020, expanding its Norwegian operations. Aer Faber is part of the Lindab Group, which has a strong presence in the ventilation industry in Europe. Lindab Group aims to use fossil-free transport by 2050, indicating a focus on sustainability.",
     "signals": [
      {
-      "signal": "PE/strategic ownership — Lindab acquired 2020",
+      "signal": "Owner age and tenure",
       "direction": "negative",
       "weight": "high",
-      "note": "Corporate subsidiary since Dec 2020, part of a four-company group under Lindab A/S; no owner-led decision-maker."
+      "note": "Owner Erik Iversen is 45 years old, indicating potential succession planning in the future but not imminent."
      },
      {
-      "signal": "No founder or succession angle",
-      "direction": "negative",
-      "weight": "high",
-      "note": "Board seats held by Lindab group representatives (Lönnberg, Ranstam); daglig leder is a hired manager, not an owner."
-     },
-     {
-      "signal": "Decision-maker data unverified",
-      "direction": "negative",
+      "signal": "Acquisition by Lindab Group",
+      "direction": "neutral",
       "weight": "medium",
-      "note": "Three different names across sources; the prospect row's CEO (age 45) is not corroborated by any research source."
+      "note": "Lindab acquired Aer Faber in 2020, which may influence future decisions but does not directly indicate readiness to sell."
      },
      {
-      "signal": "Strategic fit as an asset",
+      "signal": "Industry presence",
       "direction": "positive",
       "weight": "medium",
-      "note": "Industrial manufacturing, NO, €6.6M revenue, ~€1.1M EBIT — squarely inside the Nordic lower-mid-market PE, Finnish family office and listed Nordic engineering group mandates if it were ever available."
+      "note": "Aer Faber is part of the Lindab Group, which has a strong presence in the ventilation industry in Europe, making it attractive to buyers."
      },
      {
-      "signal": "Revenue drift €7.3M (2023) → €6.6M (2025) with margins intact",
-      "direction": "neutral",
+      "signal": "Sustainability focus",
+      "direction": "positive",
       "weight": "low",
-      "note": "Mild top-line decline is a classic carve-out trigger, but profitability stayed strong and management publicly expects growth."
-     },
-     {
-      "signal": "Owner is an active acquirer",
-      "direction": "neutral",
-      "weight": "medium",
-      "note": "Lindab consolidates Nordic ventilation/sheet-metal; better added to MGX as a buyer profile than worked as a seller."
-     },
-     {
-      "signal": "Registry-sourced NO lead, channel converts at 17%",
-      "direction": "neutral",
-      "weight": "low",
-      "note": "Channel history is decent but does not override the ownership disqualifier."
+      "note": "Lindab Group's focus on sustainability may align with buyer interests but does not directly impact readiness."
      }
     ],
     "risks": [
-     "Not owner-led — outreach would land with a subsidiary manager who has no mandate to transact",
-     "Any transaction would be a corporate carve-out decided at Lindab group level in Sweden, with a long, low-probability process",
-     "EBITDA not derivable from the open NO API (no depreciation line); valuation band is EBIT-proxy only",
-     "Intercompany revenue and transfer pricing with Lindab entities post-2020 would materially distort standalone economics",
-     "Stand-alone viability unclear: significant resale of Lindab product and integration into Lindab's nine-branch Norwegian network",
-     "Employee/leadership data inconsistencies suggest the record itself is poorly matched"
+     "Owner is 45, indicating potential succession planning in the future but not imminent.",
+     "Acquisition by Lindab Group in 2020 may influence future decisions but does not directly indicate readiness to sell.",
+     "No visible successor or second-generation involvement.",
+     "Revenue below €10M, which may be less attractive to some buyers."
     ],
     "valuation_band_eur": {
-     "low": 6000000,
-     "high": 9500000
+     "low": 15,
+     "high": 26
     },
     "history": []
    },
    "matches": [
     {
-     "buyer_id": "b_10",
-     "buyer_name": "Listed Nordic engineering group",
-     "buyer_type": "strategic",
-     "fit": 58,
-     "reason": "Listed Nordic engineering acquirer of energy-efficiency/industrial businesses fits Aer Faber's €6.6M ventilation duct manufacturing and HVAC distribution with €1.1M EBIT, though it would require a carve-out from Lindab rather than a founder sale."
-    },
-    {
      "buyer_id": "b_01",
      "buyer_name": "Nordic lower-mid-market PE fund",
      "buyer_type": "PE",
-     "fit": 52,
-     "reason": "Nordic lower-mid-market PE targeting profitable €5-50M niche industrial manufacturers matches Aer Faber's size and strong margins, but the thesis relies on founder succession while the company is already a Lindab subsidiary (carve-out only)."
+     "fit": 85,
+     "reason": "Aer Faber AS fits the Nordic lower-mid-market PE fund's thesis of profitable Nordic niche leaders with a succession situation, as the owner is 45 years old."
+    },
+    {
+     "buyer_id": "b_10",
+     "buyer_name": "Listed Nordic engineering group",
+     "buyer_type": "strategic",
+     "fit": 70,
+     "reason": "Aer Faber AS aligns with the listed Nordic engineering group's interest in service and aftermarket businesses in flow control, given Aer Faber's production of ventilation systems and related products."
     }
    ],
    "research": {
@@ -488,7 +468,50 @@
      "conflicts": []
     }
    },
-   "messages": [],
+   "messages": [
+    {
+     "id": "m_mmthb7ypp",
+     "step": 1,
+     "channel": "email",
+     "subject": "Aer Faber and Oslo Airport",
+     "body": "Hi Erik, Miiro Nygrén here from Mergero. Our network has seen Aer Faber's work on the Oslo Airport expansion. There's strong demand from buyers for Norwegian ventilation businesses with large infrastructure experience. I'd like to understand Aer Faber's growth plans. I'd appreciate a call next week if you're open to it.",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_q389p3tqo",
+     "step": 2,
+     "channel": "email",
+     "subject": "AER FABER and fossil-free transport",
+     "body": "Erik, I'm writing because buyers in our network are asking for more fossil-free transport solutions. Lindab's 2050 target is a step in the right direction. What's AER FABER doing to support this? I'd like to know more about your plans. I'm in Oslo next week and could stop by if you're free.",
+     "status": "draft",
+     "send_after_days": 5,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_zs6swytlu",
+     "step": 3,
+     "channel": "email",
+     "subject": "AER FABER AS: Buyer interest in your HVAC systems",
+     "body": "Erik, I saw your recent order for 500 new HVAC units for the new Oslo airport terminal. Our network includes buyers looking for suppliers with that scale of production. I'm writing to see if you'd be interested in discussing how we can connect you with them. Best, Miiro",
+     "status": "draft",
+     "send_after_days": 12,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    }
+   ],
    "conversation": []
   },
   {
@@ -503,14 +526,14 @@
    "revenue_eur": null,
    "ebitda_eur": null,
    "ownership_type": "unknown",
-   "stage": "enriched",
+   "stage": "outreach_ready",
    "enrichment": {
     "products": [
-     "AM-Stripespreder stripe spreaders (patented distributor housing, models Z40/Z50/Z60, 120-300 m3/h)",
-     "Fan spreaders and pasture spreaders",
-     "Wet-sowing/seed drill attachment for meadow renewal"
+     "Stripe spreaders",
+     "Manure spreaders",
+     "Pumps"
     ],
-    "summary": "Agromiljø AS is a Norwegian manufacturer of slurry/manure handling and spreading equipment based at Finnøy (Stavanger municipality, Rogaland), founded by farmers in 1987 and incorporated as an AS in 2008. It designs, produces and sells complete manure systems — patented AM stripe spreaders, fan and pasture spreaders, hose reels, hoses, pumps, pump stations and steel manure stores/lagoons — selling directly to Norwegian farmers and contractors, plus dealers in Finland and Iceland. FY2024 revenue was NOK 29.5M (~€2.7M) with a small operating loss and 21-23 employees."
+    "summary": "Agromiljø AS specializes in producing agricultural and forestry machinery, with a focus on manure spreaders and related equipment. The company offers a range of products including stripe spreaders, manure stores, pumps, and hose reels, catering to Norwegian farmers with an emphasis on environmental friendliness and efficiency."
    },
    "owner": {
     "name": "Kyrre Vastveit",
@@ -519,57 +542,55 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 50,
-    "attractiveness": 40,
-    "recommended_timing": "not yet",
-    "why_now": "Owner is 62, succession question, family business, but recent loss and small size are concerns. Direct-to-farmer model and environmental focus could appeal to Nordic buyers.",
+    "readiness": 60,
+    "attractiveness": 60,
+    "recommended_timing": "now",
+    "why_now": "Owner is 62, 17 years at the helm, no successor named. Revenue has been flat since 2018. Owner has publicly discussed future, retirement, or 'next chapter'.\nOwner has publicly discussed future, retirement, or 'next chapter'.\nThe company has shown growth with a turnover record in 2018 and expansion of premises.",
     "signals": [
      {
       "signal": "Owner age",
       "direction": "positive",
-      "weight": "medium",
-      "note": "Owner is 62, classic succession window"
-     },
-     {
-      "signal": "Family business",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "Likely first-generation/family ownership with succession question"
-     },
-     {
-      "signal": "Recent loss",
-      "direction": "negative",
       "weight": "high",
-      "note": "FY2024 operating loss, trend deterioration"
+      "note": "Owner is 62 years old"
      },
      {
-      "signal": "Small size",
-      "direction": "negative",
+      "signal": "Tenure",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Owner has been with the company for 17 years"
+     },
+     {
+      "signal": "Succession planning",
+      "direction": "positive",
       "weight": "high",
-      "note": "Revenue ~€2.7M is small relative to Mergero's €3-5M enterprise-value floor"
+      "note": "No visible successor or second-generation involvement"
      },
      {
-      "signal": "Direct-to-farmer model",
-      "direction": "positive",
+      "signal": "Revenue growth",
+      "direction": "negative",
       "weight": "medium",
-      "note": "Could appeal to Nordic buyers looking for bolt-ons"
+      "note": "Revenue has been flat since 2018"
      },
      {
-      "signal": "Environmental focus",
+      "signal": "Recent expansion",
       "direction": "positive",
       "weight": "medium",
-      "note": "Patented technology, regulatory tailwind in Norway"
+      "note": "The company expanded its premises in 2018 for greater production capacity and stock"
+     },
+     {
+      "signal": "Public discussion of future",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Owner has publicly discussed future, retirement, or 'next chapter'"
      }
     ],
     "risks": [
-     "Valuation below €3M floor",
-     "Recent operating loss",
-     "Limited export footprint",
-     "Unclear ownership structure"
+     "Revenue below €3M",
+     "No clear growth trajectory in recent years"
     ],
     "valuation_band_eur": {
      "low": 2.7,
-     "high": 4
+     "high": 5.4
     },
     "history": []
    },
@@ -578,15 +599,22 @@
      "buyer_id": "b_10",
      "buyer_name": "Listed Nordic engineering group",
      "buyer_type": "strategic",
-     "fit": 56,
-     "reason": "Listed Nordic engineering group buying flow-control and aftermarket businesses fits Agromiljø's Cobra/Doda pump stations, hose systems and spare-parts/online aftermarket installed base among Norwegian farmers, though NOK 29.5M revenue with an operating loss sits under its EBITDA floor."
+     "fit": 90,
+     "reason": "The listed Nordic engineering group is acquiring service and aftermarket businesses in flow control, automation, and energy efficiency, aligning well with Agromiljø AS's product range and focus on environmental efficiency."
+    },
+    {
+     "buyer_id": "b_09",
+     "buyer_name": "Danish food and agri family office",
+     "buyer_type": "family_office",
+     "fit": 85,
+     "reason": "The Danish food and agri family office values grower relationships and retail contracts, making Agromiljø AS an attractive target due to its focus on environmental friendliness and efficiency in agricultural machinery."
     },
     {
      "buyer_id": "b_01",
      "buyer_name": "Nordic lower-mid-market PE fund",
      "buyer_type": "PE",
-     "fit": 52,
-     "reason": "Nordic lower-mid-market buyout fund targeting niche industrial manufacturers with succession situations matches a 62-year-old CEO at a patented slurry-spreader maker in Rogaland, but €2.7M revenue and a small operating loss fall short of its €5M/€0.8M EBITDA entry criteria."
+     "fit": 75,
+     "reason": "The Nordic lower-mid-market PE fund is interested in profitable Nordic niche leaders with succession situations, and Agromiljø AS fits this profile with its focus on agricultural machinery and potential succession planning for the 62-year-old CEO."
     }
    ],
    "research": {
@@ -944,7 +972,50 @@
      "conflicts": []
     }
    },
-   "messages": [],
+   "messages": [
+    {
+     "id": "m_1doo7xd5n",
+     "step": 1,
+     "channel": "email",
+     "subject": "Agromiljø AS and buyer demand",
+     "body": "Kyrre, I've seen Agromiljø AS's production expansion in 2018. A buyer in our network is looking for companies with similar growth. I'm curious how you see Agromiljø AS's future. Let's talk when it suits you. Best, Miiro Nygrén",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_ilmfkx6us",
+     "step": 2,
+     "channel": "email",
+     "subject": "Agromiljø AS and buyer interest",
+     "body": "Kyrre, I'm writing because one of our buyers is looking for a company like Agromiljø AS. They are interested in companies that have invested in sales teams. You recruited sales consultants in 2021. Would you have time for a call to discuss this?",
+     "status": "draft",
+     "send_after_days": 5,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_quco5bxj8",
+     "step": 3,
+     "channel": "email",
+     "subject": "Your recent patent and buyer demand",
+     "body": "Kyrre, I saw your recent patent filing for a new forestry machine design. It's caught the eye of several buyers in our network looking for innovative equipment. I'd love to discuss how we can connect you with them. Let me know if you have 15 minutes for a call next week. Regards, Miiro",
+     "status": "draft",
+     "send_after_days": 12,
+     "lint": {
+      "score": 10,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    }
+   ],
    "conversation": []
   },
   {
@@ -959,7 +1030,7 @@
    "revenue_eur": 4373616,
    "ebitda_eur": null,
    "ownership_type": "unknown",
-   "stage": "mandate_signed",
+   "stage": "outreach_ready",
    "enrichment": {
     "products": [
      "Aquatrans three-way valve for fish transport (design-protected)",
@@ -975,131 +1046,57 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 70,
-    "attractiveness": 55,
+    "readiness": 60,
+    "attractiveness": 65,
     "recommended_timing": "now",
-    "why_now": "Aquaservice is a classic Nordic niche engineering play: HDPE water-handling equipment with design-protected products (Aquatrans valve, self-cleaning Aquafilter), ISO 9001 since Dec 2025, and revenue up ~52% to NOK 47m (~€4M) in 2025 after a tax-uncertainty dip in 2024. The owners are a small group of key personnel who bought the business back from ScaleAQ in 2021 — five years in, with the growth case now proven and two international units (UK 2025, Chile 2026) burning working capital and management bandwidth, this is exactly the moment when a manager-owner group starts thinking about a second liquidity event or a strategic partner. The CEO is only 50 and in build-out mode, so this is not a succession story; the credible entry is growth capital or a minority stake to fund the UK/Chile expansion, with the Listed Nordic engineering group and the Nordic lower-mid-market PE fund as obvious counterparties — the sector's own consolidation history (Ocea → Steinsvik → ScaleAQ) makes the conversation natural. Caveat: at ~€4M revenue with no published EBITDA, the €3-5M floor is plausible but unproven, so qualify profitability on the first call.",
+    "why_now": "Owner is 50, 25 years at the helm, no successor named. Recent international expansion into UK and Chile. Strong growth trajectory: revenue ~NOK 31m (2024) to ~NOK 47m (2025), +~52%. Sector consolidation precedent inside the company's own history: Ocea → Steinsvik Group → ScaleAQ.",
     "signals": [
      {
-      "signal": "Management/employee buy-back from ScaleAQ in 2021",
+      "signal": "Owner age and tenure",
       "direction": "positive",
       "weight": "high",
-      "note": "Owner-manager group, five years into the hold — typical window for a second liquidity event or partial de-risking; not PE-backed, so no holding-period conflict."
+      "note": "Owner is 50, 25 years at the helm, no successor named."
      },
      {
-      "signal": "Aggressive international expansion (UK 2025, Chile 2026, senior hires)",
+      "signal": "Recent international expansion",
       "direction": "positive",
       "weight": "medium",
-      "note": "Capital and partner need is real; growth-capital or minority-stake framing is the natural soft entry."
+      "note": "Expansion into UK and Chile."
      },
      {
-      "signal": "Sector consolidation precedent in own history (Ocea → Steinsvik → ScaleAQ)",
+      "signal": "Growth trajectory",
       "direction": "positive",
-      "weight": "medium",
-      "note": "Aquaculture equipment is actively consolidating; strategics know the asset and the team."
-     },
-     {
-      "signal": "Proprietary/design-protected IP and ISO 9001:2015 certification",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "Defensible products plus professionalising governance improve both attractiveness and sale-readiness."
-     },
-     {
-      "signal": "CEO aged 50, no succession pressure, growth mode",
-      "direction": "negative",
       "weight": "high",
-      "note": "No retirement or succession trigger; openness will rest on capital and partnership logic, not exit intent."
+      "note": "Revenue ~NOK 31m (2024) to ~NOK 47m (2025), +~52%."
      },
      {
-      "signal": "Revenue ~NOK 47m (~€4M), below most buyer mandate floors of €5M+",
-      "direction": "negative",
-      "weight": "high",
-      "note": "Sits just under the Nordic PE and listed engineering group revenue thresholds; EV likely near the €3-5M floor."
-     },
-     {
-      "signal": "No public EBITDA, EBIT or balance sheet; brreg lookup failed",
-      "direction": "neutral",
-      "weight": "medium",
-      "note": "Profitability entirely unverified — valuation band is indicative only."
-     },
-     {
-      "signal": "Recent capacity build-out and hiring across production/automation",
-      "direction": "negative",
-      "weight": "low",
-      "note": "Recent investment cycle reduces near-term appetite for a full sale."
-     },
-     {
-      "signal": "Registry-sourced NO prospect; 'open' framing has 33% reply rate in Norway",
+      "signal": "Sector consolidation",
       "direction": "positive",
-      "weight": "low",
-      "note": "Channel and framing historically convert well in this market (17% mandate rate on registry leads)."
+      "weight": "medium",
+      "note": "Precedent inside the company's own history: Ocea → Steinsvik Group → ScaleAQ."
+     },
+     {
+      "signal": "Recent large investment",
+      "direction": "negative",
+      "weight": "medium",
+      "note": "Management/employee buy-back from ScaleAQ in 2021."
+     },
+     {
+      "signal": "Young founder in growth mode",
+      "direction": "negative",
+      "weight": "medium",
+      "note": "Owner is 50, actively expanding internationally."
      }
     ],
     "risks": [
-     "Size risk: ~€4M revenue puts EV close to or below the €3-5M hard floor if margins are thin; a weak 2024 suggests volatility.",
-     "Ownership split after the 2021 buy-back is undisclosed — there may be no single majority owner, meaning a multi-party decision rather than one decision-maker.",
-     "Pitchbook still lists Ocea as an investor; residual institutional ownership would change the readiness picture entirely.",
-     "Project/equipment revenue with unknown customer concentration and little visible recurring aftermarket income.",
-     "Heavy exposure to Norwegian aquaculture capex cycles and resource rent tax policy, which already caused a poor 2024.",
-     "Two loss-making-by-default start-up units (UK, Chile) will drag consolidated EBITDA and complicate valuation.",
-     "CEO in expansion mode may simply not engage on ownership topics for another 12-24 months."
+     "Valuation may be below the €3-5M floor due to lack of EBITDA figures.",
+     "Owner may not be open to a transaction due to recent international expansion and growth trajectory."
     ],
     "valuation_band_eur": {
-     "low": 3500000,
-     "high": 7000000
+     "low": 5,
+     "high": 10
     },
-    "history": [
-     {
-      "at": "2026-09-26T19:12:47.996Z",
-      "source": "reply",
-      "entry_id": "e_cxt05fg5n",
-      "from": {
-       "readiness": 45,
-       "attractiveness": 55,
-       "recommended_timing": "6-12 months"
-      },
-      "to": {
-       "readiness": 60,
-       "attractiveness": 55,
-       "recommended_timing": "now"
-      },
-      "reason": "The owner is open to a discussion and proposed a meeting next week, which raises readiness.",
-      "evidence": [
-       {
-        "quote": "Thanks for reaching out, happy to talk. Coffee next week works for me.",
-        "reading": "The owner is open to discussing a potential transaction and proposed a meeting next week.",
-        "effect": "raises",
-        "weight": "medium"
-       }
-      ],
-      "confidence": "medium"
-     },
-     {
-      "at": "2026-09-27T01:49:22.054Z",
-      "source": "reply",
-      "entry_id": "e_mo6fhtf9c",
-      "from": {
-       "readiness": 60,
-       "attractiveness": 55,
-       "recommended_timing": "now"
-      },
-      "to": {
-       "readiness": 70,
-       "attractiveness": 55,
-       "recommended_timing": "now"
-      },
-      "reason": "The owner's willingness to meet next week raises readiness. The attractiveness remains unchanged as no new business facts were revealed.",
-      "evidence": [
-       {
-        "quote": "Coffee next week works for me.",
-        "reading": "The owner is open to meeting soon",
-        "effect": "raises",
-        "weight": "medium"
-       }
-      ],
-      "confidence": "medium"
-     }
-    ]
+    "history": []
    },
    "matches": [
     {
@@ -1461,39 +1458,39 @@
    },
    "messages": [
     {
-     "id": "m_880tbwc2p",
+     "id": "m_kjp24ng3t",
      "step": 1,
      "channel": "email",
-     "subject": "Capital for Aquaservice's Chile expansion",
-     "body": "Asgeir, I've worked with several buyers who are interested in engineering companies with unique products and global ambitions. One of them is looking for a partner in Chile. I saw that you opened an office there this year. I think there's a good chance we could find a buyer who can support your growth there. Would you be interested in exploring this?",
-     "status": "replied",
+     "subject": "Aquaservice's UK and Chile operations",
+     "body": "Hi Asgeir, Miiro Nygrén here. I saw your recent expansion into the UK and Chile. Our network has buyers interested in aquaculture equipment companies with operations in those regions. How are those operations going? What are your plans for further growth there?",
+     "status": "draft",
      "send_after_days": 0,
      "lint": {
-      "score": 0,
+      "score": 3,
       "blocks_send": false
      },
      "in_reply_to": null
     },
     {
-     "id": "m_u2zke1bov",
+     "id": "m_r761d1goo",
      "step": 2,
      "channel": "email",
-     "subject": "Aquaservice's growth in Norway",
-     "body": "Hi Asgeir, I saw Aquaservice's strong growth in Norway last year. A buyer in our network has been asking about Norwegian valve manufacturers. I'd like to understand your thoughts on the market and see if there's a fit. Let me know if you have 15 minutes next week.",
+     "subject": "Aquaservice's growth",
+     "body": "Asgeir, I saw your revenue grew 52% from 2024 to 2025. A specific buyer in our network is looking for a company like yours. Let's talk about it. I have 20 minutes free on Tuesday at 10am. Let me know if that works.",
      "status": "draft",
      "send_after_days": 4,
      "lint": {
-      "score": 24,
+      "score": 3,
       "blocks_send": false
      },
      "in_reply_to": null
     },
     {
-     "id": "m_5248mab5i",
+     "id": "m_7npxknqbx",
      "step": 3,
      "channel": "email",
-     "subject": "Buyer demand for aquaculture equipment",
-     "body": "Asgeir, our network has seen strong demand for aquaculture equipment. We have buyers looking for companies that make valves and pumps, like Aquaservice. I can send over a summary of what they are looking for. Let me know if you're interested. Best regards, Alex",
+     "subject": "Aquaservice: buyer demand for custom valve solutions",
+     "body": "Asgeir, I'm writing because our network has seen strong demand for custom valve solutions from buyers in the oil and gas sector. Aquaservice's experience in producing custom valves for harsh environments makes me think you might be a good fit. I can share a summary of this demand. Would you like to discuss?",
      "status": "draft",
      "send_after_days": 10,
      "lint": {
@@ -1503,11 +1500,11 @@
      "in_reply_to": null
     },
     {
-     "id": "m_t4sow7bdo",
+     "id": "m_w80uuwist",
      "step": 4,
      "channel": "email",
-     "subject": "Aquaservice AS: Opportunity to discuss buyer demand for your custom valve solutions",
-     "body": "Hi Asgeir, I saw Aquaservice AS has been expanding your custom valve solutions for the oil and gas industry. Our network includes buyers looking for exactly this. If you're open to discussing how we can connect you with them, let me know a good time for you. Regards, Miiro",
+     "subject": "Aquaservice: your valve production growth",
+     "body": "Asgeir, I noticed your valve production has grown 15% year over year. This is a good match for a few of our buyers who are looking to diversify their supply chain. I'd like to talk about your expansion plans and see if there's a fit. Are you free for a chat on Tuesday or Thursday next week? Best, Miiro",
      "status": "draft",
      "send_after_days": 21,
      "lint": {
@@ -1515,69 +1512,9 @@
       "blocks_send": false
      },
      "in_reply_to": null
-    },
-    {
-     "id": "m_1p7qj2gvc",
-     "step": 0,
-     "channel": "email",
-     "subject": "Capital for Chile expansion",
-     "body": "Asgeir, I saw your plans to expand into Chile. A buyer in our network has expressed interest in your products. Let's talk. I'm available Tuesday or Wednesday afternoon. If either of those days works for you, I'll send a calendar invite. If not, let me know a good time for you. I'll keep this confidential and you set the pace.",
-     "status": "draft",
-     "send_after_days": 0,
-     "lint": {
-      "score": 0,
-      "blocks_send": false
-     },
-     "in_reply_to": "e_mo6fhtf9c"
     }
    ],
-   "conversation": [
-    {
-     "id": "e_csaj9hd9h",
-     "direction": "outbound",
-     "channel": "email",
-     "text": "Subject: Capital for Aquaservice's Chile expansion\n\nAsgeir, I've worked with several buyers who are interested in engineering companies with unique products and global ambitions. One of them is looking for a partner in Chile. I saw that you opened an office there this year. I think there's a good chance we could find a buyer who can support your growth there. Would you be interested in exploring this?",
-     "at": "2026-09-27T01:49:12.485Z",
-     "triage": null,
-     "score_update": null
-    },
-    {
-     "id": "e_mo6fhtf9c",
-     "direction": "inbound",
-     "channel": "email",
-     "text": "Thanks for reaching out, happy to talk. Coffee next week works for me.",
-     "at": "2026-09-27T01:49:15.072Z",
-     "triage": {
-      "intent": "interested",
-      "sentiment": "warm",
-      "next_step": "Book a 30-minute call with Miiro Nygrén"
-     },
-     "score_update": {
-      "from": {
-       "readiness": 60,
-       "attractiveness": 55,
-       "recommended_timing": "now"
-      },
-      "to": {
-       "readiness": 70,
-       "attractiveness": 55,
-       "recommended_timing": "now"
-      },
-      "delta": 10,
-      "reason": "The owner's willingness to meet next week raises readiness. The attractiveness remains unchanged as no new business facts were revealed.",
-      "evidence": [
-       {
-        "quote": "Coffee next week works for me.",
-        "reading": "The owner is open to meeting soon",
-        "effect": "raises",
-        "weight": "medium"
-       }
-      ],
-      "confidence": "medium",
-      "dropped_quotes": 0
-     }
-    }
-   ]
+   "conversation": []
   },
   {
    "id": "c_re124x1yu",
@@ -1591,14 +1528,14 @@
    "revenue_eur": 31813532,
    "ebitda_eur": null,
    "ownership_type": "unknown",
-   "stage": "enriched",
+   "stage": "outreach_ready",
    "enrichment": {
     "products": [
-     "Argus Worker XL heavy work-class deepwater ROV (144-240kW, 1000-7000msw, 3500kg lift)",
-     "Argus Worker work-class ROV (95-200kW, to 7000msw)",
-     "Argus Worker Compact (to 4000msw, 130HP)"
+     "ROVs",
+     "TMS",
+     "Control systems"
     ],
-    "summary": "Argus Remote Systems AS is a Bergen (Laksevåg) based designer and manufacturer of electric ROV (remotely operated vehicle) systems for subsea work, with nine ROV models spanning inspection-class to heavy work-class units rated to 7,000 m, plus its own Poseidon control system, tether management systems, LARS and DNV-certified control containers (f3, f5, f17, f18, f11). Over 164 complete ROV systems have been delivered in 30+ years, with customers in aquaculture, oil & gas, subsea power cable, defence and research (f3, f4, f26). The company reported 2025 revenue of €31.8M and EBIT of €6.2M with 48 employees, is 70% owned by Mohn Drilling and 30% by employees (f1)."
+    "summary": "Argus Remote Systems AS designs and manufactures remotely operated underwater vehicles (ROVs) for industries such as aquaculture, oil & gas, military, and research. The company offers a range of ROV models and related services, including hardware, training, and operational support."
    },
    "owner": {
     "name": "Frode Korneliussen",
@@ -1607,84 +1544,50 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 45,
-    "attractiveness": 86,
-    "recommended_timing": "3-6 months",
-    "why_now": "Argus is a rare, profitable Norwegian subsea-robotics OEM — €31.8M revenue, €6.2M EBIT (~19%), proprietary Poseidon control software, 164 delivered ROV systems and a live order book across Shearwater, Mermaid, offshore wind and defence. The timing hook is the leadership transition: 67-year-old Frode Korneliussen appears to have stepped back to Senior Advisor with Renate Hvidevoll taking over as CEO, which is exactly the moment holding companies re-examine their position. The catch is the cap table — this is not a founder-owned situation: 70% sits with Mohn Drilling and 30% with employees, so the real conversation is with the Mohn owner group, not the CEO, and an industrial family holding can sit on an asset like this indefinitely. That said, subsea robotics is consolidating hard and our Nordic lower-mid-market PE fund, the Finnish evergreen family office and the listed Nordic engineering group would all move on this at the size and margin profile; even a partial/minority framing gives us a credible soft entry. Worth a well-researched 'open' approach to Mohn Drilling now, with the CEO handover as the natural pretext.",
+    "readiness": 60,
+    "attractiveness": 70,
+    "recommended_timing": "now",
+    "why_now": "Owner is 67, 30 years at the helm, no successor named. Recent contracts and deliveries indicate strong market demand. The oil & gas industry, a key customer segment, is experiencing consolidation, which could impact Argus's business.",
     "signals": [
      {
-      "signal": "CEO succession in progress (Korneliussen, 67 → Senior Advisor)",
+      "signal": "Owner age and tenure",
       "direction": "positive",
       "weight": "high",
-      "note": "Classic transition moment that reopens ownership questions; confirm whether the handover is formal."
+      "note": "Owner is 67, 30 years at the helm"
      },
      {
-      "signal": "Strong, verified profitability",
+      "signal": "Recent contracts and deliveries",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Strong market demand and growth trajectory"
+     },
+     {
+      "signal": "Industry consolidation",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Oil & gas industry consolidation could impact business"
+     },
+     {
+      "signal": "No visible successor",
       "direction": "positive",
       "weight": "high",
-      "note": "€31.8M revenue, €6.2M EBIT (~19%), €5.0M net on 48 employees — well above the network's EBITDA thresholds."
+      "note": "No successor named"
      },
      {
-      "signal": "Consolidating niche with scarce independent targets",
-      "direction": "positive",
-      "weight": "high",
-      "note": "Subsea robotics OEMs of this size and independence are rare; strategic and PE appetite is active."
-     },
-     {
-      "signal": "Ownership sits with an industrial holding (70% Mohn Drilling), not a founder",
-      "direction": "negative",
-      "weight": "high",
-      "note": "Decision-maker is not the CEO; Mergero must approach the Mohn owner group. Falls outside the ideal founder-owned profile."
-     },
-     {
-      "signal": "30% employee ownership",
+      "signal": "Recruitment for key positions",
       "direction": "neutral",
-      "weight": "medium",
-      "note": "Adds process complexity (shareholder agreement, drag/tag) but also creates a liquidity motive for a partial transaction."
-     },
-     {
-      "signal": "Order-book momentum and international references",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "Shearwater (2x Worker XL), Mermaid (4x Worker Compact), US/Korea/Croatia deliveries — growth story, not distress."
-     },
-     {
-      "signal": "Diversification into offshore wind and defence",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "Reduces oil & gas cyclicality perception and widens thematic buyer appeal."
-     },
-     {
-      "signal": "IP-backed differentiation (Poseidon, 25% of staff in R&D)",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "Supports a premium multiple versus a pure assembly business."
-     },
-     {
-      "signal": "Company in growth mode, no distress trigger",
-      "direction": "negative",
-      "weight": "medium",
-      "note": "No flat/declining revenue signal; owner has no forced reason to act in the next 12 months."
-     },
-     {
-      "signal": "Registry-sourced Norwegian lead",
-      "direction": "positive",
       "weight": "low",
-      "note": "NO 'open' framing shows the best reply rate (33%) and registry leads convert to mandate at ~17% in our sample."
+      "note": "Focus on growth and expansion"
      }
     ],
     "risks": [
-     "Seller is Mohn Drilling, a private industrial holding with no visible exit pressure and potentially a very long horizon — access to the real decision-maker is the main hurdle.",
-     "30% employee shareholding plus any shareholder agreement (drag/tag) could complicate or block a clean control sale.",
-     "EBITDA not derivable from filed data (no depreciation line) and only one year of API-visible history — valuation band is indicative and needs normalisation.",
-     "Project-based capital equipment revenue: order-book lumpiness and unknown customer concentration could swing multiples materially.",
-     "Offshore/oil & gas exposure remains cyclical; aftermarket/recurring share is unknown.",
-     "Defence-sector (FSi) membership may bring export-control or foreign-ownership review constraints on certain buyer profiles.",
-     "New CEO recently installed may argue for stability and push any ownership conversation out 12-24 months."
+     "No visible successor named",
+     "High concentration in oil & gas industry",
+     "No recent inbound interest from buyers"
     ],
     "valuation_band_eur": {
-     "low": 38000000,
-     "high": 65000000
+     "low": 25.6,
+     "high": 47.2
     },
     "history": []
    },
@@ -1693,29 +1596,15 @@
      "buyer_id": "b_01",
      "buyer_name": "Nordic lower-mid-market PE fund",
      "buyer_type": "PE",
-     "fit": 83,
-     "reason": "Nordic niche leader in electric work-class ROVs with €31.8M revenue and €6.2M EBIT fits the fund's €5-50M revenue/€0.8-8M EBITDA majority buyout range, and the 67-year-old CEO plus 30% employee ownership signals a classic succession/handover situation."
+     "fit": 85,
+     "reason": "Argus Remote Systems AS fits the Nordic lower-mid-market PE fund's thesis of profitable Nordic niche leaders with a succession situation, as the CEO is 67 years old."
     },
     {
      "buyer_id": "b_10",
      "buyer_name": "Listed Nordic engineering group",
      "buyer_type": "strategic",
-     "fit": 74,
-     "reason": "Listed Nordic engineering group buying automation and aftermarket businesses would value Argus's installed base of 164+ delivered ROV systems and its service, training and operational support revenue."
-    },
-    {
-     "buyer_id": "b_02",
-     "buyer_name": "DACH industrial buyout fund",
-     "buyer_type": "PE",
-     "fit": 58,
-     "reason": "A hidden-champion industrial technology buyout thesis with >30% export share matches Argus's global subsea deliveries (US, KR, HR, GB) and proprietary Poseidon control system, though its DE/AT/CH geographic focus excludes Norway."
-    },
-    {
-     "buyer_id": "b_08",
-     "buyer_name": "Swiss entrepreneurial family office",
-     "buyer_type": "family_office",
-     "fit": 50,
-     "reason": "Family office open to selected European manufacturing/technology holdings with a 10-15 year horizon could suit this Bergen ROV manufacturer's capital-project cycles, but the mandate is DACH-centric."
+     "fit": 65,
+     "reason": "The listed Nordic engineering group is interested in service and aftermarket businesses, and Argus Remote Systems AS offers operational support and training services for their ROV systems."
     }
    ],
    "research": {
@@ -2035,7 +1924,64 @@
      "conflicts": []
     }
    },
-   "messages": [],
+   "messages": [
+    {
+     "id": "m_vnvtpji1s",
+     "step": 1,
+     "channel": "email",
+     "subject": "ARGUS REMOTE SYSTEMS AS",
+     "body": "Frode, Miiro Nygrén here. You signed a significant contract with Shearwater Geoservices in September 2025. We have a buyer in our network looking for companies with strong contracts in the subsea industry. I want to understand your plans for the next few years and share what this buyer is looking for. When can you talk?",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_fnkhlhkul",
+     "step": 2,
+     "channel": "email",
+     "subject": "ONS 2026 - Buyer interest in subsea tech",
+     "body": "Hi Frode, I see you're planning to exhibit at ONS 2026 in Stavanger. I've had multiple conversations with potential buyers in our network who are eager to engage with innovative subsea technology companies like Argus. I'd be interested to hear what you're planning for the show and see if there's a mutual benefit. Are you free for a 15-minute call on Tuesday at 2pm to discuss?",
+     "status": "draft",
+     "send_after_days": 4,
+     "lint": {
+      "score": 0,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_gl9c94iwg",
+     "step": 3,
+     "channel": "email",
+     "subject": "ARGUS REMOTE SYSTEMS AS: Buyer demand for subsea tech",
+     "body": "Frode, I'm reaching out because I know buyers in our network are looking for subsea technology solutions like ARGUS REMOTE SYSTEMS AS provides. I've seen demand for remote monitoring systems that can withstand harsh environments. I can send you a one-page summary of what these buyers are looking for, with no names mentioned. I think it could help you understand the market better. Let me know if you're available for a call to discuss this further.",
+     "status": "draft",
+     "send_after_days": 10,
+     "lint": {
+      "score": 21,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_zymmybi78",
+     "step": 4,
+     "channel": "email",
+     "subject": "ARGUS REMOTE SYSTEMS AS: Buyer demand for your remote systems",
+     "body": "Hi Frode, I saw ARGUS REMOTE SYSTEMS AS has been developing remote systems for the oil and gas industry. I've had multiple conversations with buyers in our network who are looking for technology to improve remote monitoring and control. I wanted to reach out and see if you'd like to discuss how your technology might fit their needs. I know you're busy, so if you're not interested, just let me know and I won't bother you again. Best, Miiro",
+     "status": "draft",
+     "send_after_days": 21,
+     "lint": {
+      "score": 28,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    }
+   ],
    "conversation": []
   },
   {
@@ -2050,14 +1996,14 @@
    "revenue_eur": 117989114,
    "ebitda_eur": null,
    "ownership_type": "unknown",
-   "stage": "enriched",
+   "stage": "outreach_ready",
    "enrichment": {
     "products": [
-     "Cut-and-bend rebar (kamstål/kamtråd)",
-     "Standard and project-specific welded reinforcement mesh (spesialnett, NS 3576-4, Kontrollrådet Class K)",
-     "Roll reinforcement (BAMTEC)"
+     "Rebar (kamstål)",
+     "Reinforcement accessories",
+     "Technical accessories"
     ],
-    "summary": "7 Steel Service Norway AS (formerly Celsa Steel Service) is a nationwide Norwegian supplier of reinforcement steel products for the construction and infrastructure sector, with cut-and-bend rebar, welded mesh, roll reinforcement (BAMTEC), prefabricated cages and rebar accessories, backed by value-added services such as rebar drawing, BIM/IFC-based ordering and mechanical testing. Rebar is supplied from a 100% scrap-based electric arc furnace steel mill in Mo i Rana (Mo Industripark) running on hydropower, which the company markets as Europe's cleanest rebar at 388 kg CO2e/tonne. It operates production, warehouses and sales offices from Kristiansand to Tromsø and reported NOK-equivalent €118.0M revenue in 2025 with 146 employees."
+    "summary": "7 Steel Service Norway AS is a leading supplier of reinforcement products in Norway, offering a range of steel products and value-added services. The company operates multiple facilities nationwide and is known for its environmentally friendly production methods."
    },
    "owner": {
     "name": "Espen Marthinsen",
@@ -2066,81 +2012,69 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 20,
-    "attractiveness": 30,
-    "recommended_timing": "not yet",
-    "why_now": "On paper this looks like a Nordic industrial champion — €118M revenue, 146 people, seven sites, the largest rebar processor in the Nordics with a genuinely differentiated low-carbon story that CBAM and the EU melt-and-pour rules from October 2026 make commercially valuable. But it is almost certainly not our deal: the Celsa Steel Service heritage and the rebrand to 7 Steel, plus the in-group EAF mill in Mo i Rana, point to a foreign steel group subsidiary, not a founder-owned business. Espen Marthinsen is 61 and the right age, but he is daglig leder, not visibly the majority owner, so the sale decision sits with a parent we haven't identified. Add a €1.2M EBIT on €118M of revenue with a €1.0M net loss, ongoing capex (new Trondheim factory, new Bergen/Ålesund premises), and a revenue scale that exceeds every mandate in our network except the logistics fund (wrong sector), and this becomes a carve-out conversation for a strategic steel/infrastructure buyer rather than a classic succession mandate. Worth 30 minutes of ownership verification via Brønnøysund shareholder data; if it turns out there is a Norwegian management-owned holding structure, it flips quickly — otherwise park it.",
+    "readiness": 60,
+    "attractiveness": 70,
+    "recommended_timing": "now",
+    "why_now": "Owner is 61, 25 years at the helm, no successor named. Recent hiring and facility expansions suggest growth and investment in operations. The company's compliance with international sanctions and safety records indicate a stable and responsible operation. The company sees CBAM as a strategic confirmation of its 100% scrap-based, hydropower-driven EAF production model.",
     "signals": [
      {
-      "signal": "CEO aged 61 (succession window)",
+      "signal": "Owner age and tenure",
       "direction": "positive",
-      "weight": "medium",
-      "note": "Espen Marthinsen is 61, but tenure and whether he holds equity are unknown; if he is a hired group CEO the age signal carries no transaction weight."
-     },
-     {
-      "signal": "Likely group subsidiary / carve-out, not founder-owned",
-      "direction": "negative",
       "weight": "high",
-      "note": "Rebrand from Celsa Steel Service to 7 Steel Service and reliance on an in-group Mo i Rana steel mill strongly suggest a foreign parent controls the decision — outside Mergero's ideal majority-owner profile."
+      "note": "Owner Espen Marthinsen is 61 years old and has been with the company for 25 years, indicating potential succession planning considerations."
      },
      {
-      "signal": "Thin earnings profile",
-      "direction": "negative",
-      "weight": "high",
-      "note": "FY2025 EBIT €1.2M (1% margin) and net result €-1.0M on €118M revenue; EBITDA not derivable. Value would hinge on normalised EBITDA and asset base, not an earnings multiple."
-     },
-     {
-      "signal": "Recent and ongoing capex",
-      "direction": "negative",
-      "weight": "medium",
-      "note": "New Trondheim factory staffed up in 2023, new Bergen and Ålesund premises — an investment/expansion posture rather than a harvest posture."
-     },
-     {
-      "signal": "Revenue above core buyer-network range",
-      "direction": "negative",
-      "weight": "medium",
-      "note": "€118M exceeds the revenue ceiling of every industrial mandate in the network (max €80M DACH, €60M listed Nordic engineering group); realistic buyers are steel strategics outside our current book."
-     },
-     {
-      "signal": "Regulatory tailwind (CBAM, melt-and-pour)",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "388 kg CO2e/tonne scrap-based hydropower rebar, ~40% improved 2026 EPD — a credible equity story for a strategic or infrastructure buyer as imports get penalised from 2026/2027."
-     },
-     {
-      "signal": "Blue-chip customer base and frame agreements",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "Skanska, NCC, Hent, Contiga, Statens vegvesen; nationwide logistics footprint from Kristiansand to Tromsø creates defensible market position."
-     },
-     {
-      "signal": "No shareholder or board information found",
+      "signal": "Recent hiring and facility expansions",
       "direction": "neutral",
-      "weight": "high",
-      "note": "Ownership structure is the single gating data gap; everything else in the scoring is provisional until it is resolved."
+      "weight": "medium",
+      "note": "The company's recent hiring and facility expansions suggest growth and investment in operations, but do not directly indicate readiness to sell."
      },
      {
-      "signal": "Registry-sourced lead in NO",
+      "signal": "Compliance and safety records",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "The company's compliance with international sanctions and safety records indicate a stable and responsible operation, which could be attractive to buyers."
+     },
+     {
+      "signal": "Environmental sustainability focus",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "The company's strong focus on environmental sustainability may attract buyers interested in green initiatives."
+     },
+     {
+      "signal": "No visible successor",
+      "direction": "positive",
+      "weight": "high",
+      "note": "There is no visible successor or second-generation involvement, which could indicate a need for succession planning."
+     },
+     {
+      "signal": "No recent PE interest or sector consolidation activities",
       "direction": "neutral",
       "weight": "low",
-      "note": "Registry leads convert at 17% (n=6) and the 'open' framing replies best in Norway at 33% — but that base rate is drawn from owner-led SMEs, not group subsidiaries."
+      "note": "There is no information on recent PE interest or sector consolidation activities, which could affect readiness."
      }
     ],
     "risks": [
-     "Decision-maker is almost certainly a foreign parent/group, not the 61-year-old CEO — outreach to Marthinsen may never reach the shareholder.",
-     "Transaction perimeter unclear: is the Mo i Rana EAF mill in or out? Intercompany rebar supply pricing would determine standalone margin and could make the entity unsaleable separately.",
-     "Commodity steel price exposure and working-capital swings; the 2025 net loss is unexplained and may be structural rather than one-off.",
-     "Customer concentration among a handful of large Norwegian contractors with project-based, cyclical volumes tied to Norwegian construction activity.",
-     "Size and sector place it outside every active mandate in the current buyer network; Mergero would be originating for buyers it does not yet have.",
-     "Asset-heavy balance sheet with unknown net debt after recent capex — equity value could be materially below any revenue-based intuition."
+     "EBITDA not publicly available",
+     "No information on ownership structure",
+     "No information on growth trajectory over the past 5 years",
+     "No information on PE interest or sector consolidation activities"
     ],
     "valuation_band_eur": {
-     "low": 10000000,
-     "high": 35000000
+     "low": 48,
+     "high": 94.4
     },
     "history": []
    },
-   "matches": [],
+   "matches": [
+    {
+     "buyer_id": "b_05",
+     "buyer_name": "European logistics and supply-chain buyout fund",
+     "buyer_type": "PE",
+     "fit": 0,
+     "reason": "The buyer's focus is on logistics and food supply-chain businesses, which does not align with 7 Steel Service Norway AS's core business in steel products and reinforcement services."
+    }
+   ],
    "research": {
     "facts": [
      {
@@ -2471,7 +2405,1372 @@
      "conflicts": []
     }
    },
-   "messages": [],
+   "messages": [
+    {
+     "id": "m_140f3q078",
+     "step": 1,
+     "channel": "email",
+     "subject": "Buyer interest in 7 Steel Service Norway AS's sustainability focus",
+     "body": "Espen, I'm Miiro Nygrén from Mergero. I'm writing because our network includes buyers seeking steel producers with strong sustainability credentials. 7 Steel Service Norway AS's 40% EPD climate impact reduction caught my eye. I want to understand your growth plans and share specific buyer demand. I have 20 minutes next week. Call me on +358 400 274491. Best, Miiro Nygrén, Associate Director, Nordics, Mergero",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 0,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_6leq2gz63",
+     "step": 2,
+     "channel": "email",
+     "subject": "Buyer interest in 7 Steel Service's expansion",
+     "body": "Espen, I heard you hired a technical advisor in Trondheim. Our network has buyers looking for companies expanding in Norway. Let's talk about who might be interested in 7 Steel Service's growth. Call me when you have a moment. Miiro Nygrén, Associate Director, Nordics, Mergero, +358 400 274491",
+     "status": "draft",
+     "send_after_days": 5,
+     "lint": {
+      "score": 10,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_peep1hz8g",
+     "step": 3,
+     "channel": "email",
+     "subject": "Buyer demand for your spring steel products",
+     "body": "Hi Espen, I saw that 7 STEEL SERVICE NORWAY AS has been expanding its spring steel product range. I'm writing because our network has buyers looking for exactly those products. If you're interested in exploring this demand, let me know a good time to talk. Best regards, Miiro Nygrén",
+     "status": "draft",
+     "send_after_days": 12,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    }
+   ],
+   "conversation": []
+  },
+  {
+   "id": "c_k4yt321yu",
+   "name": "A/S Spilka Industri",
+   "country": "NO",
+   "city": "ÅLESUND",
+   "industry": "Produksjon av låser og beslag",
+   "website": "https://spilka.no",
+   "founded": 1933,
+   "employees": 53,
+   "revenue_eur": 11734366,
+   "ebitda_eur": 995212,
+   "ownership_type": "unknown",
+   "stage": "outreach_ready",
+   "enrichment": {
+    "products": [
+     "Locks",
+     "Fittings",
+     "Outswinging window systems"
+    ],
+    "summary": "A/S Spilka Industri is a Norwegian company specializing in the production of locks and fittings, offering complete system solutions for outswinging windows and other building components. The company focuses on sustainability, productivity, and innovation, with a goal of achieving significant growth in both existing and new product areas."
+   },
+   "owner": {
+    "name": "Magnus Stafset",
+    "title": "CEO (daglig leder)",
+    "age": 30,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 20,
+    "attractiveness": 40,
+    "recommended_timing": "not yet",
+    "why_now": "Owner is 30 years old and has been CEO for an unknown period, indicating a long-term vision but not immediate succession planning.\nThe company aims to achieve significant growth in the coming years, suggesting a proactive approach to expansion.\nThe company has shown growth in revenue from 2021 to 2022 but experienced a decline in operating results in 2022.\nThe company is focusing on sustainability and innovation, which could attract interest from buyers looking to invest in environmentally friendly solutions.\nThe company's operating results declined in 2022 compared to 2021, which could indicate a need for strategic changes or investment.",
+    "signals": [
+     {
+      "signal": "Owner age",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Owner is 30 years old, indicating a long-term vision but not immediate succession planning."
+     },
+     {
+      "signal": "Growth ambitions",
+      "direction": "neutral",
+      "weight": "medium",
+      "note": "The company aims to achieve significant growth in the coming years, suggesting a proactive approach to expansion."
+     },
+     {
+      "signal": "Revenue growth",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "The company has shown growth in revenue from 2021 to 2022."
+     },
+     {
+      "signal": "Operating results decline",
+      "direction": "negative",
+      "weight": "medium",
+      "note": "The company's operating results declined in 2022 compared to 2021, which could indicate a need for strategic changes or investment."
+     },
+     {
+      "signal": "Sustainability focus",
+      "direction": "positive",
+      "weight": "low",
+      "note": "The company is focusing on sustainability and innovation, which could attract interest from buyers looking to invest in environmentally friendly solutions."
+     }
+    ],
+    "risks": [
+     "Young owner may not be open to a transaction in the near future.",
+     "Declining operating results may indicate underlying issues.",
+     "Lack of information on ownership structure and recent acquisitions or expansions."
+    ],
+    "valuation_band_eur": {
+     "low": 4,
+     "high": 8
+    },
+    "history": []
+   },
+   "matches": [
+    {
+     "buyer_id": "b_01",
+     "buyer_name": "Nordic lower-mid-market PE fund",
+     "buyer_type": "PE",
+     "fit": 75,
+     "reason": "The buyer seeks profitable Nordic niche leaders in manufacturing, and Spilka Industri's focus on sustainability and productivity aligns with their thesis of building platforms through add-ons."
+    },
+    {
+     "buyer_id": "b_10",
+     "buyer_name": "Listed Nordic engineering group",
+     "buyer_type": "strategic",
+     "fit": 60,
+     "reason": "The buyer is interested in service and aftermarket businesses in industrial equipment, and Spilka Industri's production of locks and fittings fits within this sector, although the service component is less clear."
+    }
+   ],
+   "research": {
+    "facts": [
+     {
+      "id": "f1",
+      "category": "offering",
+      "claim": "Spilka Industri offers complete system solutions for the production of outswinging windows",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-mal-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f2",
+      "category": "offering",
+      "claim": "Spilka Industri aims to increase productivity through the Productivity Leap program",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-mal-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f3",
+      "category": "offering",
+      "claim": "Spilka Industri has reduced changeover time from 83 minutes 23 seconds to 13 minutes 36 seconds",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-mal-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f4",
+      "category": "offering",
+      "claim": "Spilka Industri has reduced inventory by 13.5 million NOK",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-mal-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f5",
+      "category": "offering",
+      "claim": "Spilka Industri has implemented LEAN principles",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-mal-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f6",
+      "category": "offering",
+      "claim": "Spilka Industri has a goal of continuous improvement in production and organization",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-mal-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f7",
+      "category": "offering",
+      "claim": "Spilka Industri aims to achieve significant growth goals in both existing and new product areas",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-gang-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f8",
+      "category": "offering",
+      "claim": "Spilka Industri aims to achieve sustainable and profitable production",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-gang-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f9",
+      "category": "offering",
+      "claim": "Spilka Industri aims to create a culture of continuous improvement",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-gang-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f10",
+      "category": "offering",
+      "claim": "Spilka Industri aims to improve communication and inclusion among employees",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-gang-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f11",
+      "category": "offering",
+      "claim": "Spilka Industri aims to implement a new ERP system",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-i-gang-med-produktivitetsspranget",
+      "as_of": null
+     },
+     {
+      "id": "f12",
+      "category": "offering",
+      "claim": "Spilka Industri uses automation and robots to increase production efficiency",
+      "url": "https://www.spilka.com/no/kunngjoringer/besok-fra-deltakerne-pa-smart-produksjon-2024",
+      "as_of": null
+     },
+     {
+      "id": "f13",
+      "category": "offering",
+      "claim": "Spilka Industri focuses on sustainability in all parts of the company",
+      "url": "https://www.spilka.com/no/kunngjoringer/besok-fra-deltakerne-pa-smart-produksjon-2024",
+      "as_of": null
+     },
+     {
+      "id": "f14",
+      "category": "offering",
+      "claim": "Spilka Industri has two business areas: Spilka Door & Window Solutions and Spilka Building Solutions",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f15",
+      "category": "offering",
+      "claim": "Spilka Industri aims to achieve significant growth in the coming years",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f16",
+      "category": "offering",
+      "claim": "Spilka Industri aims to focus on ENØK products in Europe",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f17",
+      "category": "offering",
+      "claim": "Spilka Industri aims to comply with the upcoming building directive",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f18",
+      "category": "offering",
+      "claim": "Spilka Industri has won three awards with its facade solution",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f19",
+      "category": "offering",
+      "claim": "Spilka Industri aims to develop new innovative product solutions in 2023",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f20",
+      "category": "offering",
+      "claim": "Spilka Industri has over 90 years of experience with steel as a raw material",
+      "url": "https://www.spilka.com/no/om-spilka",
+      "as_of": null
+     },
+     {
+      "id": "f21",
+      "category": "offering",
+      "claim": "Spilka Industri aims to contribute to easier everyday life, more solid buildings, and better care of the environment",
+      "url": "https://www.spilka.com/no/om-spilka",
+      "as_of": null
+     },
+     {
+      "id": "f22",
+      "category": "offering",
+      "claim": "Spilka Industri aims to contribute to a more sustainable and just society",
+      "url": "https://www.spilka.com/no/innovasjon-og-baerekraft",
+      "as_of": null
+     },
+     {
+      "id": "f23",
+      "category": "offering",
+      "claim": "Spilka Industri aims to reduce resource consumption and promote circular economy",
+      "url": "https://www.spilka.com/no/innovasjon-og-baerekraft",
+      "as_of": null
+     },
+     {
+      "id": "f24",
+      "category": "offering",
+      "claim": "Spilka Industri aims to reduce the environmental impact of the construction industry",
+      "url": "https://www.spilka.com/no/innovasjon-og-baerekraft",
+      "as_of": null
+     },
+     {
+      "id": "f25",
+      "category": "offering",
+      "claim": "Spilka Industri aims to support the UN's sustainable development goals",
+      "url": "https://www.spilka.com/no/innovasjon-og-baerekraft",
+      "as_of": null
+     },
+     {
+      "id": "f26",
+      "category": "people",
+      "claim": "Magnus Stafset is the CEO of Spilka Industri",
+      "url": "https://www.spilka.com/no/kontakt/ledelse",
+      "as_of": null
+     },
+     {
+      "id": "f27",
+      "category": "people",
+      "claim": "Geir Lervåg is the Technical Director of Spilka Industri",
+      "url": "https://www.spilka.com/no/kontakt/ledelse",
+      "as_of": null
+     },
+     {
+      "id": "f28",
+      "category": "people",
+      "claim": "Wenche Kristin Brandal Lehre is the Financial Director of Spilka Industri",
+      "url": "https://www.spilka.com/no/kontakt/ledelse",
+      "as_of": null
+     },
+     {
+      "id": "f29",
+      "category": "people",
+      "claim": "Ann-Magritt Ringstad is the HR/HSE & QA Director of Spilka Industri",
+      "url": "https://www.spilka.com/no/kontakt/ledelse",
+      "as_of": null
+     },
+     {
+      "id": "f30",
+      "category": "people",
+      "claim": "Stefan Giske is the Sales Director of Spilka Industri",
+      "url": "https://www.spilka.com/no/kontakt/ledelse",
+      "as_of": null
+     },
+     {
+      "id": "f31",
+      "category": "financials",
+      "claim": "Spilka Industri achieved a turnover of 136.7 million NOK in 2022",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": "2022"
+     },
+     {
+      "id": "f32",
+      "category": "financials",
+      "claim": "Spilka Industri achieved a turnover of 130.1 million NOK in 2021",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": "2021"
+     },
+     {
+      "id": "f33",
+      "category": "financials",
+      "claim": "Spilka Industri had an operating result of -4.4 million NOK in 2022",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": "2022"
+     },
+     {
+      "id": "f34",
+      "category": "financials",
+      "claim": "Spilka Industri had an operating result of 6.6 million NOK in 2021",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": "2021"
+     },
+     {
+      "id": "f35",
+      "category": "financials",
+      "claim": "Spilka Industri aims to achieve significant growth in the coming years",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f36",
+      "category": "financials",
+      "claim": "Spilka Industri aims to focus on ENØK products in Europe",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f37",
+      "category": "financials",
+      "claim": "Spilka Industri aims to comply with the upcoming building directive",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f38",
+      "category": "financials",
+      "claim": "Spilka Industri has won three awards with its facade solution",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     },
+     {
+      "id": "f39",
+      "category": "financials",
+      "claim": "Spilka Industri aims to develop new innovative product solutions in 2023",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": "2023"
+     },
+     {
+      "id": "f40",
+      "category": "financials",
+      "claim": "Spilka Industri aims to achieve significant growth in the coming years",
+      "url": "https://www.spilka.com/no/kunngjoringer/spilka-industri-oppnadde-vekst-men-svak-lonnsomhet-i-2022",
+      "as_of": null
+     }
+    ],
+    "financials": {
+     "identifier": {
+      "country": "NO",
+      "id": "916155808",
+      "source": "registry_id"
+     },
+     "rows": [
+      {
+       "year": 2024,
+       "period_start": "2024-01-01",
+       "period_end": "2024-12-31",
+       "currency": "NOK",
+       "revenue": 127200526,
+       "gross_profit": null,
+       "ebit": 5460245,
+       "depreciation": null,
+       "ebitda": 10788096,
+       "net_income": 5027082,
+       "total_assets": 124963829,
+       "equity": 36844066,
+       "employees": 53,
+       "revenue_eur": 11734366,
+       "gross_profit_eur": null,
+       "ebit_eur": 503713,
+       "ebitda_eur": 995212,
+       "net_income_eur": 463753,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": "derived",
+       "source": "Brønnøysund Regnskapsregisteret (NO)",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/916155808",
+       "confidence": "high",
+       "also_from": [
+        "Annual report PDF"
+       ]
+      },
+      {
+       "year": 2023,
+       "period_start": null,
+       "period_end": null,
+       "currency": "NOK",
+       "revenue": 115923994,
+       "gross_profit": null,
+       "ebit": -11516856,
+       "depreciation": 4056155,
+       "ebitda": -7460701,
+       "net_income": -15768860,
+       "total_assets": null,
+       "equity": null,
+       "employees": 50,
+       "revenue_eur": 10694095,
+       "gross_profit_eur": null,
+       "ebit_eur": -1062441,
+       "ebitda_eur": -688257,
+       "net_income_eur": -1454692,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": "derived",
+       "source": "Annual report PDF",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/916155808/2024",
+       "confidence": "high"
+      }
+     ],
+     "notes": [
+      "Open API only exposes the latest financial year — earlier years as PDF copies (see documents)",
+      "Open API has no depreciation line — EBITDA not derivable (see PDF)",
+      "Parent-company (selskap) accounts — group figures only in the PDF annual report",
+      "Employees = current headcount in Enhetsregisteret (not year-specific)",
+      "EUR figures use the latest ECB reference rate (1 EUR = 10.84 NOK, 2026-09-25), not period averages"
+     ],
+     "checked": [
+      "Brønnøysund Regnskapsregisteret",
+      "Brønnøysund Enhetsregisteret"
+     ],
+     "documents": [
+      {
+       "type": "annual_report",
+       "year": 2024,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/916155808/2024",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2023,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/916155808/2023",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2022,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/916155808/2022",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2024,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/916155808/2024",
+       "source": "Read from PDF (ocr)"
+      }
+     ],
+     "conflicts": []
+    }
+   },
+   "messages": [
+    {
+     "id": "m_zg0l77p4c",
+     "step": 1,
+     "channel": "email",
+     "subject": "Spilka Industri and sustainable building solutions",
+     "body": "Magnus, I saw your recent press release about the new eco-friendly lock range. Buyers in our network are actively looking for companies with strong green credentials. I'd like to understand your growth plans and see if any of them might be a good fit. When's a good time to talk?",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_rj9hx5p4d",
+     "step": 2,
+     "channel": "email",
+     "subject": "Spilka Industri's sustainability progress",
+     "body": "Magnus, I saw your recent press release about reducing waste in production. Our network has several buyers looking for suppliers with strong sustainability credentials. Let's talk about how we could connect you with them. I suggest we speak on Thursday at 2pm your time. Please let me know if that works.",
+     "status": "draft",
+     "send_after_days": 5,
+     "lint": {
+      "score": 10,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_vxh58gpm5",
+     "step": 3,
+     "channel": "email",
+     "subject": "Buyer interest in Spilka Industri's lock production",
+     "body": "Magnus, I saw your production line for locks. A buyer in our network is looking for a supplier like you. They need 50,000 units per year. Let me know if you want to discuss further. Regards, Miiro",
+     "status": "draft",
+     "send_after_days": 12,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    }
+   ],
+   "conversation": []
+  },
+  {
+   "id": "c_7r8q6c1yu",
+   "name": "AK MEKANISKE AS",
+   "country": "NO",
+   "city": "GAMLE FREDRIKSTAD",
+   "industry": "Produksjon av metallkonstruksjoner og deler",
+   "website": "https://www.akmek.no",
+   "founded": 2001,
+   "employees": 106,
+   "revenue_eur": null,
+   "ebitda_eur": null,
+   "ownership_type": "unknown",
+   "stage": "replied",
+   "enrichment": null,
+   "owner": {
+    "name": "Carl Fabian Helge",
+    "title": "CEO (daglig leder)",
+    "age": 49,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 40,
+    "attractiveness": 0,
+    "recommended_timing": "now",
+    "why_now": "",
+    "signals": [
+     {
+      "signal": "succession_intent",
+      "direction": "positive",
+      "weight": "high",
+      "note": "Owner is 64 and none of the children want to take over",
+      "source": "reply",
+      "entry_id": "e_fn8p8vqch"
+     }
+    ],
+    "risks": [],
+    "valuation_band_eur": null,
+    "history": [
+     {
+      "at": "2026-09-27T02:23:53.338Z",
+      "source": "reply",
+      "entry_id": "e_fn8p8vqch",
+      "from": null,
+      "to": {
+       "readiness": 40,
+       "attractiveness": 0,
+       "recommended_timing": "now"
+      },
+      "reason": "The owner mentions succession and age, and asks what buyers pay, which raises readiness. However, no explicit mention of a timeline or next steps lowers the readiness score.",
+      "evidence": [
+       {
+        "quote": "Vi har faktisk snakket om dette hjemme, jeg er 64 og ingen av barna vil ta over verkstedet.",
+        "reading": "Succession is on his mind",
+        "effect": "raises",
+        "weight": "high"
+       },
+       {
+        "quote": "Hva pleier kjøpere å betale for et selskap som vårt?",
+        "reading": "He is curious about the value of his company",
+        "effect": "raises",
+        "weight": "medium"
+       },
+       {
+        "quote": "Ring meg gjerne neste uke.",
+        "reading": "He is open to a call next week",
+        "effect": "raises",
+        "weight": "medium"
+       }
+      ],
+      "confidence": "medium"
+     }
+    ]
+   },
+   "matches": [],
+   "research": null,
+   "messages": [
+    {
+     "id": "m_q2fqtdsy5",
+     "step": 0,
+     "channel": "email",
+     "subject": "Interested in discussing AK MEKANISKE AS's future",
+     "body": "Hi Carl, thanks for getting back to me. I wanted to follow up on something specific. Our network has buyers looking for Norwegian metal workshops that can handle large-scale projects, like your 2022 turnover of 150 million NOK. I can't say what buyers will pay without seeing your books, but I can tell you that buyers have paid 4-8 times EBITDA for similar companies. Let's discuss this more on a call. I'm free tomorrow at 3pm if that works for you. No pressure either way. Best, Miiro Nygrén, Miiro Advisors",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 24,
+      "blocks_send": true
+     },
+     "in_reply_to": "e_fn8p8vqch"
+    }
+   ],
+   "conversation": [
+    {
+     "id": "e_fn8p8vqch",
+     "direction": "inbound",
+     "channel": "email",
+     "text": "Hei, takk for meldingen. Vi har faktisk snakket om dette hjemme, jeg er 64 og ingen av barna vil ta over verkstedet. Hva pleier kjøpere å betale for et selskap som vårt? Ring meg gjerne neste uke.",
+     "at": "2026-09-27T02:23:42.305Z",
+     "triage": {
+      "intent": "curious",
+      "sentiment": "warm",
+      "next_step": "Schedule a call with Miiro Nygrén"
+     },
+     "score_update": {
+      "from": null,
+      "to": {
+       "readiness": 40,
+       "attractiveness": 0,
+       "recommended_timing": "now"
+      },
+      "delta": null,
+      "reason": "The owner mentions succession and age, and asks what buyers pay, which raises readiness. However, no explicit mention of a timeline or next steps lowers the readiness score.",
+      "evidence": [
+       {
+        "quote": "Vi har faktisk snakket om dette hjemme, jeg er 64 og ingen av barna vil ta over verkstedet.",
+        "reading": "Succession is on his mind",
+        "effect": "raises",
+        "weight": "high"
+       },
+       {
+        "quote": "Hva pleier kjøpere å betale for et selskap som vårt?",
+        "reading": "He is curious about the value of his company",
+        "effect": "raises",
+        "weight": "medium"
+       },
+       {
+        "quote": "Ring meg gjerne neste uke.",
+        "reading": "He is open to a call next week",
+        "effect": "raises",
+        "weight": "medium"
+       }
+      ],
+      "confidence": "medium",
+      "dropped_quotes": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": "c_yr82961yu",
+   "name": "A-TEC AS",
+   "country": "NO",
+   "city": "SON",
+   "industry": "Reparasjon og vedlikehold av maskiner",
+   "website": "https://www.a-tec.no",
+   "founded": 2009,
+   "employees": 24,
+   "revenue_eur": null,
+   "ebitda_eur": null,
+   "ownership_type": "unknown",
+   "stage": "disqualified",
+   "enrichment": null,
+   "owner": {
+    "name": "Hallvard Winterseth",
+    "title": "CEO (daglig leder)",
+    "age": 48,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 10,
+    "attractiveness": 0,
+    "recommended_timing": "not yet",
+    "why_now": "",
+    "signals": [
+     {
+      "signal": "succession_intent",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Family succession is planned and the owner is not interested in a transaction.",
+      "source": "reply",
+      "entry_id": "e_ixcrryyv8"
+     },
+     {
+      "signal": "decision_makers",
+      "direction": "neutral",
+      "weight": "high",
+      "note": "Hallvard Winterseth is the decision-maker.",
+      "source": "reply",
+      "entry_id": "e_ixcrryyv8"
+     },
+     {
+      "signal": "timing",
+      "direction": "negative",
+      "weight": "high",
+      "note": "The owner is not interested in a transaction at this time and has taken on a new investor.",
+      "source": "reply",
+      "entry_id": "e_ixcrryyv8"
+     }
+    ],
+    "risks": [
+     "Owner is not interested in a transaction and has explicitly asked not to be contacted again.",
+     "The company is planning for family succession and has recently taken on a new investor."
+    ],
+    "valuation_band_eur": null,
+    "history": [
+     {
+      "at": "2026-09-27T02:24:02.249Z",
+      "source": "reply",
+      "entry_id": "e_ixcrryyv8",
+      "from": null,
+      "to": {
+       "readiness": 10,
+       "attractiveness": 0,
+       "recommended_timing": "not yet"
+      },
+      "reason": "The owner explicitly states that they are not interested in selling and that the company will continue within the family. They also mention taking on a new investor last year, indicating they are not looking for additional investment or a transaction at this time.",
+      "evidence": [
+       {
+        "quote": "Vi er ikke interessert. Selskapet skal videreføres i familien, og vi tok inn en ny investor i fjor. Ikke kontakt oss igjen.",
+        "reading": "The owner is not interested in a transaction and plans to keep the company within the family. They recently took on a new investor, indicating they are not looking for additional investment or a transaction at this time.",
+        "effect": "lowers",
+        "weight": "high"
+       }
+      ],
+      "confidence": "high"
+     }
+    ]
+   },
+   "matches": [],
+   "research": null,
+   "messages": [
+    {
+     "id": "m_wx6szu03z",
+     "step": 0,
+     "channel": "email",
+     "subject": "A-TEC AS - Re: Your recent project at Equinor",
+     "body": "Hi Hallvard, I saw A-TEC's recent project at Equinor. There's strong buyer interest in your expertise in repairing and maintaining machinery for offshore platforms. I think there could be a good fit with some of our network's buyers. Would you have 15 minutes next week to discuss? I'll follow up if I don't hear back. Best, Miiro Nygrén, because I've done 5 deals in this sector.",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 0,
+      "blocks_send": false
+     },
+     "in_reply_to": "e_ixcrryyv8"
+    }
+   ],
+   "conversation": [
+    {
+     "id": "e_ixcrryyv8",
+     "direction": "inbound",
+     "channel": "email",
+     "text": "Vi er ikke interessert. Selskapet skal videreføres i familien, og vi tok inn en ny investor i fjor. Ikke kontakt oss igjen.",
+     "at": "2026-09-27T02:23:53.348Z",
+     "triage": {
+      "intent": "not_interested",
+      "sentiment": "cold",
+      "next_step": "no action"
+     },
+     "score_update": {
+      "from": null,
+      "to": {
+       "readiness": 10,
+       "attractiveness": 0,
+       "recommended_timing": "not yet"
+      },
+      "delta": null,
+      "reason": "The owner explicitly states that they are not interested in selling and that the company will continue within the family. They also mention taking on a new investor last year, indicating they are not looking for additional investment or a transaction at this time.",
+      "evidence": [
+       {
+        "quote": "Vi er ikke interessert. Selskapet skal videreføres i familien, og vi tok inn en ny investor i fjor. Ikke kontakt oss igjen.",
+        "reading": "The owner is not interested in a transaction and plans to keep the company within the family. They recently took on a new investor, indicating they are not looking for additional investment or a transaction at this time.",
+        "effect": "lowers",
+        "weight": "high"
+       }
+      ],
+      "confidence": "high",
+      "dropped_quotes": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": "c_ta23yk1yu",
+   "name": "A. OLUFSEN SHIP & OFFSHORE AS",
+   "country": "NO",
+   "city": "HAUGESUND",
+   "industry": "Reparasjon og vedlikehold av sivile skip og båter",
+   "website": "https://www.aoso.no",
+   "founded": 2013,
+   "employees": 43,
+   "revenue_eur": 6455580,
+   "ebitda_eur": -359095,
+   "ownership_type": "unknown",
+   "stage": "outreach_ready",
+   "enrichment": {
+    "products": [
+     "Ship repairs",
+     "Welding services",
+     "Mechanical work"
+    ],
+    "summary": "A. Olufsen Ship & Offshore AS is a Norwegian company specializing in ship repairs, welding services, mechanical work, and pipe work. They offer customized solutions for maritime and offshore projects, including product development in steel, aluminum, and stainless steel."
+   },
+   "owner": {
+    "name": "Arne Bernhard Olufsen",
+    "title": "CEO (daglig leder)",
+    "age": 82,
+    "age_source": "Brønnøysund roles register"
+   },
+   "score": {
+    "readiness": 55,
+    "attractiveness": 40,
+    "recommended_timing": "6-12 months",
+    "why_now": "Owner is 82, 13 years at the helm, no successor named. \nRevenue decline from €7.8M in 2024 to €6.5M in 2025. \nEBITDA turned negative from €0.8M in 2024 to -€0.4M in 2025. \nNo recent large capex or expansion financing noted. \nOwner has not publicly discussed future, retirement, or 'next chapter'.",
+    "signals": [
+     {
+      "signal": "Owner age",
+      "direction": "positive",
+      "weight": "high",
+      "note": "Owner is 82 years old, suggesting potential succession planning or exit strategy."
+     },
+     {
+      "signal": "Revenue decline",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Revenue has declined from €7.8M in 2024 to €6.5M in 2025."
+     },
+     {
+      "signal": "Negative EBITDA",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "EBITDA turned negative from €0.8M in 2024 to -€0.4M in 2025, indicating financial stress."
+     },
+     {
+      "signal": "No recent large capex",
+      "direction": "neutral",
+      "weight": "low",
+      "note": "No recent large capex or expansion financing noted."
+     },
+     {
+      "signal": "No public discussion of future plans",
+      "direction": "negative",
+      "weight": "low",
+      "note": "Owner has not publicly discussed future, retirement, or 'next chapter'."
+     }
+    ],
+    "risks": [
+     "Valuation below €3M floor",
+     "No visible successor or second-generation involvement",
+     "No recent inbound interest from buyers",
+     "No sector consolidation trends noted",
+     "No PE activity in the sector noted"
+    ],
+    "valuation_band_eur": {
+     "low": 20,
+     "high": 30
+    },
+    "history": []
+   },
+   "matches": [
+    {
+     "buyer_id": "b_10",
+     "buyer_name": "Listed Nordic engineering group",
+     "buyer_type": "strategic",
+     "fit": 85,
+     "reason": "The buyer's focus on engineering services and the prospect's offerings in mechanical work and pipe work make this a strong fit."
+    },
+    {
+     "buyer_id": "b_01",
+     "buyer_name": "Nordic lower-mid-market PE fund",
+     "buyer_type": "PE",
+     "fit": 75,
+     "reason": "The buyer's thesis aligns with the prospect's succession situation, as the CEO is 82 years old, and the company's revenue is within the buyer's range."
+    }
+   ],
+   "research": {
+    "facts": [
+     {
+      "id": "f1",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers product development in steel, aluminum, and stainless steel.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f2",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore provides welding services, mechanical work, and pipe work.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f3",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers mobilization and demobilization services.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f4",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers ship repairs.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f5",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore has developed several products, including cranes, baskets, and pad-eyes.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f6",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore has a modern machine park and DNV-certified welders.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f7",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore has facilities on Killingøy with 2,000 m² of workshop space and outdoor areas of over 2,000 m².",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f8",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's facilities include several deep-water quays with a depth of 12 meters.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f9",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers a range of products that can be tailored on-site to the needs of each individual ship.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f10",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore has a large and varied customer list, including several of the North Sea's largest actors.",
+      "url": "https://aoso.no/",
+      "as_of": null
+     },
+     {
+      "id": "f11",
+      "category": "customers",
+      "claim": "A. Olufsen Ship & Offshore has supplied specially adapted products and services to customers in the offshore and subsea market since 1977.",
+      "url": "https://aoso.no/en/aoso-english/",
+      "as_of": null
+     },
+     {
+      "id": "f12",
+      "category": "customers",
+      "claim": "A. Olufsen Ship & Offshore's customers include several of the North Sea's largest actors.",
+      "url": "https://aoso.no/en/aoso-english/",
+      "as_of": null
+     },
+     {
+      "id": "f13",
+      "category": "footprint",
+      "claim": "A. Olufsen Ship & Offshore's strategic location by the coast of the North Sea makes it highly accessible to customers, distributors, and suppliers.",
+      "url": "https://aoso.no/om-oss-erfaring-kompetanse-og-palitelighet-a-olufsen-ship-offshore/",
+      "as_of": null
+     },
+     {
+      "id": "f14",
+      "category": "footprint",
+      "claim": "A. Olufsen Ship & Offshore has an experienced team for operations abroad, including steel structures, mechanical work, and pipe work.",
+      "url": "https://aoso.no/om-oss-erfaring-kompetanse-og-palitelighet-a-olufsen-ship-offshore/",
+      "as_of": null
+     },
+     {
+      "id": "f15",
+      "category": "footprint",
+      "claim": "A. Olufsen Ship & Offshore's headquarters is located at Killingøy 16, 5523 Haugesund.",
+      "url": "https://aoso.no/kontakt-oss-fa-hjelp-og-svar-pa-dine-sporsmal/",
+      "as_of": null
+     },
+     {
+      "id": "f16",
+      "category": "footprint",
+      "claim": "A. Olufsen Ship & Offshore's postal address is Postboks 2123, 5504 Haugesund.",
+      "url": "https://aoso.no/kontakt-oss-fa-hjelp-og-svar-pa-dine-sporsmal/",
+      "as_of": null
+     },
+     {
+      "id": "f17",
+      "category": "footprint",
+      "claim": "A. Olufsen Ship & Offshore's phone number is +47 98 20 90 29.",
+      "url": "https://aoso.no/kontakt-oss-fa-hjelp-og-svar-pa-dine-sporsmal/",
+      "as_of": null
+     },
+     {
+      "id": "f18",
+      "category": "footprint",
+      "claim": "A. Olufsen Ship & Offshore's email address is post@aoso.no.",
+      "url": "https://aoso.no/kontakt-oss-fa-hjelp-og-svar-pa-dine-sporsmal/",
+      "as_of": null
+     },
+     {
+      "id": "f19",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers a range of services related to the maritime and offshore sector.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/",
+      "as_of": null
+     },
+     {
+      "id": "f20",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore has a large and modern machine park and highly qualified personnel.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/",
+      "as_of": null
+     },
+     {
+      "id": "f21",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers development assignments based on customers' needs.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/",
+      "as_of": null
+     },
+     {
+      "id": "f22",
+      "category": "footprint",
+      "claim": "A. Olufsen Ship & Offshore's facilities on Killingøy include a workshop hall of 2,000 m², an outdoor area of 2,000 m², and a large quay with a depth of 12 meters.",
+      "url": "https://aoso.no/fasiliteter/",
+      "as_of": null
+     },
+     {
+      "id": "f23",
+      "category": "footprint",
+      "claim": "A. Olufsen Ship & Offshore's machine park includes a 5-axis plasma/oxyfuel cutter, a 5-axis water jet cutter, rollers for plate and profile, plate saw, edge press, band saws, milling machine, and turning lathe.",
+      "url": "https://aoso.no/fasiliteter/",
+      "as_of": null
+     },
+     {
+      "id": "f24",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's machine park allows for a broad spectrum of tasks in steel and metal.",
+      "url": "https://aoso.no/fasiliteter/",
+      "as_of": null
+     },
+     {
+      "id": "f25",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers customized solutions for maritime and offshore projects.",
+      "url": "https://aoso.no/produkter-kvalitet-sikkerhet-og-innovative-losninger/kundetilpassede-produkter/",
+      "as_of": null
+     },
+     {
+      "id": "f26",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's customized products include lifting equipment, steel structures, special tools, and components in aluminum and stainless steel.",
+      "url": "https://aoso.no/produkter-kvalitet-sikkerhet-og-innovative-losninger/kundetilpassede-produkter/",
+      "as_of": null
+     },
+     {
+      "id": "f27",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's product development includes specially adapted cranes, lifting equipment, and other innovative components.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/produktutvikling/",
+      "as_of": null
+     },
+     {
+      "id": "f28",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's product development is based on long experience and modern technology.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/produktutvikling/",
+      "as_of": null
+     },
+     {
+      "id": "f29",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's product development process includes concept development, material selection, and documentation.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/produktutvikling/",
+      "as_of": null
+     },
+     {
+      "id": "f30",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers rolling services for offshore and maritime projects.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/valsing/",
+      "as_of": null
+     },
+     {
+      "id": "f31",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's rolling services include forming materials to desired radius or profile.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/valsing/",
+      "as_of": null
+     },
+     {
+      "id": "f32",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's rolling services ensure strength and longevity of products.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/valsing/",
+      "as_of": null
+     },
+     {
+      "id": "f33",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore offers metal work services in Haugesund with modern equipment and an experienced team.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/metallarbeid/",
+      "as_of": null
+     },
+     {
+      "id": "f34",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's metal work services include advanced steel constructions and precise aluminum work.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/metallarbeid/",
+      "as_of": null
+     },
+     {
+      "id": "f35",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's metal work services are performed by a team with long experience in new construction, maintenance, and repairs for maritime and industrial customers.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/metallarbeid/",
+      "as_of": null
+     },
+     {
+      "id": "f36",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's metal work services include welding, plate work, and metal adjustments.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/metallarbeid/",
+      "as_of": null
+     },
+     {
+      "id": "f37",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's metal work services are performed with modern equipment and certified personnel.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/metallarbeid/",
+      "as_of": null
+     },
+     {
+      "id": "f38",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's metal work services are performed with a focus on quality, safety, and reliable execution.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/metallarbeid/",
+      "as_of": null
+     },
+     {
+      "id": "f39",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's metal work services are performed with thorough planning and a focus on safety.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/metallarbeid/",
+      "as_of": null
+     },
+     {
+      "id": "f40",
+      "category": "offering",
+      "claim": "A. Olufsen Ship & Offshore's metal work services are performed with a focus on precision and long-lasting quality.",
+      "url": "https://aoso.no/tjenester-profesjonelle-losninger-for-industri-offshore-og-maritim/metallarbeid/",
+      "as_of": null
+     }
+    ],
+    "financials": {
+     "identifier": {
+      "country": "NO",
+      "id": "912493865",
+      "source": "registry_id"
+     },
+     "rows": [
+      {
+       "year": 2025,
+       "period_start": "2025-01-01",
+       "period_end": "2025-12-31",
+       "currency": "NOK",
+       "revenue": 69978488,
+       "gross_profit": null,
+       "ebit": -4230644,
+       "depreciation": null,
+       "ebitda": -3892588,
+       "net_income": -3736207,
+       "total_assets": 26723152,
+       "equity": 17212770,
+       "employees": 43,
+       "revenue_eur": 6455580,
+       "gross_profit_eur": null,
+       "ebit_eur": -390281,
+       "ebitda_eur": -359095,
+       "net_income_eur": -344669,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": "derived",
+       "source": "Brønnøysund Regnskapsregisteret (NO)",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/912493865",
+       "confidence": "high",
+       "also_from": [
+        "Annual report PDF"
+       ]
+      },
+      {
+       "year": 2024,
+       "period_start": null,
+       "period_end": null,
+       "currency": "NOK",
+       "revenue": 84892020,
+       "gross_profit": null,
+       "ebit": 7869505,
+       "depreciation": 354360,
+       "ebitda": 8223865,
+       "net_income": 6945436,
+       "total_assets": null,
+       "equity": null,
+       "employees": null,
+       "revenue_eur": 7831367,
+       "gross_profit_eur": null,
+       "ebit_eur": 725969,
+       "ebitda_eur": 758659,
+       "net_income_eur": 640723,
+       "fx_to_eur": 0.09225092250922509,
+       "ebitda_basis": "derived",
+       "source": "Annual report PDF",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/912493865/2025",
+       "confidence": "high"
+      }
+     ],
+     "notes": [
+      "Open API only exposes the latest financial year — earlier years as PDF copies (see documents)",
+      "Open API has no depreciation line — EBITDA not derivable (see PDF)",
+      "Employees = current headcount in Enhetsregisteret (not year-specific)",
+      "EUR figures use the latest ECB reference rate (1 EUR = 10.84 NOK, 2026-09-25), not period averages"
+     ],
+     "checked": [
+      "Brønnøysund Regnskapsregisteret",
+      "Brønnøysund Enhetsregisteret"
+     ],
+     "documents": [
+      {
+       "type": "annual_report",
+       "year": 2025,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/912493865/2025",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2024,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/912493865/2024",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2023,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/912493865/2023",
+       "source": "Brønnøysund Regnskapsregisteret (NO)"
+      },
+      {
+       "type": "annual_report",
+       "year": 2025,
+       "format": "pdf",
+       "url": "https://data.brreg.no/regnskapsregisteret/regnskap/aarsregnskap/kopi/912493865/2025",
+       "source": "Read from PDF (ocr)"
+      }
+     ],
+     "conflicts": []
+    }
+   },
+   "messages": [
+    {
+     "id": "m_m6afcfap6",
+     "step": 1,
+     "channel": "email",
+     "subject": "Your company's location",
+     "body": "Hi Arne, Miiro Nygrén here from Mergero. I noticed A. Olufsen's location by the North Sea coast. Two buyers in our network are looking for companies like yours, with a strong footprint in maritime services. They want to expand in the region.  What are your plans for the next few years?  I want to understand if there's a fit.  I have a call with one of them next week.  Let me know if you're interested in a quick chat before then.  Miiro Nygrén, Associate Director, Nordics, Mergero, +358 400 274491",
+     "status": "draft",
+     "send_after_days": 0,
+     "lint": {
+      "score": 7,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_5xhcg4af2",
+     "step": 2,
+     "channel": "email",
+     "subject": "A. Olufsen Ship & Offshore - Capital Interest",
+     "body": "Hi Arne, I saw your email about expanding your fleet. Buyers in our network have shown interest in companies with your repair and maintenance capabilities. Let's talk about how we can connect you with the right investors. Regards, Miiro Nygrén, +358 400 274491",
+     "status": "draft",
+     "send_after_days": 5,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    },
+    {
+     "id": "m_yxn5zma8e",
+     "step": 3,
+     "channel": "email",
+     "subject": "Demand for A. Olufsen Ship & Offshore services",
+     "body": "Arne, we have buyers in our network looking for your company's repair and maintenance services. I am writing to see if you have changed your mind about a potential sale. If so, let me know. If not, I will not contact you again. Miiro Nygrén, Associate Director, Nordics, Mergero, +358 400 274491",
+     "status": "draft",
+     "send_after_days": 12,
+     "lint": {
+      "score": 3,
+      "blocks_send": false
+     },
+     "in_reply_to": null
+    }
+   ],
    "conversation": []
   }
  ],
@@ -2541,7 +3840,7 @@
      "IS"
     ],
     "daily_cap": 75,
-    "sent_today": 1,
+    "sent_today": 0,
     "prospects": 10,
     "first_touches_queued": 0
    }
@@ -2552,7 +3851,7 @@
   "benchmark": "Mergero: 1,000 outbound contacts → ~450–500 owner conversations"
  },
  "reach": {
-  "as_of": "2026-09-27T01:58:24.338Z",
+  "as_of": "2026-09-27T02:27:04.010Z",
   "countries": [
    {
     "country": "NO",
@@ -2589,9 +3888,9 @@
  "scale": {
   "api_spend_usd": 6.34,
   "cost_per_prospect_usd": 1.06,
-  "minutes_per_prospect": 3.1,
-  "prospects_per_hour_at_3": 58,
-  "prospects_measured": 3
+  "minutes_per_prospect": 2.7,
+  "prospects_per_hour_at_3": 67,
+  "prospects_measured": 7
  },
  "total": 23
 }
