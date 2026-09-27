@@ -487,16 +487,18 @@
         const ACTION_STYLE = {
             plan: "bg-teal-500 hover:bg-teal-400 text-slate-950",
             follow_up: "bg-amber-400 hover:bg-amber-300 text-slate-950",
+            reply: "bg-teal-400 hover:bg-teal-300 text-slate-950",
             send: "bg-emerald-500 hover:bg-emerald-400 text-slate-950",
             log_reply: "bg-slate-100 hover:bg-white text-slate-900",
             handoff: "bg-sky-500 hover:bg-sky-400 text-slate-950",
             mandate: "bg-emerald-500 hover:bg-emerald-400 text-slate-950",
         };
-        const ACTION_SHORT = { plan: "Plan", follow_up: "Follow up", send: "Send", log_reply: "Log reply", handoff: "Book call", mandate: "Signed" };
+        const ACTION_SHORT = { plan: "Plan", follow_up: "Follow up", send: "Send", log_reply: "Log reply", reply: "Reply", handoff: "Book call", mandate: "Signed" };
         const QUEUE = [
             { title: "Start outreach", icon: "sparkles", keys: ["plan"], filter: (p) => p.tier !== "C", limit: 5, empty: "No hot or warm owner left to contact." },
             { title: "Messages to send", icon: "send", keys: ["send"], empty: "No message is due." },
             { title: "Replies to log", icon: "inbox", keys: ["log_reply"], empty: "Nobody is waiting for a reply." },
+            { title: "Replies to send", icon: "reply", keys: ["reply"], empty: "No drafted reply waiting for you." },
             { title: "Follow-ups due", icon: "alarm-clock", keys: ["follow_up"], empty: "No follow-up is due." },
             { title: "First call and mandate", icon: "handshake", keys: ["handoff", "mandate"], empty: "No qualified owner yet." },
         ];
@@ -587,6 +589,18 @@
                 book: true,
             });
         }
+        // Long lists fold to a few rows; "Show all" opens the rest for the session (one key per list).
+        const openLists = new Set();
+        function foldTail(key, total, shown, label, cells) {
+            if (total <= shown || openLists.has(key)) return "";
+            const btn = `<button onclick="showAllRows('${key}')" class="text-[11px] font-semibold text-teal-300 hover:text-teal-200 cursor-pointer">Show all ${total} ${label} &#9662;</button>`;
+            return cells ? `<tr><td colspan="${cells}" class="py-2 text-center">${btn}</td></tr>` : `<div class="py-2 text-center">${btn}</div>`;
+        }
+        function showAllRows(key) {
+            openLists.add(key);
+            ({ prospects: renderProspects, companies: renderCompanies, matches: renderScreenResult, find: () => renderFind(findTotal), signals: renderCompanyDrawer })[key]?.();
+        }
+
         function renderProspects() {
             const tier = document.getElementById("tierFilter").value;
             const side = document.getElementById("sideFilter").value;
@@ -594,7 +608,8 @@
             const rows = prospects.filter((p) => (!tier || p.tier === tier) && (!side || p.side === side)
                 && (!query || (p.company_name || "").toLowerCase().includes(query)));
             document.getElementById("prospectCount").innerText = `(${rows.length})`;
-            document.getElementById("prospectBody").innerHTML = rows.map((p) => {
+            const shownRows = openLists.has("prospects") ? rows : rows.slice(0, 8);
+            document.getElementById("prospectBody").innerHTML = (shownRows.map((p) => {
                 const t = p.top_trigger;
                 return `<div role="button" onclick="openProspect(${p.company_id})" class="w-full text-left py-3 px-2 -mx-2 rounded-lg hover:bg-slate-800/50 flex items-center gap-4 cursor-pointer ${p.closed ? "opacity-50" : ""}">
                     <span class="w-14 shrink-0 text-center text-[10px] font-extrabold uppercase py-1 rounded-md ${TIER_CHIP[p.tier]}" title="Tier ${p.tier}">${TIER_LABEL[p.tier]}</span>
@@ -611,7 +626,7 @@
                     <span class="hidden md:inline text-[11px] px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 shrink-0 w-24 text-center">${esc(p.closed ? "Closed" : p.stage_label)}</span>
                     ${actionButton(p)}
                 </div>`;
-            }).join("") || `<div class="py-6 text-center text-xs text-slate-500">No prospects match these filters.</div>`;
+            }).join("") + foldTail("prospects", rows.length, shownRows.length, "companies")) || `<div class="py-6 text-center text-xs text-slate-500">No prospects match these filters.</div>`;
             icons();
         }
 
@@ -652,6 +667,9 @@
                 } else if (a.key === "send") {
                     await api(`/api/prospects/${id}/outreach/${a.message_step}/send`, { method: "POST" });
                     toast(`Sent to ${p.company_name} (simulated)`);
+                } else if (a.key === "reply") {
+                    await api(`/api/prospects/${id}/reply/send`, { method: "POST" });
+                    toast(`Reply sent to ${p.company_name} (demo mode delivers it to your inbox)`);
                 } else {
                     return openProspect(id);
                 }
@@ -1135,12 +1153,24 @@
                     <div class="text-slate-500">Six questions on a phone: revenue split, top clients, EBITDA, timing, motivation. The structured summary lands on this record before the first call.</div>
                 </div>` : "";
 
+            const rd = conv.reply_draft;
+            const replyBox = rd && !conv.closed ? `<div class="rounded-xl border border-teal-500/30 bg-teal-500/5 p-3 space-y-2">
+                    <div class="flex items-center justify-between gap-2"><div class="text-xs font-semibold text-white">Your reply, drafted from the owner's words</div>${rd.human_check ? `<span class="text-[10px] text-slate-400" title="AI-tell score, lower is more human">human check ${rd.human_check.score} · ${esc(rd.human_check.grade)}</span>` : ""}</div>
+                    <div class="text-[11px] text-slate-400">Subject: ${esc(rd.subject)}</div>
+                    <textarea id="replyDraftBody" rows="5" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-teal-500">${esc(rd.body)}</textarea>
+                    <div class="flex flex-wrap items-center gap-2"><button onclick="sendReply(${d.company_id})" class="text-[11px] font-bold bg-teal-500 hover:bg-teal-400 text-slate-950 px-2.5 py-1 rounded-lg cursor-pointer">Send reply</button><span class="text-[10px] text-slate-500">Keeps the thread going: the owner's next answer is read and scored again, until the owner is ready to meet.</span></div>
+                </div>` : "";
+
             const handoffBody = `
                 ${q ? `<div class="text-[11px] text-slate-400">Owner said: <span class="${CATEGORY_TONE[q.category]} font-semibold">${esc(q.label)}</span> · timing ${esc(q.timing)} · ${q.mandate_likelihood}% potential mandate${q.mandate_type ? ` (${esc(q.mandate_type)})` : ""}</div>` : ""}
                 ${stageIdx < 1 && !conv.handoff ? `<div class="text-xs text-slate-500">Available once the owner has been contacted.</div>` : ""}
                 ${stageIdx >= 1 && stageIdx < 4 && !conv.closed ? `<div class="flex flex-wrap items-center gap-2">
                     <input id="advisorName" placeholder="Advisor name (optional)" class="bg-slate-950 border border-slate-700 rounded-lg px-2 py-1 text-xs text-white w-48 focus:outline-none focus:border-emerald-500">
                     ${a.key === "handoff" ? "" : `<button onclick="handOff(${d.company_id})" class="text-[11px] font-bold bg-slate-700 hover:bg-slate-600 text-white px-2.5 py-1 rounded-lg cursor-pointer">Book call early</button>`}</div>` : ""}
+                ${conv.handoff ? `<div class="rounded-xl border border-slate-700 bg-slate-800/40 p-3 space-y-1.5">
+                    <div class="flex items-center justify-between gap-2"><div class="text-xs font-semibold text-white">Meetings toward the engagement letter <span class="text-slate-500 font-medium">${(conv.meetings || []).length} of the usual 2–4</span></div>${stageIdx < 5 ? `<button onclick="logMeeting(${d.company_id})" class="text-[11px] font-bold bg-slate-700 hover:bg-slate-600 text-white px-2.5 py-1 rounded-lg cursor-pointer">+ Log a meeting</button>` : ""}</div>
+                    ${(conv.meetings || []).map((m) => `<div class="text-[11px] text-slate-300"><span class="text-slate-500 font-mono">${esc(String(m.at).slice(0, 10))}</span> · ${esc(m.note)}</div>`).join("") || `<div class="text-[11px] text-slate-500">After the first call, log each meeting here until the letter is signed.</div>`}
+                </div>` : ""}
                 ${stageIdx === 5 ? `<div class="text-sm font-bold text-emerald-400">Engagement letter signed: mandate won.</div>` : ""}
                 ${conv.handoff ? `<details class="bg-slate-800/40 rounded-xl p-3 text-[11px]" open><summary class="cursor-pointer text-slate-200 font-semibold">Briefing sent to ${esc(conv.handoff.advisor)}</summary>
                     <ul class="mt-2 space-y-1 text-slate-400">
@@ -1199,12 +1229,13 @@
                   summary: !camp ? "Not started" : camp.stopped ? `Stopped: ${camp.stop_reason}` : `${sent} of ${camp.sequence.length} messages sent`,
                   body: camp
                     ? `<div class="text-[11px] text-slate-400"><span class="text-slate-200 font-semibold">${esc(camp.channel)}</span> · ${esc(camp.tone)}${camp.contact_name ? " · to " + esc(camp.contact_name) : ""}</div>
-                       <div class="space-y-2">${camp.sequence.map(message).join("")}</div>`
+                       <div class="space-y-2">${camp.sequence.map(message).join("")}</div>
+                       <div class="text-[11px] text-slate-500 mt-2">${(() => { const sch = camp.sequence.filter((s) => s.status === "scheduled"); return sch.length ? `Follow-ups scheduled automatically: ${sch.map((s) => `day ${s.day}${s.send_at ? ` (${esc(String(s.send_at).slice(0, 10))})` : ""}`).join(", ")}. They stop the moment the owner replies.` : camp.sequence.some((s) => s.status === "sent") ? "The owner has replied, so the automatic follow-ups stopped; from here the thread is one reply at a time." : "After the first send, the follow-ups on days 4, 10 and 21 go out automatically unless the owner replies."; })()}</div>`
                     : `<div class="text-xs text-slate-400">No messages yet. Click <span class="text-white font-semibold">Plan outreach</span> below and we draft four messages: a first note and three follow-ups over three weeks.</div>` },
                 { n: 6, title: "Qualification", done: !!q,
                   help: "Log the owner's reply. We answer three questions: Interested? When? Is it a potential mandate?",
                   summary: q ? `${q.label} · ${q.timing} · ${q.mandate_likelihood}% potential mandate` : stageIdx >= 1 ? "Waiting for the owner's reply" : "After the first message",
-                  body: `${thread ? `<div class="space-y-2">${thread}</div>` : ""}${qualCard}${replyForm}${intakeBlock}` },
+                  body: `${thread ? `<div class="space-y-2">${thread}</div>` : ""}${qualCard}${replyBox}${replyForm}${intakeBlock}` },
                 { n: 7, title: "First call with advisor → engagement letter", tag: "simulated", done: stageIdx === 5,
                   help: "An interested owner gets a first call with an advisor, who receives a full briefing. After 2-4 meetings the owner signs the engagement letter: that is the mandate.",
                   summary: stageIdx === 5 ? "Engagement letter signed" : stageIdx === 4 ? `First call booked with ${conv.handoff?.advisor || "an advisor"}` : "After a positive reply",
@@ -1275,6 +1306,7 @@
             if (a.key === "send") return sendStep(id, a.message_step);
             if (a.key === "handoff") return handOff(id);
             if (a.key === "mandate") return markMandate(id);
+            if (a.key === "reply") { drawerStep = 6; renderProspectDrawer(); document.getElementById("replyDraftBody")?.focus(); document.getElementById("pstep-6")?.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
             if (a.key === "log_reply") {
                 const box = document.getElementById("replyText");
                 if (box && box.value.trim()) return submitReply(id);
@@ -1343,6 +1375,18 @@
                 await refreshAfter(res, `${q.label} · ${q.timing} · ${q.mandate_likelihood}% potential mandate`);
             } catch (e) { toast(e.message, "error"); }
         }
+        async function sendReply(id) {
+            const body = document.getElementById("replyDraftBody")?.value;
+            try { await refreshAfter(await api(`/api/prospects/${id}/reply/send`, { method: "POST", body: { body } }), "Reply sent (demo mode delivers it to your inbox)"); }
+            catch (e) { toast(e.message, "error"); }
+        }
+        async function logMeeting(id) {
+            const n = ((prospectDetail?.conversation?.meetings || []).length || 0) + 1;
+            const note = prompt("What happened in this meeting?", `Meeting ${n}: `);
+            if (note == null) return;
+            try { await refreshAfter(await api(`/api/prospects/${id}/meetings`, { method: "POST", body: { note } }), "Meeting logged"); }
+            catch (e) { toast(e.message, "error"); }
+        }
         async function handOff(id) {
             const advisor = document.getElementById("advisorName")?.value.trim();
             try { await refreshAfter(await api(`/api/prospects/${id}/handoff`, { method: "POST", body: { advisor } }), "First call booked and briefing sent. Next: mark the engagement letter when it's signed."); }
@@ -1373,10 +1417,14 @@
               run: (id) => api(`/api/prospects/${id}/outreach/0/send`, { method: "POST" }) },
             { title: "Step 6 of 6 · Qualification", text: "The owner replies. We answer: interested? when? is it a potential mandate?", step: 6,
               run: (id) => api(`/api/prospects/${id}/replies`, { method: "POST", body: { text: DEMO_REPLY } }) },
+            { title: "Back and forth: reply to the owner", text: "The engine reads the reply and drafts the answer in the owner's language and the advisor's voice. One click sends it. Every further answer is read and scored the same way, so the thread stays alive until the owner is ready to meet.", step: 6,
+              run: (id) => api(`/api/prospects/${id}/reply/send`, { method: "POST" }) },
             { title: "The owner's private intake link", text: "An interested owner gets a private link: six questions about revenue split, top clients, EBITDA and timing, answered on a phone in five minutes. The structured summary lands on the record before the first call. This is the external touchpoint of an internal tool.", step: 6, intake: true, doit: true },
             { title: "Sell-side owners: the warm-up in one click", text: "Owners who have opened up land here with their numbers. One click drafts a personal, no-pressure note in the right tone for the Nordics (email) or DACH (LinkedIn, then a call), with the buyer demand as the reason to talk.", view: "sell", doit: true },
             { title: "First call with an advisor (simulated)", text: "The interested owner gets a first call with an advisor, who receives a full briefing: profile, triggers, score, hypothesis and the conversation.", step: 7,
               run: (id) => api(`/api/prospects/${id}/handoff`, { method: "POST", body: { advisor: "Mergero advisor" } }) },
+            { title: "Meetings until the letter", text: "Owners sign after two to four meetings. Each one is logged on the record, so the desk shows how far the mandate is and what was agreed.", step: 7,
+              run: (id) => api(`/api/prospects/${id}/meetings`, { method: "POST", body: { note: "Meeting 1: numbers walked through, owner open to a growth partner" } }).then(() => api(`/api/prospects/${id}/meetings`, { method: "POST", body: { note: "Meeting 2: buyer profiles discussed, terms of engagement outlined" } })) },
             { title: "Engagement letter signed (simulated)", text: "After 2-4 meetings the owner signs the engagement letter. That is the mandate, and it closes the loop.", step: 7,
               run: (id) => api(`/api/prospects/${id}/mandate`, { method: "POST" }) },
             { title: "From data to mandate", final: true },
@@ -1583,6 +1631,7 @@
 
         // ---------- step 1: find companies in the open registers ----------
         let findRows = [];
+        let findTotal = 0;
         const findVal = (id) => document.getElementById(id).value.trim();
         function tryFind(country, industry, founded, staff) {
             document.getElementById("findCountry").value = country;
@@ -1616,7 +1665,8 @@
                 else for (const [k, v] of [["industry_code", industry], ["founded_before", founded_before], ["employees_min", employees_min]]) if (v) p.set(k, v);
                 const r = await api(`/api/registry/search?${p}`);
                 findRows = r.results || [];
-                renderFind(r.total ?? findRows.length);
+                findTotal = r.total ?? findRows.length;
+                renderFind(findTotal);
             } catch (e) {
                 box.innerHTML = `<div class="text-xs text-rose-300 py-2">${esc(e.message)}</div>`;
             } finally {
@@ -1638,14 +1688,14 @@
                 </div>
                 <div class="overflow-x-auto"><table class="w-full text-left text-xs">
                     <thead><tr class="border-b border-slate-800 text-slate-500 text-[11px] uppercase tracking-wider"><th class="py-1.5 pr-3">Company</th><th class="py-1.5 pr-3">City</th><th class="py-1.5 pr-3">Industry</th><th class="py-1.5 pr-3">Founded</th><th class="py-1.5 pr-3">Staff</th><th class="py-1.5"></th></tr></thead>
-                    <tbody class="divide-y divide-slate-800/60">${findRows.slice(0, 30).map((r) => `<tr>
+                    <tbody class="divide-y divide-slate-800/60">${(openLists.has("find") ? findRows : findRows.slice(0, 10)).map((r) => `<tr>
                         <td class="py-1.5 pr-3 text-white">${esc(r.name)}</td>
                         <td class="py-1.5 pr-3 text-slate-400">${esc(r.city || "")}</td>
                         <td class="py-1.5 pr-3 text-slate-400">${esc(String(r.industry || "").slice(0, 48))}</td>
                         <td class="py-1.5 pr-3 text-slate-400">${r.founded || esc(r.founded_note || "–")}</td>
                         <td class="py-1.5 pr-3 text-slate-400">${r.employees ?? "–"}</td>
                         <td class="py-1.5 text-[11px] ${r.already_imported ? "text-teal-300" : "text-slate-600"}">${r.already_imported ? "in pipeline" : ""}</td></tr>`).join("")}</tbody>
-                </table></div>${findRows.length > 30 ? `<div class="text-[11px] text-slate-500 py-1">Showing 30 of ${findRows.length} on this page; Add takes all ${findRows.length}.</div>` : ""}`;
+                </table></div>${foldTail("find", findRows.length, openLists.has("find") ? findRows.length : Math.min(10, findRows.length), "companies found")}`;
         }
         async function importFound() {
             const fresh = findRows.filter((x) => !x.already_imported);
@@ -1743,7 +1793,8 @@
             const q = (document.getElementById("companySearch").value || "").toLowerCase();
             const rows = companies.filter((c) => `${c.company_name} ${c.sector} ${c.country_name}`.toLowerCase().includes(q));
             document.getElementById("companyCount").innerText = `(${rows.length})`;
-            document.getElementById("companyBody").innerHTML = rows.map((c) => {
+            const shownRows = openLists.has("companies") ? rows : rows.slice(0, 8);
+            document.getElementById("companyBody").innerHTML = (shownRows.map((c) => {
                 const latest = c.latest_signal ? signalChip(c.latest_signal) : "";
                 const more = c.signal_count > 1 ? `<span class="text-[10px] text-slate-500">+${c.signal_count - 1}</span>` : "";
                 return `<tr onclick="openCompany(${c.company_id})" class="hover:bg-slate-800/40 cursor-pointer">
@@ -1757,7 +1808,7 @@
                     <td class="py-2.5 pr-4 text-xs text-slate-400 capitalize">${esc(c.ownership_type || "–")}</td>
                     <td class="py-2.5"><div class="flex flex-wrap items-center gap-1">${latest}${more}${!c.signal_count ? `<span class="text-[10px] text-slate-600">none yet</span>` : ""}</div></td>
                 </tr>`;
-            }).join("") || `<tr><td colspan="6" class="py-6 text-center text-xs text-slate-500">No companies match these filters.</td></tr>`;
+            }).join("") + foldTail("companies", rows.length, shownRows.length, "companies", 6)) || `<tr><td colspan="6" class="py-6 text-center text-xs text-slate-500">No companies match these filters.</td></tr>`;
         }
 
         async function openCompany(id) {
@@ -1779,7 +1830,8 @@
             const field = (label, key, value) => `<div class="bg-slate-800/50 rounded-lg px-3 py-2">
                 <div class="text-[10px] text-slate-500 flex items-center">${label}${sourceTag(provenance[key])}</div>
                 <div class="text-xs text-slate-200 mt-0.5">${value === null || value === undefined || value === "" ? `<span class="text-slate-600">unknown</span>` : esc(value)}</div></div>`;
-            const timeline = signals.map((s) => `
+            const shownSignals = openLists.has("signals") ? signals : signals.slice(0, 5);
+            const timeline = shownSignals.map((s) => `
                 <li class="flex gap-3">
                     <div class="text-[10px] font-mono text-slate-500 w-20 shrink-0 pt-0.5">${esc(s.date)}</div>
                     <div class="min-w-0">
@@ -1788,7 +1840,7 @@
                         <div class="text-[10px] text-slate-500">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener" class="hover:text-teal-300">${esc(s.source)}</a>` : esc(s.source)}</div>
                         ${s.evidence ? `<div class="text-[10px] text-slate-500 italic mt-0.5">${esc(s.evidence)}</div>` : ""}
                     </div>
-                </li>`).join("");
+                </li>`).join("") + (signals.length > shownSignals.length ? `<li>${foldTail("signals", signals.length, shownSignals.length, "signals")}</li>` : "");
             const liveNote = !enriched_at
                 ? (canEnrich ? "Not enriched yet. Enrich live to pull registry facts and read the company's website." : "No live source for this company (illustrative, non-Finnish, no website).")
                 : `Enriched ${new Date(enriched_at).toLocaleTimeString()}. Registry: ${registry ? esc(registry.status) : "not used"} · Website: ${website ? (website.fetched ? "read" : "could not be read") : "not used"}.`;
@@ -2041,7 +2093,8 @@
                 ? `<div class="text-[11px] text-slate-500">Found on the site: ${p.evidence.map((k) => `<span class="text-slate-300">${esc(k)}</span>`).join(", ")}</div>` : "";
 
             const alreadyIn = new Set(deals.filter((d) => d.target === p.company_name).map((d) => d.buyer_id));
-            const list = lastMatches.map((m, i) => {
+            const shownMatches = openLists.has("matches") ? lastMatches : lastMatches.slice(0, 3);
+            const list = shownMatches.map((m, i) => {
                 const f = fit(m.score);
                 const added = alreadyIn.has(m.buyer_id);
                 const primary = i === 0 && m.score >= 55;
@@ -2080,7 +2133,7 @@
                         </ul>
                     </details>
                 </div>`;
-            }).join("");
+            }).join("") + foldTail("matches", lastMatches.length, shownMatches.length, "mandates");
 
             document.getElementById("screenResult").innerHTML = `
                 <div class="glass-panel rounded-2xl p-5 space-y-3">

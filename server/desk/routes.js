@@ -169,6 +169,16 @@ function qualificationFor(entry, c, scored, hypothesis) {
   const cls = { category, timing: null, reason: t.next_step || `Owner intent: ${t.intent} (${t.sentiment})`, source: "model", confidence: 0.9 };
   return E.qualifyReply(text, { prospectScore: scored?.score ?? null, mandateType: hypothesis?.mandate_type || null, classification: cls });
 }
+// The engine drafts an answer (step-0 message) every time the owner writes; the desk shows the one for the last reply.
+const REPLY_DONE = new Set(["sent", "replied", "bounced", "cancelled", "rejected"]);
+function replyDraftOf(c) {
+  const lastIn = [...(c.conversation || [])].reverse().find((e) => e.direction === "inbound" && e.channel !== "intake");
+  if (!lastIn) return null;
+  const m = (c.messages || []).find((x) => x.step === 0 && x.in_reply_to === lastIn.id && !REPLY_DONE.has(x.status));
+  if (!m) return null;
+  const l = m.lint?.after;
+  return { id: m.id, subject: m.subject || "", body: m.body || "", status: m.status, human_check: l ? { score: l.score, grade: l.grade } : null };
+}
 function deskConversation(c, scored, hypothesis) {
   const thread = [];
   let last = null, lastCat = null;
@@ -177,7 +187,7 @@ function deskConversation(c, scored, hypothesis) {
     else if (e.channel !== "intake") { const q = qualificationFor(e, c, scored, hypothesis); thread.push({ direction: "in", at: e.at, text: e.text, qualification: q }); if (q) { last = q; lastCat = q.category; } }
   }
   const closed = c.stage === "disqualified" || ["not_interested", "unsubscribe"].includes(lastCat || "");
-  return { stage: STAGE_MAP[c.stage] || "Prospect", thread, follow_up_on: c.desk_follow_up_on || null, closed, outcome: c.stage === "mandate_signed" ? "mandate" : closed ? lastCat : null, last_category: lastCat, last_qualification: last, handoff: c.desk_handoff || null };
+  return { stage: STAGE_MAP[c.stage] || "Prospect", thread, follow_up_on: c.desk_follow_up_on || null, closed, outcome: c.stage === "mandate_signed" ? "mandate" : closed ? lastCat : null, last_category: lastCat, last_qualification: last, meetings: c.meetings || [], reply_draft: replyDraftOf(c), handoff: c.desk_handoff || null };
 }
 const TONE = { open: "Direct and short, buyer-demand-led, 20-minute ask", growth: "Growth-partner framing, owner keeps control", minority: "Partial stake framing, money off the table, owner stays in charge", exit: "Gentle full-sale framing, no pressure on timing" };
 // The sequence as his page shows it: sent touches stay; unsent drafts that duplicate an already-sent step (a re-plan
@@ -190,7 +200,7 @@ function sequenceMessages(c) {
 function deskCampaign(c) {
   const msgs = sequenceMessages(c);
   if (!msgs.length) return null;
-  const sequence = msgs.map((m, i) => ({ step: i, day: m.send_after_days ?? 0, channel: m.channel === "linkedin" ? "LinkedIn" : m.channel === "call_script" ? "Phone" : "Email", subject: m.subject || "", body: m.body || "", status: m.status === "sent" || m.status === "replied" ? "sent" : ["cancelled", "rejected", "bounced"].includes(m.status) ? "cancelled" : "drafted", sent_at: m.sent_at || null, source: m.template ? "template" : m.humanizer ? "model+humanizer" : "model", message_id: m.id, human_check: m.lint?.after ? { score: m.lint.after.score, grade: m.lint.after.grade, facts_used: m.lint.after.personalization?.count ?? null } : null, framing: m.framing || null }));
+  const sequence = msgs.map((m, i) => ({ step: i, day: m.send_after_days ?? 0, channel: m.channel === "linkedin" ? "LinkedIn" : m.channel === "call_script" ? "Phone" : "Email", subject: m.subject || "", body: m.body || "", send_at: m.send_at || null, status: m.status === "sent" || m.status === "replied" ? "sent" : ["cancelled", "rejected", "bounced"].includes(m.status) ? "cancelled" : "drafted", sent_at: m.sent_at || null, source: m.template ? "template" : m.humanizer ? "model+humanizer" : "model", message_id: m.id, human_check: m.lint?.after ? { score: m.lint.after.score, grade: m.lint.after.grade, facts_used: m.lint.after.personalization?.count ?? null } : null, framing: m.framing || null }));
   const stopped = c.stage === "disqualified" || (sequence.some((s) => s.status === "cancelled") && !sequence.some((s) => s.status === "drafted"));
   return { channel: c.channel === "linkedin" ? "LinkedIn + phone" : "Email + LinkedIn", tone: TONE[msgs[0].framing] || TONE.open, contact_name: c.owner?.name || "", sequence, stopped, stop_reason: stopped ? (msgs.find((m) => m.cancel_reason)?.cancel_reason || "Owner replied or the prospect was closed") : null };
 }
@@ -216,7 +226,10 @@ function bundle(c) {
   if (c.enrichment?.data_gaps?.length) hypothesis.questions_for_owner = [...hypothesis.questions_for_owner, ...c.enrichment.data_gaps.slice(0, 2).map((g) => `Data gap: ${g}`)];
   const conversation = deskConversation(c, scored, hypothesis);
   const campaign = deskCampaign(c);
-  return { record, triggers, scored, hypothesis, conversation, campaign, next_action: E.nextAction(conversation, campaign) };
+  let next_action = E.nextAction(conversation, campaign);
+  // An owner wrote and the engine drafted the answer: replying is the next thing, before anything else.
+  if (conversation.reply_draft && !conversation.closed && ["log_reply", "plan", "send", "wait", "follow_up"].includes(next_action.key)) next_action = { key: "reply", label: "Reply to the owner", step: 6 };
+  return { record, triggers, scored, hypothesis, conversation, campaign, next_action };
 }
 function detail(c, b = bundle(c)) {
   return { company_id: c.desk_id, company: b.record.company, provenance: b.record.provenance, triggers: b.triggers, scored: b.scored, hypothesis: b.hypothesis, campaign: b.campaign, conversation: b.conversation, next_action: b.next_action, stage_labels: E.CRM_STAGES.map((s) => E.STAGE_LABELS[s]) };
@@ -490,6 +503,8 @@ export function register(app, { baseUrl } = {}) {
     if (m.status === "draft") await call("POST", `/api/messages/${m.id}/approve`);
     try { await call("POST", `/api/messages/${m.id}/send`); }
     catch (err) { return errorJson(res, err.status === 429 ? 409 : err.status || 409, err.message); }
+    // The first touch is out: approve the follow-ups so the engine schedules them on their days (they stop when the owner replies).
+    if (Number(req.params.step) === 0) for (const f of sequenceMessages(c)) if (f.id !== m.id && f.status === "draft") { try { await call("POST", `/api/messages/${f.id}/approve`); } catch { /* best-effort */ } }
     log("outreach_sent", { company: c.name, step: Number(req.params.step) });
     res.json({ status: "success", data: detail(db.findCompany(c.id)) });
   }));
@@ -536,6 +551,32 @@ export function register(app, { baseUrl } = {}) {
     c.desk_handoff = pkg; db.advance(c, "meeting_booked"); db.touch(c); log("handoff", { company: c.name, advisor });
     res.json({ status: "success", handoff: pkg, data: detail(db.findCompany(c.id)) });
   }));
+  // Back and forth: send the reply the engine drafted from the owner's last answer (approve, then deliver; demo mode aware).
+  app.post("/api/prospects/:id/reply/send", wrap(async (req, res) => {
+    const c = companyByDesk(req.params.id); if (!c) return errorJson(res, 404, "Company not found");
+    const d = replyDraftOf(c); if (!d) return errorJson(res, 409, "No drafted reply is waiting: log the owner's reply first");
+    const m = c.messages.find((x) => x.id === d.id);
+    if (typeof req.body?.body === "string" && req.body.body.trim()) m.body = req.body.body.trim();
+    if (typeof req.body?.subject === "string" && req.body.subject.trim()) m.subject = req.body.subject.trim();
+    db.touch(c); db.save();
+    await call("POST", `/api/messages/${m.id}/approve`);
+    try { await call("POST", `/api/messages/${m.id}/send`); }
+    catch (err) {
+      // The human-language gate can refuse a draft; one humanizer pass, then try once more.
+      if (!/lint|human|templated|AI|block/i.test(err.message || "")) throw err;
+      await call("POST", `/api/messages/${m.id}/humanize`); await call("POST", `/api/messages/${m.id}/approve`); await call("POST", `/api/messages/${m.id}/send`);
+    }
+    log("reply_sent", { company: c.name });
+    res.json({ status: "success", data: detail(db.findCompany(c.id)) });
+  }));
+  // Meetings between the first call and the engagement letter, logged on the record.
+  app.post("/api/prospects/:id/meetings", wrap(async (req, res) => {
+    const c = companyByDesk(req.params.id); if (!c) return errorJson(res, 404, "Company not found");
+    c.meetings = c.meetings || []; const n = c.meetings.length + 1;
+    c.meetings.push({ n, at: iso(), note: String(req.body?.note || "").trim() || `Meeting ${n}` });
+    db.touch(c); db.save(); log("meeting", { company: c.name, n });
+    res.json({ status: "success", data: detail(db.findCompany(c.id)) });
+  }));
   app.post("/api/prospects/:id/mandate", wrap(async (req, res) => {
     const c = companyByDesk(req.params.id); if (!c) return errorJson(res, 404, "Prospect not found");
     c.stage = "mandate_signed"; db.touch(c); log("mandate", { company: c.name });
@@ -564,7 +605,7 @@ export function register(app, { baseUrl } = {}) {
   app.post("/api/demo/reset", (req, res) => {
     // His reset: clear outreach and replies so the guided demo starts fresh; research, scores and register data stay.
     const s = db.load(); const keep = protectedIds();
-    for (const c of s.companies) { if (keep.has(c.id)) continue; c.messages = []; c.conversation = []; c.desk_handoff = null; c.desk_follow_up_on = null; if (c.stage !== "disqualified") c.stage = c.enrichment ? "enriched" : "new"; }
+    for (const c of s.companies) { if (keep.has(c.id)) continue; c.messages = []; c.conversation = []; c.desk_handoff = null; c.desk_follow_up_on = null; c.meetings = []; if (c.stage !== "disqualified") c.stage = c.enrichment ? "enriched" : "new"; }
     desk().deals = desk().deals.filter((d) => d.company_id && keep.has(d.company_id)); db.save(); log("demo_reset", { protected: keep.size }); res.json({ status: "success", protected: keep.size });
   });
 }
