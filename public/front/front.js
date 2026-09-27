@@ -148,15 +148,14 @@
       '<div class="src">' + esc(o.title || 'Owner') + (o.age_source ? ' · age from the ' + esc(/brønnøysund/i.test(o.age_source) ? 'Norwegian register' : o.age_source) : '') + '</div></div></div>';
   }
   // For a low score, the sentence that says why not ("…but it isn't for sale"), not the "on paper it looks great" opener.
-  // The why-now as sentences: drops the "Owner is 62, 17 years at the helm…" opener (age and role are already on screen)
-  // and repeated sentences, so the specific reason leads.
+  // The why-now as sentences, with repeated sentences dropped.
   function reasons(t) {
     const seen = new Set();
     return String(t || '').replace(/\s+/g, ' ').trim().split(/(?<=[.!?])\s+/).filter((x) => {
       const k = x.toLowerCase();
       if (!x || seen.has(k)) return false;
       seen.add(k);
-      return !/^(the )?(owner|ceo)( [\p{L}.-]+){0,3} is \d{2}\b/iu.test(x);
+      return true;
     });
   }
   const clip = (t, n) => { t = String(t || ''); return t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : t; };
@@ -180,7 +179,7 @@
         ownerLine(c) +
         '<div class="oc-why">' + esc(clip(reasons(c.score.why_now).slice(0, 2).join(' ') || c.score.why_now, 190)) + '</div>' +
         '<div class="chips">' + signalChips(c, 3) + '</div>' +
-        '<div class="oc-foot"><span>' + (m.length ? '<b>' + m.length + ' buyer' + (m.length > 1 ? 's' : '') + '</b> want this · best fit <b>' + m[0].fit + '%</b>' : 'No buyer match yet') + '</span><span class="go">Open →</span></div>' +
+        '<div class="oc-foot"><span>' + (m.length ? '<b>' + m.length + ' buyer' + (m.length > 1 ? 's' : '') + '</b> want this · best fit <b>' + m[0].fit + '%</b>' : 'No buyer in the book fits yet: a new mandate to find') + '</span><span class="go">Open →</span></div>' +
         '</button>';
     };
     return '<div class="eyebrow">Step 2 · This week</div><h2>Owners to call this week</h2>' +

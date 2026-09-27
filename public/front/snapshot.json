@@ -1,5 +1,5 @@
 {
- "baked_at": "2026-09-27T02:27:04.409Z",
+ "baked_at": "2026-09-27T02:31:11.571Z",
  "source": "https://mergero-abarofchocolate.vercel.app",
  "companies": [
   {
@@ -30,45 +30,49 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 40,
+    "readiness": 30,
     "attractiveness": 60,
-    "recommended_timing": "3-6 months",
-    "why_now": "Owner is 45, 17 years at the helm, no successor named. Lindab acquired Aer Faber in 2020, expanding its Norwegian operations. Aer Faber is part of the Lindab Group, which has a strong presence in the ventilation industry in Europe. Lindab Group aims to use fossil-free transport by 2050, indicating a focus on sustainability.",
+    "recommended_timing": "not yet",
+    "why_now": "Erik Iversen is 45 years old and has been CEO since 2009, indicating potential succession planning in the future. The company was acquired by Lindab in 2020, which may indicate a consolidation wave in the sector. The company has shown consistent growth in revenue and profitability over the past few years. Lindab Group aims to use fossil-free transport by 2050, indicating a focus on sustainability.",
     "signals": [
      {
       "signal": "Owner age and tenure",
-      "direction": "negative",
-      "weight": "high",
-      "note": "Owner Erik Iversen is 45 years old, indicating potential succession planning in the future but not imminent."
-     },
-     {
-      "signal": "Acquisition by Lindab Group",
-      "direction": "neutral",
-      "weight": "medium",
-      "note": "Lindab acquired Aer Faber in 2020, which may influence future decisions but does not directly indicate readiness to sell."
-     },
-     {
-      "signal": "Industry presence",
       "direction": "positive",
       "weight": "medium",
-      "note": "Aer Faber is part of the Lindab Group, which has a strong presence in the ventilation industry in Europe, making it attractive to buyers."
+      "note": "Erik Iversen is 45 years old and has been CEO since 2009"
+     },
+     {
+      "signal": "Recent acquisition",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "Aer Faber was acquired by Lindab in 2020"
+     },
+     {
+      "signal": "Consistent growth",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "The company has shown consistent growth in revenue and profitability over the past few years"
      },
      {
       "signal": "Sustainability focus",
       "direction": "positive",
       "weight": "low",
-      "note": "Lindab Group's focus on sustainability may align with buyer interests but does not directly impact readiness."
+      "note": "Lindab Group aims to use fossil-free transport by 2050"
+     },
+     {
+      "signal": "Young owner in growth mode",
+      "direction": "negative",
+      "weight": "high",
+      "note": "Erik Iversen is 45 years old and the company is in a growth phase"
      }
     ],
     "risks": [
-     "Owner is 45, indicating potential succession planning in the future but not imminent.",
-     "Acquisition by Lindab Group in 2020 may influence future decisions but does not directly indicate readiness to sell.",
-     "No visible successor or second-generation involvement.",
-     "Revenue below €10M, which may be less attractive to some buyers."
+     "Owner is relatively young and in growth mode",
+     "Recent acquisition by Lindab may affect sell-side dynamics"
     ],
     "valuation_band_eur": {
-     "low": 15,
-     "high": 26
+     "low": 10,
+     "high": 13
     },
     "history": []
    },
@@ -542,51 +546,46 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 60,
+    "readiness": 65,
     "attractiveness": 60,
     "recommended_timing": "now",
-    "why_now": "Owner is 62, 17 years at the helm, no successor named. Revenue has been flat since 2018. Owner has publicly discussed future, retirement, or 'next chapter'.\nOwner has publicly discussed future, retirement, or 'next chapter'.\nThe company has shown growth with a turnover record in 2018 and expansion of premises.",
+    "why_now": "Kyrre Vastveit is 62 years old and has been CEO since 2007, indicating potential succession planning. The company reported a turnover record in 2018 and expanded premises for greater production capacity and stock. Agromiljø AS has been recruiting sales consultants/representatives since 2021, suggesting growth and expansion. The company's focus on environmental sustainability aligns with sector trends towards eco-friendly agricultural practices.",
     "signals": [
      {
-      "signal": "Owner age",
+      "signal": "Owner age and tenure",
       "direction": "positive",
       "weight": "high",
-      "note": "Owner is 62 years old"
-     },
-     {
-      "signal": "Tenure",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "Owner has been with the company for 17 years"
-     },
-     {
-      "signal": "Succession planning",
-      "direction": "positive",
-      "weight": "high",
-      "note": "No visible successor or second-generation involvement"
-     },
-     {
-      "signal": "Revenue growth",
-      "direction": "negative",
-      "weight": "medium",
-      "note": "Revenue has been flat since 2018"
+      "note": "Kyrre Vastveit is 62 years old and has been CEO since 2007"
      },
      {
       "signal": "Recent expansion",
       "direction": "positive",
       "weight": "medium",
-      "note": "The company expanded its premises in 2018 for greater production capacity and stock"
+      "note": "The company expanded premises in 2018 for greater production capacity and stock"
      },
      {
-      "signal": "Public discussion of future",
+      "signal": "Recent recruitment",
       "direction": "positive",
       "weight": "medium",
-      "note": "Owner has publicly discussed future, retirement, or 'next chapter'"
+      "note": "The company has been recruiting sales consultants/representatives since 2021"
+     },
+     {
+      "signal": "Sector trends",
+      "direction": "positive",
+      "weight": "low",
+      "note": "The company's focus on environmental sustainability aligns with sector trends"
+     },
+     {
+      "signal": "Revenue below €3M",
+      "direction": "negative",
+      "weight": "high",
+      "note": "The company reported revenue of €2.7M in 2024"
      }
     ],
     "risks": [
      "Revenue below €3M",
-     "No clear growth trajectory in recent years"
+     "No visible successor or second-generation involvement mentioned",
+     "No recent inbound interest from buyers"
     ],
     "valuation_band_eur": {
      "low": 2.7,
@@ -1046,55 +1045,50 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 60,
-    "attractiveness": 65,
+    "readiness": 70,
+    "attractiveness": 80,
     "recommended_timing": "now",
-    "why_now": "Owner is 50, 25 years at the helm, no successor named. Recent international expansion into UK and Chile. Strong growth trajectory: revenue ~NOK 31m (2024) to ~NOK 47m (2025), +~52%. Sector consolidation precedent inside the company's own history: Ocea → Steinsvik Group → ScaleAQ.",
+    "why_now": "The CEO is 50 years old and has been at the helm since 2021. The company has seen strong revenue growth from ~NOK 31m (2024) to ~NOK 47m (2025). The company is expanding internationally with units in the UK (2025) and Chile (2026). The sector has a history of consolidation and there is explicit buyer appetite in the network.",
     "signals": [
      {
-      "signal": "Owner age and tenure",
+      "signal": "CEO aged 50 with an ongoing international build-out",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "CEO age and tenure"
+     },
+     {
+      "signal": "Strong growth trajectory: revenue ~NOK 31m (2024) to ~NOK 47m (2025)",
       "direction": "positive",
       "weight": "high",
-      "note": "Owner is 50, 25 years at the helm, no successor named."
+      "note": "Revenue growth"
      },
      {
-      "signal": "Recent international expansion",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "Expansion into UK and Chile."
-     },
-     {
-      "signal": "Growth trajectory",
+      "signal": "Two new international units in 12 months (UK 2025, Chile 2026)",
       "direction": "positive",
       "weight": "high",
-      "note": "Revenue ~NOK 31m (2024) to ~NOK 47m (2025), +~52%."
+      "note": "International expansion"
      },
      {
-      "signal": "Sector consolidation",
+      "signal": "Sector consolidation precedent inside the company's own history",
       "direction": "positive",
       "weight": "medium",
-      "note": "Precedent inside the company's own history: Ocea → Steinsvik Group → ScaleAQ."
+      "note": "Sector consolidation"
      },
      {
-      "signal": "Recent large investment",
-      "direction": "negative",
+      "signal": "Management/employee buy-back from ScaleAQ in 2021",
+      "direction": "neutral",
       "weight": "medium",
-      "note": "Management/employee buy-back from ScaleAQ in 2021."
-     },
-     {
-      "signal": "Young founder in growth mode",
-      "direction": "negative",
-      "weight": "medium",
-      "note": "Owner is 50, actively expanding internationally."
+      "note": "Recent ownership change"
      }
     ],
     "risks": [
-     "Valuation may be below the €3-5M floor due to lack of EBITDA figures.",
-     "Owner may not be open to a transaction due to recent international expansion and growth trajectory."
+     "No visible successor or second-generation involvement",
+     "No stated succession plan visible",
+     "No profitability figures are public"
     ],
     "valuation_band_eur": {
-     "low": 5,
-     "high": 10
+     "low": 10,
+     "high": 20
     },
     "history": []
    },
@@ -1544,50 +1538,48 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 60,
+    "readiness": 65,
     "attractiveness": 70,
     "recommended_timing": "now",
-    "why_now": "Owner is 67, 30 years at the helm, no successor named. Recent contracts and deliveries indicate strong market demand. The oil & gas industry, a key customer segment, is experiencing consolidation, which could impact Argus's business.",
+    "why_now": "The CEO is 67 years old and has been in the role for 39 years, suggesting potential succession planning considerations. The company has a strong growth trajectory with significant contracts and deliveries. The oil & gas industry, a key customer segment, is experiencing consolidation, which could impact Argus's business. The company is recruiting for key positions, suggesting a focus on growth and expansion. The company is independent and 100% locally owned, 70% by Mohn Drilling and 30% by employees.",
     "signals": [
      {
-      "signal": "Owner age and tenure",
+      "signal": "CEO age and tenure",
       "direction": "positive",
       "weight": "high",
-      "note": "Owner is 67, 30 years at the helm"
+      "note": "CEO is 67 years old and has been in the role for 39 years"
      },
      {
-      "signal": "Recent contracts and deliveries",
-      "direction": "positive",
+      "signal": "Growth trajectory",
+      "direction": "neutral",
       "weight": "medium",
-      "note": "Strong market demand and growth trajectory"
+      "note": "The company has a strong growth trajectory with significant contracts and deliveries"
      },
      {
       "signal": "Industry consolidation",
       "direction": "positive",
       "weight": "medium",
-      "note": "Oil & gas industry consolidation could impact business"
+      "note": "The oil & gas industry, a key customer segment, is experiencing consolidation"
      },
      {
-      "signal": "No visible successor",
-      "direction": "positive",
-      "weight": "high",
-      "note": "No successor named"
-     },
-     {
-      "signal": "Recruitment for key positions",
+      "signal": "Recruitment",
       "direction": "neutral",
-      "weight": "low",
-      "note": "Focus on growth and expansion"
+      "weight": "medium",
+      "note": "The company is recruiting for key positions, suggesting a focus on growth and expansion"
+     },
+     {
+      "signal": "Ownership structure",
+      "direction": "neutral",
+      "weight": "medium",
+      "note": "The company is independent and 100% locally owned, 70% by Mohn Drilling and 30% by employees"
      }
     ],
     "risks": [
-     "No visible successor named",
-     "High concentration in oil & gas industry",
-     "No recent inbound interest from buyers"
+     "The company's growth trajectory may make the owner less open to a transaction. The oil & gas industry consolidation could impact the company's business. The ownership structure may complicate a potential transaction."
     ],
     "valuation_band_eur": {
-     "low": 25.6,
-     "high": 47.2
+     "low": 25.4,
+     "high": 47.7
     },
     "history": []
    },
@@ -2012,69 +2004,66 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 60,
-    "attractiveness": 70,
+    "readiness": 50,
+    "attractiveness": 60,
     "recommended_timing": "now",
-    "why_now": "Owner is 61, 25 years at the helm, no successor named. Recent hiring and facility expansions suggest growth and investment in operations. The company's compliance with international sanctions and safety records indicate a stable and responsible operation. The company sees CBAM as a strategic confirmation of its 100% scrap-based, hydropower-driven EAF production model.",
+    "why_now": "The owner Espen Marthinsen is 61 years old and has been with the company for 25 years. The company has been investing in new facilities and hiring technical advisors, suggesting growth and expansion. The company's compliance with international sanctions and safety records indicate a stable and responsible operation. The company's recent hiring and facility expansions suggest growth and investment in operations.",
     "signals": [
      {
-      "signal": "Owner age and tenure",
+      "signal": "Owner age",
       "direction": "positive",
       "weight": "high",
-      "note": "Owner Espen Marthinsen is 61 years old and has been with the company for 25 years, indicating potential succession planning considerations."
+      "note": "Owner Espen Marthinsen is 61 years old, indicating potential succession planning considerations."
      },
      {
-      "signal": "Recent hiring and facility expansions",
+      "signal": "Tenure",
+      "direction": "positive",
+      "weight": "high",
+      "note": "Espen Marthinsen has been with the company for 25 years."
+     },
+     {
+      "signal": "Recent expansion",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "The company hired a technical advisor in May 2023 and has been investing in new facilities."
+     },
+     {
+      "signal": "Compliance and safety",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "The company has a strong focus on environmental sustainability, compliance with international sanctions, and a good safety record."
+     },
+     {
+      "signal": "Revenue",
       "direction": "neutral",
-      "weight": "medium",
-      "note": "The company's recent hiring and facility expansions suggest growth and investment in operations, but do not directly indicate readiness to sell."
+      "weight": "low",
+      "note": "Revenue is €118.0M, but growth trajectory over the past 5 years is unknown."
      },
      {
-      "signal": "Compliance and safety records",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "The company's compliance with international sanctions and safety records indicate a stable and responsible operation, which could be attractive to buyers."
-     },
-     {
-      "signal": "Environmental sustainability focus",
-      "direction": "positive",
-      "weight": "medium",
-      "note": "The company's strong focus on environmental sustainability may attract buyers interested in green initiatives."
+      "signal": "EBITDA unknown",
+      "direction": "neutral",
+      "weight": "low",
+      "note": "EBITDA is not publicly available."
      },
      {
       "signal": "No visible successor",
-      "direction": "positive",
-      "weight": "high",
-      "note": "There is no visible successor or second-generation involvement, which could indicate a need for succession planning."
-     },
-     {
-      "signal": "No recent PE interest or sector consolidation activities",
       "direction": "neutral",
       "weight": "low",
-      "note": "There is no information on recent PE interest or sector consolidation activities, which could affect readiness."
+      "note": "No information on succession or ownership structure is available."
      }
     ],
     "risks": [
-     "EBITDA not publicly available",
-     "No information on ownership structure",
-     "No information on growth trajectory over the past 5 years",
-     "No information on PE interest or sector consolidation activities"
+     "EBITDA is not publicly available, making valuation uncertain.",
+     "No information on ownership structure or succession planning.",
+     "Growth trajectory over the past 5 years is unknown."
     ],
     "valuation_band_eur": {
-     "low": 48,
+     "low": 59,
      "high": 94.4
     },
     "history": []
    },
-   "matches": [
-    {
-     "buyer_id": "b_05",
-     "buyer_name": "European logistics and supply-chain buyout fund",
-     "buyer_type": "PE",
-     "fit": 0,
-     "reason": "The buyer's focus is on logistics and food supply-chain businesses, which does not align with 7 Steel Service Norway AS's core business in steel products and reinforcement services."
-    }
-   ],
+   "matches": [],
    "research": {
     "facts": [
      {
@@ -2479,50 +2468,43 @@
     "age_source": "Brønnøysund roles register"
    },
    "score": {
-    "readiness": 20,
-    "attractiveness": 40,
+    "readiness": 30,
+    "attractiveness": 70,
     "recommended_timing": "not yet",
-    "why_now": "Owner is 30 years old and has been CEO for an unknown period, indicating a long-term vision but not immediate succession planning.\nThe company aims to achieve significant growth in the coming years, suggesting a proactive approach to expansion.\nThe company has shown growth in revenue from 2021 to 2022 but experienced a decline in operating results in 2022.\nThe company is focusing on sustainability and innovation, which could attract interest from buyers looking to invest in environmentally friendly solutions.\nThe company's operating results declined in 2022 compared to 2021, which could indicate a need for strategic changes or investment.",
+    "why_now": "Magnus Stafset is 30 years old and has been CEO since 2023, the company's operating results declined in 2022 compared to 2021, the company aims to achieve significant growth in the coming years, the company is focusing on sustainability and innovation, which could attract interest from buyers looking to invest in environmentally friendly solutions.",
     "signals": [
      {
-      "signal": "Owner age",
+      "signal": "Owner/CEO Magnus Stafset is relatively young (age 30)",
       "direction": "negative",
       "weight": "high",
-      "note": "Owner is 30 years old, indicating a long-term vision but not immediate succession planning."
+      "note": "Young founder in growth mode"
      },
      {
-      "signal": "Growth ambitions",
+      "signal": "The company has shown growth in revenue from 2021 to 2022 but experienced a decline in operating results in 2022",
       "direction": "neutral",
       "weight": "medium",
-      "note": "The company aims to achieve significant growth in the coming years, suggesting a proactive approach to expansion."
+      "note": "Flat or declining revenue after years of growth"
      },
      {
-      "signal": "Revenue growth",
+      "signal": "Spilka Industri is focusing on sustainability and innovation",
       "direction": "positive",
       "weight": "medium",
-      "note": "The company has shown growth in revenue from 2021 to 2022."
+      "note": "Sector where Mergero buyers have explicit appetite"
      },
      {
-      "signal": "Operating results decline",
-      "direction": "negative",
-      "weight": "medium",
-      "note": "The company's operating results declined in 2022 compared to 2021, which could indicate a need for strategic changes or investment."
-     },
-     {
-      "signal": "Sustainability focus",
-      "direction": "positive",
+      "signal": "The company aims to achieve significant growth in the coming years",
+      "direction": "neutral",
       "weight": "low",
-      "note": "The company is focusing on sustainability and innovation, which could attract interest from buyers looking to invest in environmentally friendly solutions."
+      "note": "Founder still CEO with no external management layer"
      }
     ],
     "risks": [
-     "Young owner may not be open to a transaction in the near future.",
-     "Declining operating results may indicate underlying issues.",
-     "Lack of information on ownership structure and recent acquisitions or expansions."
+     "Young founder in growth mode",
+     "No visible successor or second-generation involvement"
     ],
     "valuation_band_eur": {
-     "low": 4,
-     "high": 8
+     "low": 10,
+     "high": 15
     },
     "history": []
    },
@@ -3276,9 +3258,9 @@
    },
    "score": {
     "readiness": 55,
-    "attractiveness": 40,
-    "recommended_timing": "6-12 months",
-    "why_now": "Owner is 82, 13 years at the helm, no successor named. \nRevenue decline from €7.8M in 2024 to €6.5M in 2025. \nEBITDA turned negative from €0.8M in 2024 to -€0.4M in 2025. \nNo recent large capex or expansion financing noted. \nOwner has not publicly discussed future, retirement, or 'next chapter'.",
+    "attractiveness": 60,
+    "recommended_timing": "now",
+    "why_now": "The owner is 82 years old and has been at the helm since 2013. Revenue declined from €7.8M in 2024 to €6.5M in 2025. EBITDA turned negative from €0.8M in 2024 to -€0.4M in 2025, indicating financial stress. The company has an experienced management team in place, suggesting potential for a smooth transition.",
     "signals": [
      {
       "signal": "Owner age",
@@ -3289,38 +3271,36 @@
      {
       "signal": "Revenue decline",
       "direction": "positive",
-      "weight": "medium",
-      "note": "Revenue has declined from €7.8M in 2024 to €6.5M in 2025."
+      "weight": "high",
+      "note": "Revenue declined from €7.8M in 2024 to €6.5M in 2025, indicating a potential need for strategic changes or investment."
      },
      {
       "signal": "Negative EBITDA",
       "direction": "positive",
-      "weight": "medium",
-      "note": "EBITDA turned negative from €0.8M in 2024 to -€0.4M in 2025, indicating financial stress."
+      "weight": "high",
+      "note": "EBITDA turned negative from €0.8M in 2024 to -€0.4M in 2025, suggesting financial stress."
      },
      {
-      "signal": "No recent large capex",
+      "signal": "Experienced management team",
+      "direction": "positive",
+      "weight": "medium",
+      "note": "The company has an experienced management team in place, suggesting potential for a smooth transition."
+     },
+     {
+      "signal": "Industry sector",
       "direction": "neutral",
       "weight": "low",
-      "note": "No recent large capex or expansion financing noted."
-     },
-     {
-      "signal": "No public discussion of future plans",
-      "direction": "negative",
-      "weight": "low",
-      "note": "Owner has not publicly discussed future, retirement, or 'next chapter'."
+      "note": "The industry sector is not explicitly mentioned in the buyer network, but it could be of interest to some buyers."
      }
     ],
     "risks": [
-     "Valuation below €3M floor",
-     "No visible successor or second-generation involvement",
-     "No recent inbound interest from buyers",
-     "No sector consolidation trends noted",
-     "No PE activity in the sector noted"
+     "Lack of recent news or public discussions about future plans or retirement",
+     "Unclear ownership structure",
+     "No visible successor or second-generation involvement mentioned"
     ],
     "valuation_band_eur": {
-     "low": 20,
-     "high": 30
+     "low": 3,
+     "high": 6.5
     },
     "history": []
    },
@@ -3851,7 +3831,7 @@
   "benchmark": "Mergero: 1,000 outbound contacts → ~450–500 owner conversations"
  },
  "reach": {
-  "as_of": "2026-09-27T02:27:04.010Z",
+  "as_of": "2026-09-27T02:31:11.186Z",
   "countries": [
    {
     "country": "NO",
