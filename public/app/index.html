@@ -85,6 +85,29 @@ details.evidence summary { cursor: pointer; color: var(--sky); font-weight: 600;
 .try button:hover { color: var(--text); border-color: var(--dim); }
 .busy { opacity: .6; pointer-events: none; }
 .spin-inline { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--line-2); border-top-color: var(--green); border-radius: 50%; animation: sp .8s linear infinite; vertical-align: -2px; margin-right: 6px; }
+/* calmer cards: three lines, then depth on demand */
+.oc-head { padding: 16px 20px; gap: 16px; }
+.oc-main { gap: 5px; }
+.oc-line1 { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.oc-stage { font-size: 11px; color: var(--dim); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+.oc-stage.s1 { color: var(--sky); } .oc-stage.s2 { color: var(--amber); } .oc-stage.s3 { color: var(--green); }
+.oc-line2 { color: var(--muted); font-size: 13.5px; }
+.oc-line2 b { color: var(--text); font-weight: 600; }
+.oc-why { color: #cbd5e1; font-size: 14.5px; line-height: 1.5; margin: 2px 0 0; }
+.oc-side { min-width: 0; }
+.sumstrip { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.points { margin: 0 0 14px; padding-left: 18px; color: #dbe3ee; font-size: 14px; line-height: 1.55; }
+.points li { margin-bottom: 3px; }
+.discs { display: grid; gap: 8px; }
+.disc { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+.disc summary { list-style: none; display: flex; align-items: center; gap: 10px; padding: 11px 14px; cursor: pointer; font-weight: 700; font-size: 13.5px; }
+.disc summary::-webkit-details-marker { display: none; }
+.disc summary .cnt { color: var(--dim); font-weight: 500; font-size: 12.5px; margin-left: auto; }
+.disc summary::after { content: "▾"; color: var(--dim); font-size: 12px; transition: transform .15s; }
+.disc[open] summary::after { transform: rotate(180deg); }
+.disc[open] summary { border-bottom: 1px solid var(--line); }
+.disc-b { padding: 12px 14px 14px; }
+.list { gap: 10px; }
 @media (max-width: 1100px) { .cols3 { grid-template-columns: 1fr 1fr; } .two { grid-template-columns: 1fr; } .form { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 720px) { .oc-head { grid-template-columns: 1fr; } .oc-side { align-items: flex-start; flex-direction: row; flex-wrap: wrap; } .cols3 { grid-template-columns: 1fr; } .q-card { grid-template-columns: 1fr; } .filters input { min-width: 0; width: 100%; margin-left: 0; } }
 </style>
@@ -101,6 +124,6 @@ details.evidence summary { cursor: pointer; color: var(--sky); font-weight: 600;
   </div>
 </header>
 <main id="app"><div class="empty">Loading…</div></main>
-<script src="/app/app.js?v=1"></script>
+<script src="/app/app.js?v=2"></script>
 </body>
 </html>

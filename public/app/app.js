@@ -1,5 +1,7 @@
 // Mergero Origination — one page for advisors. Four questions, one flow:
 //   Why (cover) · Owners (the working list: cards that expand) · one owner (the conversation) · Results · Add owners.
+// Density rules: a card front is three lines plus the score and one button; everything longer sits behind a
+// collapsible section with a count in its header; lists are capped at four with a link to the owner page.
 // Everything reads the desk and engine APIs that already exist; nothing here changes server behaviour.
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
@@ -9,11 +11,13 @@
   const initials = (name) => String(name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
   const sentences = (t) => String(t || "").replace(/\s+/g, " ").split(/(?<=[.!?])\s+(?=[A-ZÅÄÖÉ0-9])/).map((s) => s.trim()).filter(Boolean);
   const dateOf = (s) => (s ? String(s).slice(0, 10) : "");
+  const cap = (items, n, moreHtml = "") => { const a = items || []; return a.slice(0, n).join("") + (a.length > n ? `<div class="note" style="margin-top:6px">${moreHtml || `+${a.length - n} more`}</div>` : ""); };
+  const disc = (title, count, inner, open = false) => `<details class="disc" ${open ? "open" : ""}><summary><span>${title}</span><span class="cnt">${count}</span></summary><div class="disc-b">${inner}</div></details>`;
 
   const state = {
     rows: [], recs: {}, bundles: {}, details: {}, samples: null, intake: {}, expanded: null,
-    filter: { band: "all", country: "", q: "" }, mode: { protected: [] }, busy: new Set(), lastReply: {},
-    reach: null, stats: null, results: null, screen: null, find: null,
+    filter: { band: "all", country: "", q: "" }, mode: { protected: [] }, busy: new Set(),
+    reach: null, stats: null, screen: null, find: null,
   };
 
   async function api(path, opts = {}) {
@@ -51,26 +55,25 @@
   // ---------- derived ----------
   const num = (row) => (row.readiness ?? row.score ?? 0);
   const band = (row) => { const n = num(row); return n >= 60 ? { k: "hot", cls: "s-hot", label: "Call now" } : n >= 45 ? { k: "warm", cls: "s-warm", label: "Warm" } : { k: "later", cls: "s-cold", label: "Later" }; };
-  function whyNow(row) {
-    const rec = recOf(row);
-    const s = sentences(rec.score?.why_now);
-    if (s.length) return s.slice(0, 2).join(" ");
-    if (row.top_trigger) return `${row.top_trigger.label}: ${row.top_trigger.evidence}`;
-    return "Not scored yet. Open the card and run Dig deeper.";
+  function whyLines(row) {
+    const rec = recOf(row); const s = sentences(rec.score?.why_now);
+    if (s.length) return s;
+    if (row.top_trigger) return [`${row.top_trigger.label}: ${row.top_trigger.evidence}.`];
+    return ["Not scored yet. Expand the card and run Dig deeper."];
   }
   function ownerOf(row) {
     const rec = recOf(row); const o = rec.owner || {};
     return { name: o.name || "Owner not identified", age: o.age ?? null, source: o.age_source || (o.age != null ? "estimate" : ""), title: o.title || "" };
   }
   function money(row) {
-    const rec = recOf(row); const rows = rec.research?.financials?.rows || []; const src = rows[0]?.source || "";
+    const rec = recOf(row); const rows = rec.research?.financials?.rows || []; const src = String(rows[0]?.source || "").replace(/\s*\(.*\)$/, "");
     const bits = [];
     if (rec.ebitda_eur != null) bits.push(`EBITDA ${fmtM(rec.ebitda_eur)}`);
     if (rec.revenue_eur != null) bits.push(`revenue ${fmtM(rec.revenue_eur)}`);
     if (rec.employees != null) bits.push(`${rec.employees} staff`);
-    return { text: bits.join(" · ") || "No filed figures yet", source: src.replace(/\s*\(.*\)$/, "") };
+    return { text: bits.join(" · "), source: src };
   }
-  const stageClass = (row) => (row.closed ? "" : /Not contacted/i.test(row.stage_label) ? "" : /sent|replied/i.test(row.stage_label) ? "s1" : /warm|call/i.test(row.stage_label) ? "s2" : /letter|mandate/i.test(row.stage_label) ? "s3" : "");
+  const stageClass = (row) => (/sent|replied/i.test(row.stage_label) ? "s1" : /warm|call/i.test(row.stage_label) ? "s2" : /letter|mandate/i.test(row.stage_label) ? "s3" : "");
   function filtered() {
     const f = state.filter;
     return state.rows.filter((r) => {
@@ -140,34 +143,28 @@
     const countries = [...new Set(all.map((r) => r.country))].sort();
     const chip = (k, label, n) => `<span class="chip ${state.filter.band === k ? "on" : ""}" data-band="${k}">${label}${n != null ? ` · ${n}` : ""}</span>`;
     return `<section class="screen">
-      <div class="page-h"><div><h2>Who to call</h2><p class="sub">Every owner-led company in the book, ranked by how likely the owner is to take a first conversation. Click a card for the evidence, the buyers and the emails; the button is the one next thing to do.</p></div>
-        <div class="kpis"><div class="kpi"><b>${all.length}</b><span>in the book</span></div><div class="kpi"><b>${counts.hot}</b><span>call now</span></div><div class="kpi"><b>${counts.contacted}</b><span>in conversation</span></div><div class="kpi"><b>${counts.mandate}</b><span>mandates</span></div></div></div>
-      <div class="filters" id="filters">${chip("all", "All", all.length)}${chip("hot", "Call now", counts.hot)}${chip("warm", "Warm", counts.warm)}${chip("contacted", "In conversation", counts.contacted)}${chip("mandate", "Mandate", counts.mandate)}<span class="sep"></span>${countries.map((c) => `<span class="chip ${state.filter.country === c ? "on" : ""}" data-country="${c}">${c}</span>`).join("")}<input id="q" placeholder="Search owner, company, sector" value="${esc(state.filter.q)}"></div>
+      <div class="page-h"><div><h2>Who to call</h2><p class="sub">Ranked by how likely the owner is to take a first conversation. The button is the one next thing to do; open a card for the evidence.</p></div></div>
+      <div class="filters" id="filters">${chip("all", "All", all.length)}${chip("hot", "Call now", counts.hot)}${chip("warm", "Warm", counts.warm)}${chip("contacted", "In conversation", counts.contacted)}${chip("mandate", "Mandate", counts.mandate)}<span class="sep"></span>${countries.map((c) => `<span class="chip ${state.filter.country === c ? "on" : ""}" data-country="${c}">${c}</span>`).join("")}<input id="q" placeholder="Search" value="${esc(state.filter.q)}"></div>
       <div class="list">${rows.map(card).join("") || `<div class="card empty">No owners match. <a href="#/add">Add owners</a> from the register or by website.</div>`}</div>
     </section>`;
   }
   function card(row) {
-    const b = band(row); const o = ownerOf(row); const m = money(row); const rec = recOf(row);
+    const b = band(row); const o = ownerOf(row); const rec = recOf(row);
     const open = state.expanded === row.company_id; const busy = state.busy.has(row.company_id);
-    const demand = row.mandate_count ? `${row.mandate_count} mandates scored · best ${esc(row.top_buyer?.buyer_name || "")} ${row.top_buyer?.score ?? ""}%` : "No buyer scored yet";
-    const trig = row.top_trigger ? `<span class="chip pos">${esc(row.top_trigger.label)}${row.top_trigger.date ? ` · ${dateOf(row.top_trigger.date)}` : ""}</span>` : "";
-    const protectedTag = (state.mode.protected || []).includes(row.company_id) ? `<span class="chip" title="Kept through demo resets">stage owner</span>` : "";
+    const why = whyLines(row)[0];
     return `<article class="card oc ${open ? "open" : ""}" id="oc-${row.company_id}">
       <div class="oc-head" data-toggle="${row.company_id}">
         <div class="oc-main">
-          <div class="oc-name">${esc(row.company_name)} <span class="chip stage ${stageClass(row)}">${esc(row.stage_label)}</span>${protectedTag}</div>
-          <div class="oc-meta">${esc([rec.city, row.country_name].filter(Boolean).join(", "))}${row.sector ? ` · ${esc(row.sector)}` : ""}${rec.website ? ` · <a href="${esc(rec.website)}" target="_blank" rel="noopener" data-stop>${esc(host(rec.website))}</a>` : ""}</div>
-          <div class="oc-owner"><span class="avatar">${esc(initials(o.name))}</span><div><b>${esc(o.name)}</b>${o.title ? ` <span class="src">${esc(o.title)}</span>` : ""} · ${o.age != null ? `<span class="age">${o.age}</span> <span class="src">${esc(o.source)}</span>` : `<span class="src">age unknown</span>`}</div></div>
-          <p class="oc-why">${esc(whyNow(row))}</p>
-          <div class="chips">${trig}<span class="chip">${esc(demand)}</span><span class="chip" title="${esc(m.source)}">${esc(m.text)}${m.source ? ` <span class="src">· ${esc(m.source)}</span>` : ""}</span></div>
+          <div class="oc-line1"><span class="oc-name">${esc(row.company_name)}</span><span class="oc-stage ${stageClass(row)}">${esc(row.stage_label)}</span></div>
+          <div class="oc-line2"><b>${esc(o.name)}</b>${o.age != null ? `, <span title="${esc(o.source)}">${o.age}</span>` : ""}${o.title ? ` · ${esc(o.title.replace(/\s*\(.*\)$/, ""))}` : ""}${rec.city ? ` · ${esc(rec.city)}` : ""}${row.country ? `, ${esc(row.country_name || row.country)}` : ""}</div>
+          <p class="oc-why">${esc(why)}</p>
         </div>
         <div class="oc-side">
-          <div class="score ${b.cls}"><div class="num">${num(row)}</div><div class="lab">${b.label}</div></div>
-          <div class="acts">${actionButton(row, busy)}<a class="btn sm" href="#/owner/${row.company_id}" data-stop>Open</a><span class="chev">▼</span></div>
-          <span class="note">${row.readiness != null ? "readiness by the model" : "rule score, not yet researched"}${row.follow_up_on ? ` · follow-up ${dateOf(row.follow_up_on)}` : ""}</span>
+          <div class="score ${b.cls}" title="${row.readiness != null ? "Readiness by the model" : "Rule score; not researched yet"}"><div class="num">${num(row)}</div><div class="lab">${b.label}</div></div>
+          <div class="acts">${actionButton(row, busy)}<span class="chev">▼</span></div>
         </div>
       </div>
-      <div class="oc-body ${open ? "" : "hidden"}" id="ocb-${row.company_id}">${open ? `<div class="empty">Loading the evidence…</div>` : ""}</div>
+      <div class="oc-body ${open ? "" : "hidden"}" id="ocb-${row.company_id}">${open ? `<div class="empty">Loading…</div>` : ""}</div>
     </article>`;
   }
   function actionButton(row, busy) {
@@ -187,38 +184,45 @@
     if (!rows.length) return `<div class="note">No filed accounts in the open registers yet.</div>`;
     return `<table class="tbl"><tr><th>Year</th><th class="num">Revenue</th><th class="num">EBIT</th><th class="num">EBITDA</th><th>Source</th></tr>${rows.map((r) => `<tr><td>${r.year}</td><td class="num">${fmtM(r.revenue_eur)}</td><td class="num">${fmtM(r.ebit_eur)}</td><td class="num">${fmtM(r.ebitda_eur)}${r.ebitda_basis === "derived" ? "*" : ""}</td><td><small>${esc(String(r.source || "").replace(/\s*\(NO\)|\s*\(FI\)/, ""))}${(r.also_from || []).length ? " + " + esc(r.also_from.join(", ")) : ""}</small></td></tr>`).join("")}</table>${rows.some((r) => r.ebitda_basis === "derived") ? `<div class="note">* EBIT + depreciation from the statement.</div>` : ""}`;
   }
-  function buyersList(list, n = 4) {
+  function buyersList(list, n = 3) {
     if (!list?.length) return `<div class="note">No buyer in the book fits yet: a new mandate to find.</div>`;
-    return list.slice(0, n).map((m) => `<div class="buyer"><div class="bn"><span>${esc(m.buyer_name)}</span><span>${m.score}</span></div><div class="bar"><i style="width:${m.score}%"></i></div><p>${esc(m.summary || (m.reasons || [])[0] || "")}${m.checks ? ` · sector ${m.checks.sector?.ok}, region ${m.checks.region?.ok}, size ${m.checks.size?.ok}` : ""}</p></div>`).join("");
+    return list.slice(0, n).map((m) => `<div class="buyer"><div class="bn"><span>${esc(m.buyer_name)}</span><span>${m.score}</span></div><div class="bar"><i style="width:${m.score}%"></i></div><p>${esc(m.summary || (m.reasons || [])[0] || "")}</p></div>`).join("");
   }
   function body(id, b, d) {
     const row = rowById(id); const rec = recOf(row);
-    const facts = (rec.research?.facts || []).filter((f) => f.confidence !== "low").slice(0, 5);
-    const signals = (d.signals || []).slice(0, 5);
+    const facts = (rec.research?.facts || []).filter((f) => f.confidence !== "low");
+    const signals = d.signals || []; const triggers = b.triggers || [];
     const seq = b.campaign?.sequence || []; const thread = b.conversation?.thread || []; const q = b.conversation?.last_qualification;
-    const link = state.intake[id];
-    return `<div class="cols3">
-      <div>
-        <div class="sec"><h4>Why now · evidence</h4><div class="rows">${(b.triggers || []).slice(0, 4).map((t) => `<div class="row"><b>${esc(t.label)}</b> · ${esc(t.evidence)}<small>${esc(t.source || "")}${t.date ? ` · ${dateOf(t.date)}` : ""}</small></div>`).join("") || `<div class="note">No trigger yet.</div>`}</div></div>
-        <div class="sec"><h4>Sourced facts</h4><div class="rows">${facts.map((f) => `<div class="row">${esc(f.claim)} ${f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(host(f.url))}</a>` : ""}</div>`).join("") || `<div class="note">No research yet. Run Dig deeper.</div>`}</div></div>
-        <div class="sec"><h4>Filed accounts</h4>${finTable(rec)}</div>
+    const m = money(row); const link = state.intake[id]; const best = b.scored?.best_buyers || [];
+    const points = (b.hypothesis?.agent_notes?.length ? b.hypothesis.agent_notes : whyLines(row)).slice(0, 3);
+    const strip = [
+      row.top_trigger ? `<span class="chip pos">${esc(row.top_trigger.label)}</span>` : "",
+      best.length ? `<span class="chip">${best.length} mandates scored · best ${best[0].score}</span>` : `<span class="chip">no buyer fits yet</span>`,
+      m.text ? `<span class="chip" title="${esc(m.source)}">${esc(m.text)}</span>` : "",
+      rec.analysis?.ran_at ? `<span class="chip">analysed ${dateOf(rec.analysis.ran_at)}</span>` : "",
+    ].filter(Boolean).join("");
+    const evidence = `${triggers.length ? `<div class="rows" style="margin-bottom:12px">${cap(triggers.map((t) => `<div class="row"><b>${esc(t.label)}</b> · ${esc(t.evidence)}<small>${esc(t.source || "")}${t.date ? ` · ${dateOf(t.date)}` : ""}</small></div>`), 3)}</div>` : ""}
+      ${facts.length ? `<div class="rows" style="margin-bottom:12px">${cap(facts.map((f) => `<div class="row">${esc(f.claim)} ${f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(host(f.url))}</a>` : ""}</div>`), 4, `<a href="#/owner/${id}">All ${facts.length} facts on the owner page</a>`)}</div>` : `<div class="note" style="margin-bottom:12px">No research yet. Run Dig deeper below.</div>`}
+      ${finTable(rec)}`;
+    const buyers = `${buyersList(best, 3)}${best.length > 3 ? `<div class="note" style="margin-top:6px"><a href="#/owner/${id}">All ${best.length} on the owner page</a></div>` : ""}`;
+    const emails = seq.length
+      ? `<div class="msg"><div class="m"><b>Step 1</b><span>${esc(seq[0].channel)}</span><span>${esc(seq[0].status)}</span>${seq[0].human_check ? `<span title="AI-tell score, lower is more human">human check ${seq[0].human_check.score} · ${esc(seq[0].human_check.grade)}</span>` : ""}</div><pre>${esc(seq[0].body)}</pre></div>${seq.length > 1 ? `<div class="note" style="margin-top:8px">${seq.length - 1} follow-ups on days ${seq.slice(1).map((s) => s.day).join(", ")}</div>` : ""}`
+      : `<div class="note">The button on the card drafts four personal messages in the advisor's voice.</div>`;
+    const convo = `${thread.length ? thread.slice(-2).map((t) => `<div class="msg" style="margin-bottom:8px"><div class="m"><b>${t.direction === "out" ? "Advisor" : "Owner"}</b><span>${dateOf(t.at)}</span></div><pre>${esc((t.text || "").slice(0, 320))}</pre></div>`).join("") : `<div class="note">No reply yet.</div>`}${q ? `<div class="chips" style="margin-top:8px"><span class="chip pos">${esc(q.label)}</span><span class="chip">${esc(q.timing)}</span><span class="chip">${q.mandate_likelihood}% potential mandate</span></div>` : ""}`;
+    return `<div class="sumstrip">${strip}</div>
+      <ul class="points">${points.map((p) => `<li>${esc(String(p).replace(/[.\s]+$/, ""))}.</li>`).join("")}</ul>
+      <div class="discs">
+        ${disc("Evidence", `${triggers.length} triggers · ${facts.length} facts · ${(rec.research?.financials?.rows || []).length} filed years`, evidence)}
+        ${disc("Who would buy", best.length ? `${best.length} scored · best ${esc(best[0].buyer_name)} ${best[0].score}` : "none yet", buyers)}
+        ${disc("Emails", seq.length ? `${seq.filter((s) => s.sent_at).length} of ${seq.length} sent` : "not drafted", emails)}
+        ${disc("Conversation", q ? `${esc(q.label)} · ${esc(q.timing)}` : thread.length ? `${thread.length} messages` : "no reply yet", convo)}
       </div>
-      <div>
-        <div class="sec"><h4>Who would buy · ${b.scored?.match_stats?.n ?? (b.scored?.best_buyers || []).length} mandates scored</h4>${buyersList(b.scored?.best_buyers)}</div>
-        <div class="sec"><h4>Mergero's angle</h4><div class="rows">${(b.hypothesis?.why_mergero || []).map((x) => `<div class="row">${esc(x)}</div>`).join("")}</div>${b.hypothesis?.ev_range ? `<div class="note" style="margin-top:8px">Indicative value ${esc(b.hypothesis.ev_range)} (rule of thumb on filed figures)</div>` : ""}</div>
-        <div class="sec"><h4>Signals</h4><div class="rows">${signals.map((s) => `<div class="row">${esc(s.headline)}<small>${esc(s.source || "")}${s.date ? ` · ${dateOf(s.date)}` : ""}</small></div>`).join("") || `<div class="note">None yet.</div>`}</div></div>
-      </div>
-      <div>
-        <div class="sec"><h4>Emails · ${seq.length ? `${seq.filter((s) => s.sent_at).length} of ${seq.length} sent` : "not drafted"}</h4>${seq.length ? seq.map((s) => `<div class="msg" style="margin-bottom:8px"><div class="m"><b>Step ${s.step + 1}</b><span>day ${s.day}</span><span>${esc(s.channel)}</span><span>${esc(s.status)}</span>${s.human_check ? `<span title="AI-tell score, lower is more human">human check ${s.human_check.score} · ${esc(s.human_check.grade)}</span>` : ""}</div>${s.step === 0 ? `<pre>${esc(s.body)}</pre>` : `<div class="note">${esc(s.subject || "")}</div>`}</div>`).join("") : `<div class="note">The button on the card drafts four personal messages in the advisor's voice.</div>`}</div>
-        <div class="sec"><h4>Conversation</h4>${thread.length ? thread.slice(-3).map((t) => `<div class="msg" style="margin-bottom:8px"><div class="m"><b>${t.direction === "out" ? "Advisor" : "Owner"}</b><span>${dateOf(t.at)}</span></div><pre>${esc((t.text || "").slice(0, 400))}</pre></div>`).join("") : `<div class="note">No reply yet.</div>`}${q ? `<div class="chips" style="margin-top:8px"><span class="chip pos">${esc(q.label)}</span><span class="chip">${esc(q.timing)}</span><span class="chip">${q.mandate_likelihood}% potential mandate</span></div>` : ""}</div>
-      </div>
-    </div>
-    <div class="actions-row">
-      <button class="btn sm" data-dig="${id}">${rec.analysis ? "Re-analyze" : "Dig deeper"}<span class="note" style="margin-left:6px">site · registers · statement · customers</span></button>
-      ${link ? `<span class="link-row">Owner intake link <code>${esc(link)}</code><button class="btn sm" data-copy="${esc(link)}">Copy</button></span>` : `<button class="btn sm" data-intake="${id}">Create owner intake link</button>`}
-      <a class="btn sm primary" href="#/owner/${id}">Open the conversation →</a>
-      <span class="note">${rec.analysis?.ran_at ? `Analysed ${dateOf(rec.analysis.ran_at)} · ${rec.research?.site?.pages_read ?? 0} pages · ${(rec.research?.facts || []).length} facts` : ""}</span>
-    </div>`;
+      <div class="actions-row">
+        <a class="btn sm primary" href="#/owner/${id}">Open the conversation →</a>
+        <button class="btn sm" data-dig="${id}">${rec.analysis ? "Re-analyze" : "Dig deeper"}</button>
+        ${link ? `<span class="link-row">Intake link <code>${esc(link)}</code><button class="btn sm" data-copy="${esc(link)}">Copy</button></span>` : `<button class="btn sm" data-intake="${id}">Owner intake link</button>`}
+        ${rec.website ? `<a class="note" href="${esc(rec.website)}" target="_blank" rel="noopener">${esc(host(rec.website))} ↗</a>` : ""}
+      </div>`;
   }
 
   // ---------- 3 · one owner: the conversation ----------
@@ -228,34 +232,39 @@
     const rec = recOf(row); const bd = band(row); const o = ownerOf(row);
     const seq = b.campaign?.sequence || []; const first = seq[0]; const thread = b.conversation?.thread || []; const q = b.conversation?.last_qualification;
     const inbound = (rec.conversation || []).filter((e) => e.direction === "inbound"); const lastIn = inbound[inbound.length - 1]; const su = lastIn?.score_update;
-    const a = row.next_action || {}; const link = state.intake[id]; const stageIdx = b.stage_labels ? b.stage_labels.indexOf(row.stage_label) : -1;
-    const done = (k) => (k === "email" ? seq.length > 0 : k === "sent" ? seq.some((s) => s.sent_at) : k === "reply" ? thread.some((t) => t.direction === "in") : k === "call" ? Boolean(b.conversation?.handoff) : k === "mandate" ? /letter|mandate/i.test(row.stage_label) : false);
+    const link = state.intake[id]; const best = b.scored?.best_buyers || []; const facts = (rec.research?.facts || []).filter((f) => f.confidence !== "low");
+    const done = (k) => (k === "email" ? seq.length > 0 : k === "reply" ? thread.some((t) => t.direction === "in") : k === "call" ? Boolean(b.conversation?.handoff) : false);
     const st = (k, text) => `<span class="st">${done(k) ? "✓ " : ""}${text}</span>`;
+    const notes = (b.hypothesis?.agent_notes || []).slice(0, 3).map((s) => String(s).replace(/[.\s]+$/, ""));
     const ring = `<div class="ring"><svg width="92" height="92" viewBox="0 0 92 92"><circle cx="46" cy="46" r="40" stroke="#1e293b" stroke-width="8" fill="none"/><circle cx="46" cy="46" r="40" stroke="${bd.k === "hot" ? "#34d399" : bd.k === "warm" ? "#fbbf24" : "#64748b"}" stroke-width="8" fill="none" stroke-dasharray="${(2 * Math.PI * 40 * num(row)) / 100} 999" stroke-linecap="round"/></svg><div class="c"><b>${num(row)}</b><span>${bd.label}</span></div></div>`;
+    const m = money(row);
     return `<section class="screen">
       <a class="back" href="#/">← Who to call</a>
-      <div class="head">${ring}<div class="t"><h2>${esc(row.company_name)}</h2><div class="m">${esc(o.name)}${o.age != null ? `, ${o.age}` : ""}${o.title ? ` · ${esc(o.title)}` : ""} · ${esc([rec.city, row.country_name].filter(Boolean).join(", "))}${rec.website ? ` · <a href="${esc(rec.website)}" target="_blank" rel="noopener">${esc(host(rec.website))}</a>` : ""}</div><div class="chips" style="margin-top:10px"><span class="chip stage ${stageClass(row)}">${esc(row.stage_label)}</span>${row.mandate_type ? `<span class="chip">${esc(row.mandate_type)}</span>` : ""}${b.hypothesis?.ev_range && !/^unknown/i.test(b.hypothesis.ev_range) ? `<span class="chip">indicative value ${esc(b.hypothesis.ev_range)}</span>` : ""}${money(row).text !== "No filed figures yet" ? `<span class="chip">${esc(money(row).text)}</span>` : ""}</div></div>
+      <div class="head">${ring}<div class="t"><h2>${esc(row.company_name)}</h2><div class="m">${esc(o.name)}${o.age != null ? `, ${o.age}` : ""}${o.title ? ` · ${esc(o.title.replace(/\s*\(.*\)$/, ""))}` : ""} · ${esc([rec.city, row.country_name].filter(Boolean).join(", "))}${rec.website ? ` · <a href="${esc(rec.website)}" target="_blank" rel="noopener">${esc(host(rec.website))}</a>` : ""}</div><div class="chips" style="margin-top:10px"><span class="chip stage ${stageClass(row)}">${esc(row.stage_label)}</span>${row.mandate_type ? `<span class="chip">${esc(row.mandate_type)}</span>` : ""}${m.text ? `<span class="chip" title="${esc(m.source)}">${esc(m.text)}</span>` : ""}</div></div>
         <div class="actions">${actionButton(row, state.busy.has(id))}</div></div>
 
-      <div class="section card"><h3><span class="n">1</span>Why we call ${st("why", b.hypothesis?.headline ? "reason found" : "")}</h3>
-        <div class="two"><div><p class="why-text">${esc((b.hypothesis?.agent_notes || []).slice(0, 3).map((s) => String(s).replace(/[.\s]+$/, "")).join(". ").concat((b.hypothesis?.agent_notes || []).length ? "." : "") || whyNow(row))}</p><ul class="facts">${(b.hypothesis?.why_now || []).slice(0, 4).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-          <details class="evidence" style="margin-top:12px"><summary>Evidence: ${(rec.research?.facts || []).length} sourced facts, ${(d.signals || []).length} signals, filed accounts</summary><div style="margin-top:12px" class="rows">${(rec.research?.facts || []).filter((f) => f.confidence !== "low").slice(0, 8).map((f) => `<div class="row">${esc(f.claim)} ${f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(host(f.url))}</a>` : ""}</div>`).join("") || `<div class="note">No research yet.</div>`}</div><div style="margin-top:12px">${finTable(rec)}</div></details></div>
-          <div><h4 style="margin:0 0 10px;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)">Who would buy</h4>${buyersList(b.scored?.best_buyers, 3)}<div class="rows" style="margin-top:12px">${(b.hypothesis?.questions_for_owner || []).slice(0, 3).map((x) => `<div class="row">Ask: ${esc(x)}</div>`).join("")}</div></div></div></div>
+      <div class="section card"><h3><span class="n">1</span>Why we call ${st("why", "")}</h3>
+        <p class="why-text">${esc(notes.length ? notes.join(". ") + "." : whyLines(row).slice(0, 2).join(" "))}</p>
+        <div class="discs">
+          ${disc("Evidence", `${facts.length} facts · ${(d.signals || []).length} signals · ${(rec.research?.financials?.rows || []).length} filed years`, `<div class="rows" style="margin-bottom:12px">${cap((b.hypothesis?.why_now || []).map((x) => `<div class="row">${esc(x)}</div>`), 4)}</div><div class="rows" style="margin-bottom:12px">${facts.slice(0, 8).map((f) => `<div class="row">${esc(f.claim)} ${f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(host(f.url))}</a>` : ""}</div>`).join("") || `<div class="note">No research yet.</div>`}</div>${finTable(rec)}`)}
+          ${disc("Who would buy", best.length ? `${best.length} scored · best ${esc(best[0].buyer_name)} ${best[0].score}` : "none yet", buyersList(best, 4) + (best.length > 4 ? `<div class="note" style="margin-top:6px">${best.length - 4} more mandates scored below the line.</div>` : ""), !q && !first)}
+          ${disc("What to ask the owner", `${(b.hypothesis?.questions_for_owner || []).length} questions`, `<div class="rows">${(b.hypothesis?.questions_for_owner || []).map((x) => `<div class="row">${esc(x)}</div>`).join("")}</div>`)}
+        </div></div>
 
       <div class="section card"><h3><span class="n">2</span>The first email ${st("email", first ? (first.sent_at ? `sent ${dateOf(first.sent_at)}` : "draft, waiting for approval") : "not drafted")}</h3>
         ${first ? `<div class="two"><div class="mail"><div class="mail-h"><span class="k">To</span><span>${esc(o.name)}</span><span class="k">Subject</span><span class="subj">${esc(first.subject)}</span></div><div class="mail-b">${esc(first.body)}</div></div>
-          <div><div class="badges">${first.human_check ? `<span class="badge b-green">human check ${first.human_check.score} · ${esc(first.human_check.grade)}</span><span class="badge b-sky">${first.human_check.facts_used} facts used</span>` : ""}<span class="badge b-amber">${esc(first.framing || "open")} framing</span><span class="badge b-sky">${esc(b.campaign?.tone || "")}</span></div>
-            <p class="note">Written in the advisor's voice from the sourced facts. Follow-ups on days ${seq.slice(1).map((s) => s.day).join(", ")}: ${seq.slice(1).map((s) => esc(s.subject)).join(" · ")}</p>
-            <div class="actions" style="margin-top:12px">${!first.sent_at ? `<button class="btn primary" data-send="${id}" data-step="0">Approve and send</button>` : `<span class="badge b-green">Sent ${dateOf(first.sent_at)}</span>`}<button class="btn" data-plan="${id}">Redraft</button></div></div></div>`
+          <div><div class="badges">${first.human_check ? `<span class="badge b-green" title="AI-tell score, lower is more human">human check ${first.human_check.score} · ${esc(first.human_check.grade)}</span><span class="badge b-sky">${first.human_check.facts_used} facts used</span>` : ""}<span class="badge b-amber">${esc(first.framing || "open")} framing</span></div>
+            <div class="actions" style="margin:12px 0">${!first.sent_at ? `<button class="btn primary" data-send="${id}" data-step="0">Approve and send</button>` : `<span class="badge b-green">Sent ${dateOf(first.sent_at)}</span>`}<button class="btn" data-plan="${id}">Redraft</button></div>
+            ${seq.length > 1 ? disc("Follow-ups", `${seq.length - 1} messages on days ${seq.slice(1).map((s) => s.day).join(", ")}`, seq.slice(1).map((s) => `<div class="msg" style="margin-bottom:8px"><div class="m"><b>Day ${s.day}</b><span>${esc(s.channel)}</span><span>${esc(s.status)}</span></div><div class="note" style="margin-bottom:4px">${esc(s.subject || "")}</div><pre>${esc(s.body || "")}</pre></div>`).join("")) : ""}</div></div>`
           : `<div class="actions"><button class="btn primary" data-plan="${id}">Draft the four messages</button><span class="note">About a minute: research facts, buyer demand, the advisor's voice, then the human-language check.</span></div>`}</div>
 
       <div class="section card"><h3><span class="n">3</span>What the owner said ${st("reply", q ? `${q.label} · ${q.timing}` : "no reply yet")}</h3>
-        <div class="reply-band card" style="margin:0">
-          <div>${thread.length ? thread.slice(-4).map((t) => `<div class="msg" style="margin-bottom:8px"><div class="m"><b>${t.direction === "out" ? "Advisor" : "Owner"}</b><span>${dateOf(t.at)}</span></div><pre>${esc((t.text || "").slice(0, 600))}</pre></div>`).join("") : `<p class="note">${first?.sent_at ? "Waiting for the owner." : "Send the first email, then paste the reply here."}</p>`}
+        <div class="two">
+          <div>${thread.length ? thread.slice(-2).map((t) => `<div class="msg" style="margin-bottom:8px"><div class="m"><b>${t.direction === "out" ? "Advisor" : "Owner"}</b><span>${dateOf(t.at)}</span></div><pre>${esc((t.text || "").slice(0, 600))}</pre></div>`).join("") : `<p class="note">${first?.sent_at ? "Waiting for the owner." : "Send the first email, then paste the reply here."}</p>`}
             <textarea id="replyText" placeholder="Paste the owner's reply…"></textarea>
-            <div class="samples">${(samp || []).slice(0, 4).map((s) => `<button class="sample" data-sample="${esc(s.text)}"><b>${esc(s.label)}</b>${esc(s.text)}</button>`).join("")}</div>
-            <button class="btn primary" data-reply="${id}">Read this reply</button></div>
-          <div class="result ${q ? "" : "empty"}">${q ? `<div class="chips"><span class="chip pos">${esc(q.label)}</span><span class="chip">${esc(q.timing)}</span><span class="chip">${q.mandate_likelihood}% potential mandate</span></div><p class="note">${esc(q.next_step || q.reason || "")}</p>${su ? `<div class="move"><span class="from">${su.from?.readiness ?? "–"}</span><span class="big">${su.to?.readiness ?? "–"}</span>${su.delta != null ? `<span class="d ${su.delta >= 0 ? "up" : "down"}">${su.delta >= 0 ? "+" : ""}${su.delta}</span>` : ""}<span class="note">readiness</span></div><p class="note">${esc(su.reason || "")}</p><ul class="quotes">${(su.evidence || []).map((e) => `<li class="${/rais/i.test(e.effect || "") ? "pos" : /low/i.test(e.effect || "") ? "neg" : ""}"><q>${esc(e.quote)}</q> ${esc(e.effect || "")}</li>`).join("")}</ul>` : ""}` : "The reply is read, the intent and timing extracted, and the readiness score moves with the owner's own words as evidence."}</div>
+            <div class="actions" style="margin-top:10px"><button class="btn primary" data-reply="${id}">Read this reply</button></div>
+            ${(samp || []).length ? disc("Simulate a reply", `${samp.length} samples`, `<div class="samples">${samp.slice(0, 4).map((s) => `<button class="sample" data-sample="${esc(s.text)}"><b>${esc(s.label)}</b>${esc(s.text)}</button>`).join("")}</div>`) : ""}</div>
+          <div class="result ${q ? "" : "empty"}">${q ? `<div class="chips"><span class="chip pos">${esc(q.label)}</span><span class="chip">${esc(q.timing)}</span><span class="chip">${q.mandate_likelihood}% potential mandate</span></div><p class="note">${esc(q.next_step || q.reason || "")}</p>${su ? `<div class="move"><span class="from">${su.from?.readiness ?? "–"}</span><span class="big">${su.to?.readiness ?? "–"}</span>${su.delta != null ? `<span class="d ${su.delta >= 0 ? "up" : "down"}">${su.delta >= 0 ? "+" : ""}${su.delta}</span>` : ""}<span class="note">readiness</span></div><ul class="quotes">${(su.evidence || []).slice(0, 4).map((e) => `<li class="${/rais/i.test(e.effect || "") ? "pos" : /low/i.test(e.effect || "") ? "neg" : ""}"><q>${esc(e.quote)}</q> ${esc(e.effect || "")}</li>`).join("")}</ul>${su.reason ? disc("Why the score moved", "", `<p class="note" style="margin:0">${esc(su.reason)}</p>`) : ""}` : ""}` : "The reply is read, the intent and timing extracted, and the readiness score moves with the owner's own words as evidence."}</div>
         </div></div>
 
       <div class="section card"><h3><span class="n">4</span>Next ${st("call", b.conversation?.handoff ? `first call booked with ${esc(b.conversation.handoff.advisor || "an advisor")}` : "")}</h3>
@@ -264,31 +273,32 @@
           ${!b.conversation?.handoff && !row.closed ? `<button class="btn" data-handoff="${id}">Book the first call</button>` : ""}
           ${b.conversation?.handoff && !/letter|mandate/i.test(row.stage_label) ? `<button class="btn primary" data-mandate="${id}">Engagement letter signed</button>` : ""}
           ${/letter|mandate/i.test(row.stage_label) ? `<span class="badge b-green">Mandate won</span>` : ""}
-          <span class="note">Six questions on the owner's phone (revenue split, top clients, EBITDA, timing); the summary lands here before the call. First call and engagement letter are logged, not simulated.</span>
-        </div></div>
+        </div>
+        <p class="note" style="margin:12px 0 0">Six questions on the owner's phone (revenue split, top clients, EBITDA, timing); the summary lands here before the call.</p></div>
     </section>`;
   }
 
   // ---------- 4 · results ----------
   async function vResults() {
-    const [ps, st, cap, learn, src, llm] = await Promise.all([api("/api/pipeline-summary"), api("/api/engine/stats"), api("/api/engine/advisors/capacity").catch(() => null), api("/api/engine/learning").catch(() => null), api("/api/sources").catch(() => ({ data: [] })), api("/api/llm/status").catch(() => null)]);
+    const [ps, st, cap_, learn, src, llm] = await Promise.all([api("/api/pipeline-summary"), api("/api/engine/stats"), api("/api/engine/advisors/capacity").catch(() => null), api("/api/engine/learning").catch(() => null), api("/api/sources").catch(() => ({ data: [] })), api("/api/llm/status").catch(() => null)]);
     const f = ps.data; const max = Math.max(1, f.data.companies);
     const frow = (label, small, v, final = false) => `<div class="frow ${final ? "final" : ""}"><div class="fl">${label}<small>${small}</small></div><div class="fb"><i style="width:${Math.max(2, (100 * v) / max)}%"></i></div><div class="fv">${v}</div></div>`;
     const pct = (x) => `${Math.round((x || 0) * 100)}%`;
+    const sources = (src.data || []);
     return `<section class="screen">
       <div class="page-h"><div><h2>At scale</h2><p class="sub">What the desk does with the book, measured, next to Mergero's own benchmark.</p></div></div>
       <div class="scale">
         <div class="card funnel">
           ${frow("Companies", "in the book", f.data.companies)}${frow("With a trigger", "succession, growth, ownership", f.signals.with_triggers)}${frow("Sequences drafted", "four personal messages each", f.outreach.sequences)}${frow("First emails sent", "approved by the advisor", f.outreach.sent)}${frow("Qualified replies", `${f.qualification.potential_mandates} potential mandates`, f.qualification.qualified)}${frow("Mandates", "engagement letters", f.handoff.mandates, true)}
-          <div class="sliders"><label><b>${cap ? cap.emails_per_day : "150"}</b> first touches a day<br>${cap ? cap.advisors.map((a) => `${esc(a.name)} · cap ${a.daily_cap}/day · ${a.sent_today} sent today`).join("<br>") : ""}</label><label><b>${cap ? cap.conversations_per_month : "~475"}</b> owner conversations a month<br>${esc(cap?.benchmark || "Mergero: 1,000 outbound contacts → ~450–500 owner conversations")}</label></div>
+          <div class="sliders"><label><b>${cap_ ? cap_.emails_per_day : "150"}</b> first touches a day<br>${cap_ ? cap_.advisors.map((a) => `${esc(a.name)} · cap ${a.daily_cap}/day`).join("<br>") : ""}</label><label><b>${cap_ ? cap_.conversations_per_month : "~475"}</b> owner conversations a month<br>${esc(cap_?.benchmark || "Mergero: 1,000 outbound contacts → ~450–500 owner conversations")}</label></div>
         </div>
         <div>
           <div class="card why-scale"><ul>
-            <li><span class="ic">⏱</span><div><b>${st.scale.minutes_per_prospect} min and $${st.scale.cost_per_prospect_usd} per prospect</b>research, score, buyers, first email; ${st.hours_saved} analyst hours saved so far on ${st.scale.prospects_measured} measured prospects.</div></li>
-            <li><span class="ic">📈</span><div><b>Reply ${learn ? pct(learn.overall.reply_rate) : "–"} · meeting ${learn ? pct(learn.overall.meeting_rate) : "–"} · mandate ${learn ? pct(learn.overall.mandate_rate) : "–"}</b>learning card${learn?.sample_included ? " (sample history included until real outcomes accumulate)" : ""}. By framing: ${learn ? learn.by_framing.map((x) => `${x.key} ${pct(x.reply_rate)}`).join(" · ") : "–"}.</div></li>
-            <li><span class="ic">🗂</span><div><b>${(src.data || []).filter((s) => /live|loaded|configured|demo/.test(String(s.status))).length} live data sources</b>${(src.data || []).map((s) => `${esc(s.name.replace(/^Language model: /, ""))} · ${esc(String(s.status))}`).join("<br>")}</div></li>
-            <li><span class="ic">🇪🇺</span><div><b>${llm?.provider === "verda" ? `${esc(llm.verda?.model || "Mistral")} on Verda, EU${llm.fallback === false ? " · strict: no call leaves Verda" : ""}` : "Claude (Anthropic)"}</b>Owner data, statements and drafts stay on EU compute; scanned register statements are read by OCR on the server.</div></li>
-          </ul></div>
+            <li><span class="ic">⏱</span><div><b>${st.scale.minutes_per_prospect} min and $${st.scale.cost_per_prospect_usd} per prospect</b>${st.hours_saved} analyst hours saved on ${st.scale.prospects_measured} measured prospects.</div></li>
+            <li><span class="ic">📈</span><div><b>Reply ${learn ? pct(learn.overall.reply_rate) : "–"} · meeting ${learn ? pct(learn.overall.meeting_rate) : "–"} · mandate ${learn ? pct(learn.overall.mandate_rate) : "–"}</b>${learn?.sample_included ? "Sample history until real outcomes accumulate. " : ""}By framing: ${learn ? learn.by_framing.map((x) => `${x.key} ${pct(x.reply_rate)}`).join(" · ") : "–"}.</div></li>
+            <li><span class="ic">🇪🇺</span><div><b>${llm?.provider === "verda" ? `${esc(llm.verda?.model || "Mistral")} on Verda, EU${llm.fallback === false ? " · no call leaves Verda" : ""}` : "Claude (Anthropic)"}</b>Owner data, statements and drafts stay on EU compute; scanned register statements are read by OCR on the server.</div></li>
+          </ul>
+          <div style="margin-top:14px">${disc("Data sources", `${sources.filter((s) => /live|loaded|configured|demo/.test(String(s.status))).length} of ${sources.length} live`, `<div class="rows">${sources.map((s) => `<div class="row">${esc(s.name.replace(/^Language model: /, ""))}<small>${esc(String(s.status))}</small></div>`).join("")}</div>`)}</div></div>
           <div class="card pilot"><h3>Pilot on Monday</h3><p>MGX mandates over API, one advisor, Norway first: 50 first touches a day for two weeks; report replies, first calls and engagement letters against the 1,000 → 475 benchmark.</p></div>
         </div>
       </div>
@@ -302,15 +312,13 @@
       <div class="page-h"><div><h2>Add owners</h2><p class="sub">Two ways in. Both end as cards on the Owners list.</p></div></div>
       <div class="two">
         <div class="section card"><h3><span class="n">A</span>From the open registers</h3>
-          <p class="note">Pull owner-led companies straight from the national register by industry and age. Norway adds the CEO's real age from the roles register.</p>
           <div class="form"><select id="fCountry"><option value="NO">Norway · Brønnøysund</option><option value="FI">Finland · PRH</option><option value="DK">Denmark · CVR (name)</option></select><input id="fIndustry" placeholder="Industry code, e.g. 28"><input id="fFounded" type="number" placeholder="Founded before"><input id="fStaff" type="number" placeholder="Min staff (NO)"><button class="btn primary sm" id="fGo">Search</button></div>
-          <div class="try">Try: <button data-try="NO,28,2005,20">Norway · machinery makers before 2005, 20+ staff</button><button data-try="NO,25,2000,15">Norway · metal products, 15+ staff</button><button data-try="FI,62010,2010,">Finland · software before 2010</button></div>
-          <div id="findOut" style="margin-top:14px">${f ? findHtml(f) : ""}</div></div>
+          <div class="try">Try: <button data-try="NO,28,2005,20">Norway · machinery before 2005, 20+ staff</button><button data-try="NO,25,2000,15">Norway · metal products, 15+ staff</button><button data-try="FI,62010,2010,">Finland · software before 2010</button></div>
+          <div id="findOut" style="margin-top:14px">${f ? findHtml(f) : `<p class="note">Norway adds the CEO's real age from the roles register; Finland and Denmark add founding year and filed accounts.</p>`}</div></div>
         <div class="section card"><h3><span class="n">B</span>Screen a website</h3>
-          <p class="note">Paste any company website. The quick read guesses the sector and scores every mandate; Dig deeper reads the site, the filed accounts and the customers, and puts the company on the list.</p>
           <div class="form-1"><input id="sUrl" placeholder="https://www.company.com"><button class="btn primary sm" id="sGo">Screen</button></div>
           <div class="try">Try: <button data-url="https://www.aerfaber.no">aerfaber.no</button><button data-url="https://www.kolmeks.fi">kolmeks.fi</button><button data-url="https://www.efecte.com">efecte.com</button></div>
-          <div id="screenOut" style="margin-top:14px">${s ? screenHtml(s) : ""}</div></div>
+          <div id="screenOut" style="margin-top:14px">${s ? screenHtml(s) : `<p class="note">The quick read guesses the sector and scores every mandate in seconds. Dig deeper reads the site, the filed accounts and the customers, and puts the company on the list.</p>`}</div></div>
       </div>
     </section>`;
   }
@@ -318,23 +326,23 @@
     if (f.error) return `<div class="note" style="color:var(--red)">${esc(f.error)}</div>`;
     const fresh = f.results.filter((r) => !r.already_imported);
     if (!f.results.length) return `<div class="note">Nothing found. Try a broader industry code.</div>`;
-    return `<div class="actions" style="margin-bottom:8px"><span><b>${f.results.length}</b> shown${f.total > f.results.length ? ` of <b>${Number(f.total).toLocaleString()}</b> in the register` : ""} · ${fresh.length} new</span><button class="btn primary sm" id="fAdd" ${fresh.length ? "" : "disabled"}>Add ${fresh.length} to the list</button></div>
-      <table class="tbl"><tr><th>Company</th><th>City</th><th>Industry</th><th>Founded</th><th>Staff</th><th></th></tr>${f.results.slice(0, 30).map((r) => `<tr><td>${esc(r.name)}</td><td>${esc(r.city || "")}</td><td>${esc(String(r.industry || "").slice(0, 40))}</td><td>${r.founded || esc(r.founded_note || "–")}</td><td class="num">${r.employees ?? "–"}</td><td>${r.already_imported ? `<span class="chip pos">in the book</span>` : ""}</td></tr>`).join("")}</table>`;
+    const shown = f.showAll ? f.results : f.results.slice(0, 10);
+    return `<div class="actions" style="margin-bottom:8px"><span><b>${f.results.length}</b> found${f.total > f.results.length ? ` of <b>${Number(f.total).toLocaleString()}</b> in the register` : ""} · ${fresh.length} new</span><button class="btn primary sm" id="fAdd" ${fresh.length ? "" : "disabled"}>Add ${fresh.length} to the list</button></div>
+      <table class="tbl"><tr><th>Company</th><th>City</th><th>Founded</th><th class="num">Staff</th><th></th></tr>${shown.map((r) => `<tr><td>${esc(r.name)}<small style="display:block;color:var(--dim)">${esc(String(r.industry || "").slice(0, 44))}</small></td><td>${esc(r.city || "")}</td><td>${r.founded || esc(r.founded_note || "–")}</td><td class="num">${r.employees ?? "–"}</td><td>${r.already_imported ? `<span class="chip pos">in the book</span>` : ""}</td></tr>`).join("")}</table>${f.results.length > shown.length ? `<div class="note" style="margin-top:8px"><button class="btn sm" id="fMore">Show all ${f.results.length}</button></div>` : ""}`;
   }
   function screenHtml(s) {
     if (s.error) return `<div class="note" style="color:var(--red)">${esc(s.error)}</div>`;
     if (s.busy) return `<div class="note"><span class="spin-inline"></span>${esc(s.busy)}</div>`;
     const p = s.profile; const top = (s.matches || []).slice(0, 3);
     return `<div class="card" style="padding:16px"><div class="oc-name">${esc(p.company_name)} <span class="chip">${esc(p.sector)}</span></div>
-      <div class="q-card"><div><b>${esc(p.ebitda)}</b><span>EBITDA${p.ebitda_detail ? ` · ${esc(p.ebitda_detail.slice(0, 60))}` : ""}</span></div><div><b style="font-size:13px">${esc(String(p.customers).slice(0, 80))}</b><span>customers</span></div><div><b style="font-size:13px">${esc(String(p.products).slice(0, 80))}</b><span>offering</span></div></div>
-      ${(p.evidence || []).length ? `<div class="note" style="margin-bottom:10px">Found on the site: ${esc(p.evidence.slice(0, 2).join(" · "))}</div>` : ""}
-      ${buyersList(top.map((m) => ({ buyer_name: m.buyer_name, score: m.score, summary: m.summary })), 3)}
-      <div class="actions" style="margin-top:12px"><button class="btn primary sm" id="sDig">${p.analysis ? "Re-analyze" : "Dig deeper and add to the list"}</button>${p.company_id ? `<a class="btn sm" href="#/owner/${p.company_id}">Open on the list</a>` : `<button class="btn sm" id="sAdd">Add to the list as is</button>`}<span class="note">${p.analysis ? `Analysed: ${p.analysis.pages_read} pages, ${p.analysis.facts} facts` : "Dig deeper takes about a minute."}</span></div></div>`;
+      <div class="q-card"><div><b>${esc(p.ebitda)}</b><span>EBITDA</span></div><div><b style="font-size:13px">${esc(String(p.customers).slice(0, 60))}</b><span>customers</span></div><div><b style="font-size:13px">${esc(String(p.products).slice(0, 60))}</b><span>offering</span></div></div>
+      ${disc("Who would buy", top.length ? `best ${esc(top[0].buyer_name)} ${top[0].score}` : "none", buyersList(top.map((m) => ({ buyer_name: m.buyer_name, score: m.score, summary: m.summary })), 3))}
+      <div class="actions" style="margin-top:12px"><button class="btn primary sm" id="sDig">${p.analysis ? "Re-analyze" : "Dig deeper and add to the list"}</button>${p.company_id ? `<a class="btn sm" href="#/owner/${p.company_id}">Open on the list</a>` : `<button class="btn sm" id="sAdd">Add as is</button>`}<span class="note">${p.analysis ? `Analysed: ${p.analysis.pages_read} pages, ${p.analysis.facts} facts` : "Dig deeper takes about a minute."}</span></div></div>`;
   }
 
   // ---------- actions ----------
   async function withBusy(id, fn, okMsg) {
-    state.busy.add(id); const r = route(); if (r.v === "owners") { const btn = $(`[data-act="${id}"]`); if (btn) { btn.disabled = true; btn.innerHTML = `<span class="spin-inline"></span>${btn.textContent}`; } }
+    state.busy.add(id); const btn = $(`[data-act="${id}"]`); if (btn) { btn.disabled = true; btn.innerHTML = `<span class="spin-inline"></span>${btn.textContent}`; }
     try { const out = await fn(); await refresh(id); state.busy.delete(id); await render(); if (okMsg) toast(typeof okMsg === "function" ? okMsg(out) : okMsg); }
     catch (e) { state.busy.delete(id); await render(); toast(e.message, "error"); }
   }
@@ -389,13 +397,13 @@
   }
   async function screenAdd() {
     const p = state.screen?.profile; if (!p) return;
-    try { const r = await api("/api/targets", { method: "POST", body: { profile: p } }); await loadAll(); toast(`${r.data?.company || p.company_name} is on the list`); location.hash = "#/owners"; }
+    try { const r = await api("/api/targets", { method: "POST", body: { profile: p } }); await loadAll(); toast(`${r.data?.company || p.company_name} is on the list`); location.hash = "#/"; }
     catch (e) { toast(e.message, "error"); }
   }
 
   // ---------- events ----------
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-toggle],[data-act],[data-dig],[data-intake],[data-copy],[data-send],[data-plan],[data-reply],[data-handoff],[data-mandate],[data-sample],[data-band],[data-country],[data-try],[data-url],#fGo,#fAdd,#sGo,#sDig,#sAdd,[data-stop]");
+    const t = e.target.closest("[data-toggle],[data-act],[data-dig],[data-intake],[data-copy],[data-send],[data-plan],[data-reply],[data-handoff],[data-mandate],[data-sample],[data-band],[data-country],[data-try],[data-url],#fGo,#fAdd,#fMore,#sGo,#sDig,#sAdd,[data-stop]");
     if (!t) return;
     if (t.matches("[data-stop]")) { e.stopPropagation(); return; }
     e.preventDefault();
@@ -416,6 +424,7 @@
     if (t.dataset.url) { $("#sUrl").value = t.dataset.url; return screen(t.dataset.url); }
     if (t.id === "fGo") return findCompanies($("#fCountry").value, $("#fIndustry").value.trim(), $("#fFounded").value.trim(), $("#fStaff").value.trim());
     if (t.id === "fAdd") return importFound();
+    if (t.id === "fMore") { state.find.showAll = true; $("#findOut").innerHTML = findHtml(state.find); return; }
     if (t.id === "sGo") { const u = $("#sUrl").value.trim(); return u ? screen(u) : toast("Paste a website first"); }
     if (t.id === "sDig") return screenDig();
     if (t.id === "sAdd") return screenAdd();
