@@ -282,11 +282,10 @@ export function legacyRewrite(req, res, next) {
 export function register(app, { baseUrl } = {}) {
   if (baseUrl) BASE_URL = baseUrl;
   app.use(legacyRewrite);
-  // "/" is the guided front door (public/front); the full desk stays at /desk.
-  app.get("/", (req, res) => res.sendFile(path.join(here, "..", "..", "public", "front", "index.html")));
+  // "/" is the classic desk with its guided tour. The pitch front door stays reachable at /front for reference.
+  app.get("/", (req, res) => res.sendFile(PAGE));
+  app.get("/front", (req, res) => res.sendFile(path.join(here, "..", "..", "public", "front", "index.html")));
   app.get("/desk", (req, res) => res.sendFile(PAGE));
-  // The one-page advisor desk (public/app): served without a trailing slash so proxies that strip it still work.
-  app.get("/app", (req, res) => res.sendFile(path.join(here, "..", "..", "public", "app", "index.html")));
 
   // Buyers, screening and deals (the Buy-side screen tab)
   app.get("/api/buyers", unlessLegacy((req, res) => { const b = deskBuyers(); res.json({ status: "success", count: b.length, data: b }); }));
