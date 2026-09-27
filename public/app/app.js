@@ -86,11 +86,11 @@
   }
 
   // ---------- nav / router ----------
-  const VIEWS = [["#/", "Why"], ["#/owners", "Owners"], ["#/results", "Results"]];
-  function route() { const h = location.hash || "#/"; const m = h.match(/^#\/owner\/(\d+)/); return m ? { v: "owner", id: Number(m[1]) } : { v: h.replace(/^#\//, "") || "why" }; }
+  const VIEWS = [["#/why", "Why"], ["#/", "Owners"], ["#/results", "Results"]];
+  function route() { const h = location.hash || "#/"; const m = h.match(/^#\/owner\/(\d+)/); if (m) return { v: "owner", id: Number(m[1]) }; const v = h.replace(/^#\//, ""); return { v: v === "" || v === "owners" ? "owners" : v }; }
   function renderNav() {
-    const r = route(); const cur = r.v === "owner" ? "owners" : r.v === "why" ? "" : r.v;
-    $("#nav").innerHTML = VIEWS.map(([h, l]) => `<a class="step ${(h === "#/" && !cur) || h === `#/${cur}` ? "on" : ""}" href="${h}"><span class="t">${l}</span></a>`).join("");
+    const r = route(); const cur = r.v === "owner" ? "owners" : r.v;
+    $("#nav").innerHTML = VIEWS.map(([h, l]) => `<a class="step ${(h === "#/" && cur === "owners") || h === `#/${cur}` ? "on" : ""}" href="${h}"><span class="t">${l}</span></a>`).join("");
     $("#addBtn").classList.toggle("primary", r.v === "add");
   }
   async function render() {
@@ -102,7 +102,7 @@
       else if (r.v === "owner") { app.innerHTML = `<div class="empty">Loading…</div>`; app.innerHTML = await vOwner(r.id); }
       else if (r.v === "results") { app.innerHTML = `<div class="empty">Loading…</div>`; app.innerHTML = await vResults(); }
       else if (r.v === "add") app.innerHTML = vAdd();
-      else app.innerHTML = vWhy();
+      else app.innerHTML = vOwners();
       if (r.v === "why") lazyCover();
       if (r.v === "owners" && state.expanded != null) fillBody(state.expanded);
       window.scrollTo({ top: 0 });
@@ -119,13 +119,13 @@
       <p class="lead">Every mandate starts person by person. This desk reads the public registers and the web, spots owners likely to be open to a transaction, and writes the first email in the advisor's own voice. The advisor approves; replies come back already read and scored.</p>
       <div class="stats">
         <a class="card stat" href="#/add" style="text-decoration:none"><div class="v" id="reachV">${state.reach ? Number(state.reach).toLocaleString() : "…"}</div><div class="l">Norwegian companies in Mergero's size range, live from the public register. Click to pull more into the book.</div></a>
-        <a class="card stat" href="#/owners" style="text-decoration:none"><div class="v">${hot} <small>of ${state.rows.length}</small></div><div class="l">owners worth a call now, each with a reason you can say out loud and the evidence behind it.</div></a>
+        <a class="card stat" href="#/" style="text-decoration:none"><div class="v">${hot} <small>of ${state.rows.length}</small></div><div class="l">owners worth a call now, each with a reason you can say out loud and the evidence behind it.</div></a>
         <a class="card stat" href="#/results" style="text-decoration:none"><div class="v" id="minV">${state.stats ? `${state.stats.scale.minutes_per_prospect} <small>min</small>` : "…"}</div><div class="l">to research a company, score it, match buyers and draft the first email${state.stats ? `, for about $${state.stats.scale.cost_per_prospect_usd}` : ""}. An analyst takes half a day.</div></a>
       </div>
       <div class="flow">
         ${[["Public register", "owner age"], ["Website & filings", "sourced facts"], ["Readiness score", "why now"], ["Buyer demand", "MGX mandates"], ["First email", "advisor's voice"], ["Owner replies", "read & re-scored"], ["First call", "the mandate path"]].map(([a, b], i, arr) => `<div class="f">${a}<span>${b}</span></div>${i < arr.length - 1 ? `<span class="arrow">→</span>` : ""}`).join("")}
       </div>
-      <div class="actions"><a class="btn primary" href="#/owners">See who to call →</a><a class="btn" href="#/add">Add owners from the register</a><span class="note">Scored ${scored} of ${state.rows.length}; every model call stays on Verda's EU servers.</span></div>
+      <div class="actions"><a class="btn primary" href="#/">See who to call →</a><a class="btn" href="#/add">Add owners from the register</a><span class="note">Scored ${scored} of ${state.rows.length}; every model call stays on Verda's EU servers.</span></div>
     </section>`;
   }
   async function lazyCover() {
@@ -223,7 +223,7 @@
 
   // ---------- 3 · one owner: the conversation ----------
   async function vOwner(id) {
-    const row = rowById(id); if (!row) return `<div class="empty">Owner not found. <a href="#/owners">Back to the list</a></div>`;
+    const row = rowById(id); if (!row) return `<div class="empty">Owner not found. <a href="#/">Back to the list</a></div>`;
     const [b, d, samp] = await Promise.all([bundle(id), detail(id), samples().catch(() => [])]);
     const rec = recOf(row); const bd = band(row); const o = ownerOf(row);
     const seq = b.campaign?.sequence || []; const first = seq[0]; const thread = b.conversation?.thread || []; const q = b.conversation?.last_qualification;
@@ -233,7 +233,7 @@
     const st = (k, text) => `<span class="st">${done(k) ? "✓ " : ""}${text}</span>`;
     const ring = `<div class="ring"><svg width="92" height="92" viewBox="0 0 92 92"><circle cx="46" cy="46" r="40" stroke="#1e293b" stroke-width="8" fill="none"/><circle cx="46" cy="46" r="40" stroke="${bd.k === "hot" ? "#34d399" : bd.k === "warm" ? "#fbbf24" : "#64748b"}" stroke-width="8" fill="none" stroke-dasharray="${(2 * Math.PI * 40 * num(row)) / 100} 999" stroke-linecap="round"/></svg><div class="c"><b>${num(row)}</b><span>${bd.label}</span></div></div>`;
     return `<section class="screen">
-      <a class="back" href="#/owners">← Who to call</a>
+      <a class="back" href="#/">← Who to call</a>
       <div class="head">${ring}<div class="t"><h2>${esc(row.company_name)}</h2><div class="m">${esc(o.name)}${o.age != null ? `, ${o.age}` : ""}${o.title ? ` · ${esc(o.title)}` : ""} · ${esc([rec.city, row.country_name].filter(Boolean).join(", "))}${rec.website ? ` · <a href="${esc(rec.website)}" target="_blank" rel="noopener">${esc(host(rec.website))}</a>` : ""}</div><div class="chips" style="margin-top:10px"><span class="chip stage ${stageClass(row)}">${esc(row.stage_label)}</span>${row.mandate_type ? `<span class="chip">${esc(row.mandate_type)}</span>` : ""}${b.hypothesis?.ev_range && !/^unknown/i.test(b.hypothesis.ev_range) ? `<span class="chip">indicative value ${esc(b.hypothesis.ev_range)}</span>` : ""}${money(row).text !== "No filed figures yet" ? `<span class="chip">${esc(money(row).text)}</span>` : ""}</div></div>
         <div class="actions">${actionButton(row, state.busy.has(id))}</div></div>
 
@@ -426,7 +426,7 @@
 
   // ---------- boot ----------
   (async () => {
-    try { await loadAll(); await render(); }
+    try { await loadAll(); if (state.expanded == null && route().v === "owners") state.expanded = filtered()[0]?.company_id ?? null; await render(); }
     catch (e) { $("#app").innerHTML = `<div class="empty">Could not reach the engine: ${esc(e.message)}</div>`; }
   })();
 })();
